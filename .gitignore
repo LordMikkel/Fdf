@@ -1,0 +1,8 @@
+# Ignora
+*.txt
+*.out
+*.o
+*.a
+*.swp
+./obj
+.editorconfig
