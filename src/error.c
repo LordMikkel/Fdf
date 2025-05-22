@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/19 18:51:41 by migarrid          #+#    #+#             */
-/*   Updated: 2025/05/19 18:52:36 by migarrid         ###   ########.fr       */
+/*   Created: 2025/05/21 21:32:33 by migarrid          #+#    #+#             */
+/*   Updated: 2025/05/22 17:25:25 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-int main(int ac, char **av)
+void	error_exit(t_fdf *data)
 {
-	return (0);
+	if (data)
+		free_data(data);
+	perror("Error\n");
+	exit(EXIT_FAILURE);
 }
