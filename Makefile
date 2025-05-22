@@ -6,7 +6,7 @@
 #    By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 17:55:34 by migarrid          #+#    #+#              #
-#    Updated: 2025/05/19 18:29:02 by migarrid         ###   ########.fr        #
+#    Updated: 2025/05/22 17:12:22 by migarrid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,34 +19,42 @@ NAME				= fdf
 #                            Compiler and Flags                                #
 # **************************************************************************** #
 CC					= gcc
-CFLAGS				= -Wall -Wextra -Werror -g -fsanitize=address,undefined -O0
-MLXi				= -L./minilibx-linux -lmlx -L/usr/lib -lXext -lX11 -lm
+CFLAGS				= -Wall -Wextra -Werror -g #-fsanitize=address,undefined -O0
+MLXI				= -L$(MINILIBX_DIR) -lmlx -lXext -lX11 -lm
 
 # **************************************************************************** #
 #                               Shell Comands                                  #
 # **************************************************************************** #
 RM					= rm -rf
-PRINTF				= printf
+PRINT				= printf
+MAKE				= make
+MKDIR				= mkdir -p
 
 # **************************************************************************** #
 #                              Directories                                     #
 # **************************************************************************** #
-INC_DIR			= inc
+INC_DIR				= inc
 LIB_DIR				= lib
 MAPS_DIR			= maps
 OBJ_DIR				= obj
-OBJ_BONUS_DIR		= obj/bonus
+OBJ_BONUS_DIR		= $(OBJ_DIR)/bonus
 SRC_DIR				= src
-SRC_BONUS_DIR 		= src/bonus
-LIBFT_DIR			= lib/libft_plus
-MINILIBX_DIR		= lib/minilibx-linux
+SRC_BONUS_DIR 		= $(SRC_DIR)/bonus
+LIBFT_DIR			= $(LIB_DIR)/libft_plus
+MINILIBX_DIR		= $(LIB_DIR)/minilibx-linux
+DEPS				= $(HEADER) $(MAKEFILE) $(LIBFT_H)  $(LIBFT_MAKEFILE) $(MINILIBX_H) $(MINILIBX_MAKEFILE)
 
 # **************************************************************************** #
 #                      File Paths and Dependencies                             #
 # **************************************************************************** #
-MAKEFILE			= Makefile
-HEADER				= $(INCLUDE_DIR)/fdf.h
-LIBFT_A				= $(lIBFT_DIR)/libft_plus.a
+MAKEFILE				= Makefile
+HEADER					= $(INC_DIR)/fdf.h
+LIBFT_A					= $(LIBFT_DIR)/libft_plus.a
+LIBFT_H					= $(LIBFT_DIR)/libft_plus.h
+LIBFT_MAKEFILE			= $(LIBFT_DIR)/Makefile
+MINILIBX_A				= $(MINILIBX_DIR)/libmlx_Linux.a
+MINILIBX_H				= $(MINILIBX_DIR)/mlx.h
+MINILIBX_MAKEFILE		= $(MINILIBX_DIR)/Makefile
 
 # **************************************************************************** #
 #                                   Colors                                     #
@@ -85,18 +93,11 @@ BONUS_PCT = $(shell expr 100 \* $(BONUS_COUNT) / $(BONUS_COUNT_TOT))
 #                               Source File                                    #
 # **************************************************************************** #
 SRCS =				fdf.c \
-
-# Rule to compile archive .c to ,o with progress bars
-${OBJ_DIR}/%.o: ${SRC_DIR}/%.c $(HEADER) $(MAKEFILE)
-	@$(eval SRC_COUNT = $(shell expr $(SRC_COUNT) + 1))
-	@$(PRINTF) "\r%100s\r[ %d/%d (%d%%) ] Compiling $(BLUE)$<$(DEFAULT)...\n" "" $(SRC_COUNT) $(SRC_COUNT_TOT) $(SRC_PCT)
-	@$(CC) $(CFLAGS) -I. -c -o $@ $<
-
-# Rule to compile archive .c to ,o with progress bars (Bonus)
-$(OBJ_BONUS_DIR)/%.o: $(SRC_BONUS_DIR)/%.c $(HEADER) $(MAKEFILE)
-	@$(eval BONUS_COUNT = $(shell expr $(BONUS_COUNT) + 1))
-	@$(PRINTF) "\r%100s\r[ %d/%d (%d%%) ] Compiling $(MAGENTA)$<$(DEFAULT)...\n" "" $(BONUS_COUNT) $(BONUS_COUNT_TOT) $(BONUS_PCT)
-	@$(CC) $(CFLAGS) -I. -c -o $@ $<
+					error.c \
+					free.c \
+					init.c \
+					get_map.c \
+					utils.c \
 
 # **************************************************************************** #
 #                               Object File                                    #
@@ -106,37 +107,62 @@ OBJS_BONUS 	= $(SRC_BONUS:%.c=$(OBJ_BONUS_DIR)/%.o)
 
 # Create the directory if it doesn't exist
 ${OBJS}: | ${OBJ_DIR}
-${OBJS_BONUS}: |  $(OBJ_DIR)
+${OBJS_BONUS}: | $(OBJ_DIR)
 $(OBJ_DIR):
-	@mkdir -p $(OBJ_DIR)
-	@mkdir -p $(OBJ_BONUS_DIR)
+	@$(MKDIR) $(OBJ_DIR)
+	@$(MKDIR) $(OBJ_BONUS_DIR)
+
+# Rule to compile archive .c to ,o with progress bars
+${OBJ_DIR}/%.o: ${SRC_DIR}/%.c $(DEPS)
+	@$(eval SRC_COUNT = $(shell expr $(SRC_COUNT) + 1))
+	@$(PRINT) "\r%100s\r[ %d/%d (%d%%) ] Compiling $(BLUE)$<$(DEFAULT)...\n" "" $(SRC_COUNT) $(SRC_COUNT_TOT) $(SRC_PCT)
+	@$(CC) $(CFLAGS) -I. -c -o $@ $<
+
+# Rule to compile archive .c to ,o with progress bars (Bonus)
+$(OBJ_BONUS_DIR)/%.o: $(SRC_BONUS_DIR)/%.c $(DEPS)
+	@$(eval BONUS_COUNT = $(shell expr $(BONUS_COUNT) + 1))
+	@$(PRINT) "\r%100s\r[ %d/%d (%d%%) ] Compiling $(MAGENTA)$<$(DEFAULT)...\n" "" $(BONUS_COUNT) $(BONUS_COUNT_TOT) $(BONUS_PCT)
+	@$(CC) $(CFLAGS) -I. -c -o $@ $<
 
 # **************************************************************************** #
 #                              Targets                                         #
 # **************************************************************************** #
 
-all: $(NAME)
+all: $(LIBFT_A) $(MINILIBX_A) $(NAME)
 
+# Build fdf executable
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(oBJ) $(LIBFT_A) $(MLXi) -I(INC_DIR) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT_A) $(MINILIBX_A) $(MLXI) -I$(INC_DIR) -o $(NAME)
+	@$(PRINT) "${CLEAR}${RESET}${GREY}────────────────────────────────────────────────────────────────────────────\n${RESET}${GREEN}»${RESET} [${PURPLE}${BOLD}${NAME}${RESET}]: ${RED}${BOLD}${NAME} ${RESET}compiled ${GREEN}successfully${RESET}.${GREY}\n${RESET}${GREY}────────────────────────────────────────────────────────────────────────────\n${RESET}"
 
-# Rule to rebuild libft.a
-$(LIBFT_A): 
+# Rebuild libft.a
+$(LIBFT_A): $(LIBFT_MAKEFILE) $(LIBFT_H)
+	@$(MAKE) -s -C $(LIBFT_DIR)
+
+# Rebuild libmlx_Linux.a
+$(MINILIBX_A): $(MINILIBX_MAKEFILE) $(MINILIBX_H)
+	@$(MAKE) -s -C $(MINILIBX_DIR)
 
 # Rule to compile bonus
 bonus:
 
 # Clean object files
 clean:
+	@$(MAKE) clean -s -C $(LIBFT_DIR)
+	@$(RM) $(OBJS)
+	@$(PRINT) "${CLEAR}${RESET}${GREEN}»${RESET} [${PURPLE}${BOLD}${NAME}${RESET}]: Objects were cleaned ${GREEN}successfully${RESET}.\n${RESET}"
 
 # Full clean
 fclean: clean
+	@$(MAKE) fclean -s -C $(LIBFT_DIR)
+	@$(RM) $(NAME)
+	@$(PRINT) "${CLEAR}${RESET}${GREY}────────────────────────────────────────────────────────────────────────────\n${RESET}${GREEN}»${RESET} [${PURPLE}${BOLD}${NAME}${RESET}]: Project cleaned ${GREEN}successfully${RESET}.${GREY}\n${RESET}${GREY}────────────────────────────────────────────────────────────────────────────\n${RESET}"
 
 # Rebuild everything
-re:
+re: fclean all
 
 # Rebuild everything including bonus
-rebonus:
+rebonus: fclean all bonus
 
 # Phony targets
 .PHONY: all bonus clean fclean re rebonus

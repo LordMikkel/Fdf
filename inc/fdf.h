@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 18:29:16 by migarrid          #+#    #+#             */
-/*   Updated: 2025/05/19 18:51:31 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/05/22 17:00:24 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,46 +20,25 @@
 # include "../lib/minilibx-linux/mlx.h"
 # include <math.h>
 # include <errno.h>
-
-/* ************************************************************************** */
-/*                          Error & Limits                                    */
-/* ************************************************************************** */
-# define STDERR			2
-# define ERR_ARGS		"❌Incorrect number of arguments, expected 1"
-# define ERR_OPEN		"❌Error opening the file"
-# define ERR_READ		"❌Error reading the file"
-# define ERR_SPLIT		"❌Error splitting the line"
-# define ERR_LINE		"❌Error: nº of elements is different for each line"
-# define ERR_EMPTY		"❌Error: the file is empty or wrongly formatted"
-# define ERR_MEM		"❌Memory error"
-# define ERR_MAP		"❌Map Error"
-
-/* ************************************************************************** */
-/*                          Key Bindings                                      */
-/* ************************************************************************** */
-# define ESC_KEY		65307
-# define KEY_LEFT		65361
-# define KEY_RIGHT		65363
-# define KEY_DOWN		65364
-# define KEY_UP			65362
-
-/* ************************************************************************** */
-/*                          Window Settings                                   */
-/* ************************************************************************** */
-# define WIN_WIDTH		1920
-# define WIN_HEIGHT		1080
+# include "fdf_structs.h"
+# include "fdf_macros.h"
 
 /* ************************************************************************** */
 /*                          Parsing & Validation                              */
 /* ************************************************************************** */
+int		is_valid_ext(char *av);
+t_map	*get_map(char *av);
 
 /* ************************************************************************** */
 /*                          Error Handling                                    */
 /* ************************************************************************** */
+void	error_exit(t_fdf *data);
+void	free_data(t_fdf *data);
 
 /* ************************************************************************** */
 /*                          Initialization                                    */
 /* ************************************************************************** */
+void	init_data(t_fdf *data);
 
 /* ************************************************************************** */
 /*                          Rendering & Projection                            */
