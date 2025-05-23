@@ -6,7 +6,7 @@
 #    By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 17:55:34 by migarrid          #+#    #+#              #
-#    Updated: 2025/05/22 17:12:22 by migarrid         ###   ########.fr        #
+#    Updated: 2025/05/23 00:14:58 by migarrid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -96,7 +96,10 @@ SRCS =				fdf.c \
 					error.c \
 					free.c \
 					init.c \
-					get_map.c \
+					parse_principal.c \
+					parse_calculate.c \
+					parse_allocate.c \
+					parse_value.c \
 					utils.c \
 
 # **************************************************************************** #

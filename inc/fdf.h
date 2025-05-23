@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 18:29:16 by migarrid          #+#    #+#             */
-/*   Updated: 2025/05/22 17:00:24 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/05/23 02:57:50 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,22 @@
 /* ************************************************************************** */
 /*                          Parsing & Validation                              */
 /* ************************************************************************** */
-int		is_valid_ext(char *av);
-t_map	*get_map(char *av);
+int		parse_map(const char *filename, t_map *map);
+int		calculate_dimensions(int fd, t_map *map);
+int		allocate_map_memory(t_map *map);
+int		parse_values(int fd, t_map *map);
 
 /* ************************************************************************** */
 /*                          Error Handling                                    */
 /* ************************************************************************** */
 void	error_exit(t_fdf *data);
 void	free_data(t_fdf *data);
+void	ft_free_array(char **array);
 
 /* ************************************************************************** */
 /*                          Initialization                                    */
 /* ************************************************************************** */
-void	init_data(t_fdf *data);
+t_fdf	init_data(void);
 
 /* ************************************************************************** */
 /*                          Rendering & Projection                            */
