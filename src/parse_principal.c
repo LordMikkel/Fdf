@@ -30,6 +30,7 @@ int	parse_map(const char *filename, t_map *map)
 {
 	int	fd;
 
+	printf("entra\n");
 	if (!is_valid_ext(filename))
 		return (0);
 	fd = open(filename, O_RDONLY);

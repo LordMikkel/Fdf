@@ -46,29 +46,11 @@ static void	free_map_points(t_map *map)
 	map->points = NULL;
 }
 
-static void	free_map_colors(t_map *map)
-{
-	int	i;
-
-	if (!map || !map->colors)
-		return ;
-	i = 0;
-	while (i < map->height)
-	{
-		if (map->colors[i])
-			free(map->colors[i]);
-		i++;
-	}
-	free(map->colors);
-	map->colors = NULL;
-}
-
 static void	free_map(t_map *map)
 {
 	if (!map)
 		return ;
 	free_map_points(map);
-	free_map_colors(map);
 	free(map);
 }
 
@@ -78,4 +60,5 @@ void	free_data(t_fdf *data)
 		return ;
 	free_map(data->map);
 	free_graphics(data);
+	free(data);
 }
