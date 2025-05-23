@@ -29,7 +29,7 @@
 int		parse_map(const char *filename, t_map *map);
 int		calculate_dimensions(int fd, t_map *map);
 int		allocate_map_memory(t_map *map);
-int		parse_values(int fd, t_map *map);
+// int		parse_values(int fd, t_map *map);
 
 /* ************************************************************************** */
 /*                          Error Handling                                    */
@@ -41,7 +41,7 @@ void	ft_free_array(char **array);
 /* ************************************************************************** */
 /*                          Initialization                                    */
 /* ************************************************************************** */
-t_fdf	init_data(void);
+int		init_data(t_fdf **data);
 
 /* ************************************************************************** */
 /*                          Rendering & Projection                            */

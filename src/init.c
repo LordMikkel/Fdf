@@ -12,28 +12,19 @@
 
 #include "../inc/fdf.h"
 
-static t_map	*init_map(void)
+static void	init_map(t_map *map)
 {
-	t_map	*map;
-
 	map->points = NULL;
 	map->tokens = NULL;
-	map->colors = NULL;
 	map->width = 0;
 	map->height = 0;
-	return(map);
 }
-
-t_fdf	*init_data(void)
+int	init_data(t_fdf *data)
 {
-	t_fdf *data;
-
 	data->mlx = NULL;
 	data->win = NULL;
 	data->img = NULL;
 	data->addr = NULL;
-	data->map = init_map();
-	if(!data->map)
-		return (NULL);
-	return (data);
+	init_map(&data->map);
+	return (1);
 }

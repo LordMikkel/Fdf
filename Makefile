@@ -18,7 +18,7 @@ NAME				= fdf
 # **************************************************************************** #
 #                            Compiler and Flags                                #
 # **************************************************************************** #
-CC					= gcc
+CC					= cc
 CFLAGS				= -Wall -Wextra -Werror -g #-fsanitize=address,undefined -O0
 MLXI				= -L$(MINILIBX_DIR) -lmlx -lXext -lX11 -lm
 

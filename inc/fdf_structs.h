@@ -32,7 +32,6 @@ typedef struct s_map
 {
 	t_point	**points;
 	char	**tokens;
-	int		**colors;
 	int		width;
 	int		height;
 }	t_map;
@@ -44,7 +43,7 @@ typedef struct s_fdf
 	void	*win;
 	void	*img;
 	char	*addr;
-	t_map	*map;
+	t_map	map;
 }	t_fdf;
 
 #endif

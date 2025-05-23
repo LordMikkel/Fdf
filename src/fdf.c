@@ -14,11 +14,11 @@
 
 int	main(int ac, char **av)
 {
-	t_fdf	*data;
+	t_fdf	data;
 
-	data = init_data();
-	if (ac != 2 || !data || !parse_map(av[1], data->map))
-		error_exit(NULL);
+	if (ac != 2 || !init_data(&data) || !parse_map(av[1], data->map))
+		error_exit(data);
 	free_data(data);
+
 	return (0);
 }

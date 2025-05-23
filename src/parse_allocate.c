@@ -15,8 +15,7 @@
 static int	allocate_row_memory(t_map *map, int i)
 {
 	map->points[i] = ft_calloc(map->width, sizeof(t_point));
-	map->colors[i] = ft_calloc(map->width, sizeof(int));
-	if (!map->points[i] || !map->colors[i])
+	if (!map->points[i])
 		return (0);
 	return (1);
 }
@@ -26,8 +25,7 @@ int	allocate_map_memory(t_map *map)
 	int	i;
 
 	map->points = ft_calloc(map->height, sizeof(t_point *));
-	map->colors = ft_calloc(map->height, sizeof(int *));
-	if (!map->points || !map->colors)
+	if (!map->points)
 		return (0);
 	i = 0;
 	while (i < map->height)
