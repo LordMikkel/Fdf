@@ -10,12 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/fdf.h"
+/*#include "../inc/fdf.h"
 
 int	parse_values(int fd, t_map *map)
 {
 	int	row;
 
 	row = 0;
-
-}
+}*/

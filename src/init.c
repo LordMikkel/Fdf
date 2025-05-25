@@ -20,12 +20,18 @@ static void	init_map(t_map *map)
 	map->height = 0;
 }
 
+static void	init_img(t_img *img, t_fdf *data)
+{
+	img->img = mlx_new_image(data->mlx, WIN_WIDTH, WIN_HEIGHT);
+	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
+		&img->line_length, &img->endian);
+}
+
 void	init_data(t_fdf *data)
 {
 	printf("1\n");
-	data->mlx = NULL;
-	data->win = NULL;
-	data->img = NULL;
-	data->addr = NULL;
+	data->mlx = mlx_init();
+	data->win = mlx_new_window(data->mlx, WIN_WIDTH, WIN_HEIGHT, "fdf");
+	init_img(&data->img, data);
 	init_map(&data->map);
 }

@@ -35,8 +35,8 @@ int		allocate_map_memory(t_map *map);
 /*                          Error Handling                                    */
 /* ************************************************************************** */
 void	error_exit(t_fdf *data);
-void	free_data(t_fdf *data);
-void	ft_free_array(char **array);
+int		close_exit(t_fdf *data);
+int		free_data(t_fdf *data);
 
 /* ************************************************************************** */
 /*                          Initialization                                    */
@@ -58,6 +58,8 @@ void	init_data(t_fdf *data);
 /* ************************************************************************** */
 /*                          Event Handling                                    */
 /* ************************************************************************** */
+int		handle_key(int key, t_fdf *data);
+int		handle_mouse(int button, int x, int y, t_fdf *data);
 
 /* ************************************************************************** */
 /*                          Memory Management                                 */

@@ -21,6 +21,10 @@ int	main(int ac, char **av)
 	init_data(&data);
 	if (!parse_map(av[1], &data.map))
 		error_exit(&data);
+	mlx_hook(data.win, CLOSE_EVENT, 0, close_exit, &data);
+	mlx_key_hook(data.win, handle_key, &data);
+	mlx_mouse_hook(data.win, handle_mouse, &data);
+	mlx_loop(data.mlx);
 	free_data(&data);
 	return (0);
 }

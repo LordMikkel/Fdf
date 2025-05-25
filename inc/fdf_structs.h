@@ -35,12 +35,20 @@ typedef struct s_map
 	int		height;
 }	t_map;
 
+typedef	struct s_img
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_img;
+
 typedef struct s_fdf
 {
 	void	*mlx;
 	void	*win;
-	void	*img;
-	char	*addr;
+	t_img	img;
 	t_map	map;
 }	t_fdf;
 

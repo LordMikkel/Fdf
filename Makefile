@@ -93,13 +93,14 @@ BONUS_PCT = $(shell expr 100 \* $(BONUS_COUNT) / $(BONUS_COUNT_TOT))
 #                               Source File                                    #
 # **************************************************************************** #
 SRCS =				fdf.c \
-					error.c \
+					exit.c \
 					free.c \
 					init.c \
 					parse_principal.c \
 					parse_calculate.c \
 					parse_allocate.c \
 					parse_value.c \
+					event.c \
 					utils.c \
 
 # **************************************************************************** #
