@@ -6,27 +6,16 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 22:15:13 by migarrid          #+#    #+#             */
-/*   Updated: 2025/05/23 02:44:31 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/05/24 00:47:10 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-static int	is_valid_number(const char *str)
+static int	is_valid_number(char c)
 {
-	int	i;
-
-	i = 0;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	if (!ft_isdigit(str[i]))
+	if (!ft_isdigit(c) && ft_issign(c) && ft_ishex(c))
 		return (0);
-	while (str[i])
-	{
-		if (!ft_isdigit(str[i]))
-			return (0);
-		i++;
-	}
 	return (1);
 }
 
@@ -35,24 +24,23 @@ static int	validate_dimensions(const char *line, t_map *map)
 	char	**tokens;
 	int		columns;
 
-	if (!line)
-		return (0);
 	tokens = ft_split(line, ' ');
 	if (!tokens)
-		return (0);
+		return (ft_putstr_fd(ERR_MEM, STDERR), 0);
 	columns = 0;
 	while (tokens[columns])
 	{
-		if (!is_valid_number(tokens[columns]))
+		if (!is_valid_number(tokens[columns][0]))
 		{
-			ft_free_array(tokens);
-			return (0);
+			ft_free_str_array(tokens);
+			return (ft_putstr_fd(ERR_PARSE, STDERR), 0);
 		}
 		columns++;
 	}
-	if (columns > 0)
-		map->width = columns;
-	map->tokens = tokens;
+	if (columns != map->width && map->width != 0)
+		return (ft_putstr_fd(ERR_LINE, STDERR), 0);
+	map->width = columns;
+	ft_free_str_array(tokens);
 	return (1);
 }
 

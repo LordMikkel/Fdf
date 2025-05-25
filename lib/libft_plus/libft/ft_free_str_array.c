@@ -1,21 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_value.c                                      :+:      :+:    :+:   */
+/*   ft_free_str_array.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/23 00:05:03 by migarrid          #+#    #+#             */
-/*   Updated: 2025/05/24 02:20:09 by migarrid         ###   ########.fr       */
+/*   Created: 2025/05/24 00:11:06 by migarrid          #+#    #+#             */
+/*   Updated: 2025/05/24 00:25:43 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/fdf.h"
+#include "../libft_plus.h"
 
-int	parse_values(int fd, t_map *map)
+void	ft_free_str_array(char **array)
 {
-	int	row;
+	int	i;
 
-	row = 0;
-
+	if (!array)
+		return ;
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		array[i] = NULL;
+		i++;
+	}
+	free(array);
+	array = NULL;
 }

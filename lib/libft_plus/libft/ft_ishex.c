@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_value.c                                      :+:      :+:    :+:   */
+/*   ft_ishex.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/23 00:05:03 by migarrid          #+#    #+#             */
-/*   Updated: 2025/05/24 02:20:09 by migarrid         ###   ########.fr       */
+/*   Created: 2025/05/24 00:34:07 by migarrid          #+#    #+#             */
+/*   Updated: 2025/05/24 00:44:01 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/fdf.h"
+#include "../libft_plus.h"
 
-int	parse_values(int fd, t_map *map)
+int	ft_ishex(int c)
 {
-	int	row;
-
-	row = 0;
-
+	if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'F')
+		|| (c >= 'a' && c <= 'f') || c == 'x' || c == 'X')
+		return (1);
+	return (0);
 }
