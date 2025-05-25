@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_value.c                                      :+:      :+:    :+:   */
+/*   ft_free_int_matrix.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/23 00:05:03 by migarrid          #+#    #+#             */
-/*   Updated: 2025/05/24 02:20:09 by migarrid         ###   ########.fr       */
+/*   Created: 2025/05/24 00:22:37 by migarrid          #+#    #+#             */
+/*   Updated: 2025/05/24 00:26:06 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/fdf.h"
+#include "../libft_plus.h"
 
-int	parse_values(int fd, t_map *map)
+void	ft_free_int_matrix(int **matrix, int rows)
 {
-	int	row;
+	int	i;
 
-	row = 0;
-
+	if (!matrix || rows <= 0)
+		return ;
+	i = 0;
+	while (i < rows)
+	{
+		free(matrix[i]);
+		i++;
+	}
+	free(matrix);
 }

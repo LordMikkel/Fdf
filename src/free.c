@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 22:05:48 by migarrid          #+#    #+#             */
-/*   Updated: 2025/05/22 16:54:51 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/05/23 22:43:36 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,10 @@ static void	free_map_points(t_map *map)
 	map->points = NULL;
 }
 
-static void	free_map(t_map *map)
-{
-	if (!map)
-		return ;
-	free_map_points(map);
-	free(map);
-}
-
 void	free_data(t_fdf *data)
 {
 	if (!data)
 		return ;
-	free_map(data->map);
+	free_map_points(&data->map);
 	free_graphics(data);
-	free(data);
 }

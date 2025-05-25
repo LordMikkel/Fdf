@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_value.c                                      :+:      :+:    :+:   */
+/*   ft_issign.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/23 00:05:03 by migarrid          #+#    #+#             */
-/*   Updated: 2025/05/24 02:20:09 by migarrid         ###   ########.fr       */
+/*   Created: 2025/05/24 00:03:19 by migarrid          #+#    #+#             */
+/*   Updated: 2025/05/24 00:31:49 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/fdf.h"
+#include "../libft_plus.h"
 
-int	parse_values(int fd, t_map *map)
+int	ft_issign(int c)
 {
-	int	row;
-
-	row = 0;
-
+	if (c == '+' || c == '-')
+		return (1);
+	return (0);
 }

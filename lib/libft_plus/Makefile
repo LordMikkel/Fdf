@@ -6,7 +6,7 @@
 #    By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/28 19:51:37 by migarrid          #+#    #+#              #
-#    Updated: 2025/04/12 03:28:23 by migarrid         ###   ########.fr        #
+#    Updated: 2025/05/24 00:42:22 by migarrid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,9 @@ SRCS =	libft/ft_isalpha.c \
 		libft/ft_isalnum.c \
 		libft/ft_isascii.c \
 		libft/ft_isprint.c \
+		libft/ft_issign.c \
+		libft/ft_isspace.c \
+		libft/ft_ishex.c \
 		libft/ft_strlen.c \
 		libft/ft_memset.c \
 		libft/ft_bzero.c \
@@ -65,6 +68,8 @@ SRCS =	libft/ft_isalpha.c \
 		libft/ft_putstr_fd.c \
 		libft/ft_putendl_fd.c \
 		libft/ft_putnbr_fd.c \
+		libft/ft_free_str_array.c \
+		libft/ft_free_int_matrix.c \
 		libft/ft_lstnew_bonus.c \
 		libft/ft_lstadd_front_bonus.c \
 		libft/ft_lstsize_bonus.c \

@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 18:51:41 by migarrid          #+#    #+#             */
-/*   Updated: 2025/05/23 03:00:41 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/05/23 23:35:16 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@ int	main(int ac, char **av)
 {
 	t_fdf	data;
 
-	if (ac != 2 || !init_data(&data) || !parse_map(av[1], data->map))
-		error_exit(data);
-	free_data(data);
-
+	if (ac != 2)
+		return (ft_putstr_fd(ERR_ARGS, STDERR), EXIT_FAILURE);
+	init_data(&data);
+	if (!parse_map(av[1], &data.map))
+		error_exit(&data);
+	free_data(&data);
 	return (0);
 }
