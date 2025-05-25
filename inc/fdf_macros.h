@@ -16,6 +16,7 @@
 /* ************************************************************************** */
 /*                          Error & Limits                                    */
 /* ************************************************************************** */
+# define CLOSE_EVENT	17
 # define STDERR			2
 # define TRUE			1
 # define FALSE			0
@@ -39,6 +40,9 @@
 # define KEY_UP			65362
 # define KEY_PLUS		61
 # define KEY_MINUS		45
+# define ZOOM_IN		4
+# define ZOOM OUT		5
+# define CLICK			1
 
 /* ************************************************************************** */
 /*                          Window Settings                                   */

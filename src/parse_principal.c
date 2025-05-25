@@ -44,8 +44,8 @@ int	parse_map(const char *filename, t_map *map)
 	if (!allocate_map_memory(map))
 		return (ft_putstr_fd(ERR_MEM, STDERR), 0);
 	printf("7\n");
-	if (!parse_values(fd, map))
-		return (0);
+	/*if (!parse_values(fd, map))
+		return (0);*/
 	close(fd);
 	return (1);
 }

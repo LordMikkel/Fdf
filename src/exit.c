@@ -18,3 +18,10 @@ void	error_exit(t_fdf *data)
 		free_data(data);
 	exit(EXIT_FAILURE);
 }
+
+__attribute__((noreturn))int		close_exit(t_fdf *data)
+{
+	if (data)
+		free_data(data);
+	exit(EXIT_SUCCESS);
+}

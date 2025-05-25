@@ -18,10 +18,8 @@ static void	free_graphics(t_fdf *data)
 		return ;
 	if (data->win)
 		mlx_destroy_window(data->mlx, data->win);
-	if (data->img)
-		mlx_destroy_image(data->mlx, data->img);
-	if (data->addr)
-		free(data->addr);
+	if (data->img.img)
+		mlx_destroy_image(data->mlx, data->img.img);
 	if (data->mlx)
 	{
 		mlx_destroy_display(data->mlx);
@@ -46,10 +44,11 @@ static void	free_map_points(t_map *map)
 	map->points = NULL;
 }
 
-void	free_data(t_fdf *data)
+int	free_data(t_fdf *data)
 {
 	if (!data)
-		return ;
+		return (1);
 	free_map_points(&data->map);
 	free_graphics(data);
+	return (0);
 }
