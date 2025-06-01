@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 18:59:36 by migarrid          #+#    #+#             */
-/*   Updated: 2025/05/23 23:54:12 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/01 02:12:40 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 
 typedef struct s_point
 {
-	float	x;
-	float	y;
+	int		x;
+	int		y;
 	float	z;
 	float	w;
 	int		color;
@@ -35,14 +35,25 @@ typedef struct s_map
 	int		height;
 }	t_map;
 
-typedef	struct s_img
+typedef struct s_img
 {
 	void	*img;
 	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
+	int		bpp;
+	int		length;
 	int		endian;
 }	t_img;
+
+typedef struct s_cam
+{
+	float	zoom;
+	float	x_offset;
+	float	y_offset;
+	float	alpha;
+	float	beta;
+	float	gamma;
+	float	projection;
+}	t_cam;
 
 typedef struct s_fdf
 {
@@ -50,6 +61,7 @@ typedef struct s_fdf
 	void	*win;
 	t_img	img;
 	t_map	map;
+	t_cam	cam;
 }	t_fdf;
 
 #endif

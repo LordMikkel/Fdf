@@ -6,32 +6,60 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 02:19:51 by migarrid          #+#    #+#             */
-/*   Updated: 2025/05/24 00:27:01 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/01 18:36:41 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
+void	init_cam(t_cam *cam, t_map *map)
+{
+	int	max_zoom_width;
+	int	max_zoom_height;
+
+	max_zoom_width = (WIN_WIDTH / map->width) / 2;
+	max_zoom_height = (WIN_HEIGHT / map->height) / 2;
+	cam->zoom = fmin(max_zoom_width, max_zoom_height);
+	cam->x_offset = WIN_WIDTH / 2;
+	cam->y_offset = WIN_HEIGHT / 2;
+	cam->alpha = 0;
+	cam->beta = 0;
+	cam->gamma = 0;
+	cam->projection = ISOMETRIC;
+}
+
 static void	init_map(t_map *map)
 {
-	printf("2\n");
 	map->points = NULL;
 	map->width = 0;
 	map->height = 0;
+	printf("Succes Init Map\n");
 }
 
-static void	init_img(t_img *img, t_fdf *data)
+static int	init_img(t_img *img, t_fdf *data)
 {
 	img->img = mlx_new_image(data->mlx, WIN_WIDTH, WIN_HEIGHT);
-	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
-		&img->line_length, &img->endian);
+	if (!img->img)
+		return (0);
+	img->addr = mlx_get_data_addr(img->img, &img->bpp,
+			&img->length, &img->endian);
+	if (!img->addr)
+		return (0);
+	printf("Succes Init Image\n");
+	return (1);
 }
 
-void	init_data(t_fdf *data)
+int	init_data(t_fdf *data)
 {
-	printf("1\n");
 	data->mlx = mlx_init();
+	if (!data->mlx)
+		return (ft_putstr_fd(ERR_MLX, STDERR), 0);
 	data->win = mlx_new_window(data->mlx, WIN_WIDTH, WIN_HEIGHT, "fdf");
-	init_img(&data->img, data);
+	if (!data->win)
+		return (ft_putstr_fd(ERR_MLX, STDERR), 0);
+	printf("Succes Init Data\n");
+	if (!init_img(&data->img, data))
+		return (ft_putstr_fd(ERR_MLX, STDERR), 0);
 	init_map(&data->map);
+	return (1);
 }

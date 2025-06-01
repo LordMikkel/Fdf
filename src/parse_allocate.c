@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 00:03:55 by migarrid          #+#    #+#             */
-/*   Updated: 2025/05/23 00:21:03 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/05/29 01:28:24 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	allocate_row_memory(t_map *map, int i)
 	return (1);
 }
 
-int	allocate_map_memory(t_map *map)
+int	allocate_points_map_memory(t_map *map)
 {
 	int	i;
 

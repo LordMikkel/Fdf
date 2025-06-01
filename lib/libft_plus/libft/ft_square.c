@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   ft_square.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/21 21:32:33 by migarrid          #+#    #+#             */
-/*   Updated: 2025/05/26 00:28:08 by migarrid         ###   ########.fr       */
+/*   Created: 2025/06/01 18:26:07 by migarrid          #+#    #+#             */
+/*   Updated: 2025/06/01 18:31:47 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/fdf.h"
+#include "../libft_plus.h"
 
-void	error_exit(t_fdf *data)
+float	ft_square(float x)
 {
-	if (data)
-		free_data(data);
-	exit(EXIT_FAILURE);
-}
+	float	square;
 
-int	close_exit(t_fdf *data)
-{
-	if (data)
-		free_data(data);
-	exit(EXIT_SUCCESS);
-	return (0);
+	square = x * x;
+	return (square);
 }

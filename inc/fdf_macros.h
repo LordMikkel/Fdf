@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 18:59:15 by migarrid          #+#    #+#             */
-/*   Updated: 2025/05/23 23:28:08 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/01 18:24:38 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@
 /* ************************************************************************** */
 /*                          Error & Limits                                    */
 /* ************************************************************************** */
-# define CLOSE_EVENT	17
 # define STDERR			2
 # define TRUE			1
 # define FALSE			0
+# define ISOMETRIC		0
+# define PARALEL		1
+# define SPERICHAL		2
 # define ERR_ARGS		"Usage: Provide one .fdf file (ex: ./fdf map.fdf)\n"
 # define ERR_EXT		"Error: Invalid map format. file must be .fdf\n"
 # define ERR_OPEN		"Error: Can't open file. Check existence/permissions\n"
@@ -28,11 +30,13 @@
 # define ERR_LINE		"Error: Line length mismatch. Rows must be equals\n"
 # define ERR_EMPTY		"Error: Empty file. Valid .fdf required\n"
 # define ERR_MEM		"Error: Memory alloc failed. Check system resources\n"
-
+# define ERR_MLX		"Error: Mlx init failed. Check system resources\n"
 
 /* ************************************************************************** */
-/*                          Key Bindings                                      */
+/*                          Key Bindings and Events                           */
 /* ************************************************************************** */
+# define CLOSE_EVENT	17
+# define NO_FILTER		0
 # define ESC_KEY		65307
 # define KEY_LEFT		65361
 # define KEY_RIGHT		65363
@@ -41,14 +45,19 @@
 # define KEY_PLUS		61
 # define KEY_MINUS		45
 # define ZOOM_IN		4
-# define ZOOM OUT		5
+# define ZOOM_OUT		5
 # define CLICK			1
 
 /* ************************************************************************** */
 /*                          Window Settings                                   */
 /* ************************************************************************** */
-# define WIN_WIDTH		1920
+# define WIN_WIDTH		1080
 # define WIN_HEIGHT		1080
 # define DEFAULT_ANG 	0.523599
+
+/* ************************************************************************** */
+/*                                Colors                                      */
+/* ************************************************************************** */
+# define DEFAULT_COLOR	0xFFFFFF
 
 #endif

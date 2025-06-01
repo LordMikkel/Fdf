@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/21 21:32:33 by migarrid          #+#    #+#             */
-/*   Updated: 2025/05/26 00:28:08 by migarrid         ###   ########.fr       */
+/*   Created: 2025/05/26 00:17:51 by migarrid          #+#    #+#             */
+/*   Updated: 2025/05/26 00:17:55 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-void	error_exit(t_fdf *data)
+void	mlx_setup(t_fdf *data)
 {
-	if (data)
-		free_data(data);
-	exit(EXIT_FAILURE);
-}
-
-int	close_exit(t_fdf *data)
-{
-	if (data)
-		free_data(data);
-	exit(EXIT_SUCCESS);
-	return (0);
+	mlx_hook(data->win, CLOSE_EVENT, NO_FILTER, close_exit, data);
+	mlx_key_hook(data->win, handle_key, data);
+	mlx_mouse_hook(data->win, handle_mouse, data);
+	mlx_loop(data->mlx);
 }
