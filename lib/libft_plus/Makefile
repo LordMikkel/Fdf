@@ -6,7 +6,7 @@
 #    By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/28 19:51:37 by migarrid          #+#    #+#              #
-#    Updated: 2025/05/24 00:42:22 by migarrid         ###   ########.fr        #
+#    Updated: 2025/06/01 18:29:51 by migarrid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,6 +55,10 @@ SRCS =	libft/ft_isalpha.c \
 		libft/ft_strnstr.c \
 		libft/ft_atoi.c \
 		libft/ft_atol.c \
+		libft/ft_atoi_range.c \
+		libft/ft_strtol.c \
+		libft/ft_strtof.c \
+		libft/ft_square.c \
 		libft/ft_calloc.c \
 		libft/ft_strdup.c \
 		libft/ft_substr.c \
