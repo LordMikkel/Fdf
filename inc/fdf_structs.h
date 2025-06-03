@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 18:59:36 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/01 02:12:40 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/02 01:10:19 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,34 @@
 /*                           Map Structure                                    */
 /* ************************************************************************** */
 
-typedef struct s_point
+typedef struct s_point_2d
 {
 	int		x;
 	int		y;
+	int		color;
+}	t_point_2d;
+
+typedef struct s_point
+{
+	float	x;
+	float	y;
 	float	z;
 	float	w;
 	int		color;
 }	t_point;
+
+typedef struct s_line
+{
+	int		dx;
+	int		dy;
+	int		sx;
+	int		sy;
+	int		error;
+	int		double_error;
+	int		color1;
+	int		color2;
+	float	steps;
+}	t_line;
 
 typedef struct s_map
 {

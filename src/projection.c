@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 02:48:13 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/01 18:38:12 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/02 00:10:41 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ t_point	project_point(t_point point, t_cam cam)
 	point.y = point.y * cam.zoom;
 	point.z = point.z * cam.zoom;
 	project_4d_to_3d(&point);
-	rotation_x(&point.y, &point.z, cam.alpha);
-	rotation_y(&point.x, &point.z, cam.beta);
-	rotation_z(&point.x, &point.y, cam.gamma);
+	rotate_x(&point.y, &point.z, cam.alpha);
+	rotate_y(&point.x, &point.z, cam.beta);
+	rotate_z(&point.x, &point.y, cam.gamma);
 	project_3d_to_2d(&point, cam.projection);
 	point.x = point.x + cam.x_offset;
 	point.y = point.y + cam.y_offset;
