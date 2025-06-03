@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.c                                              :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/19 18:51:41 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/01 18:48:03 by migarrid         ###   ########.fr       */
+/*   Created: 2025/06/01 23:40:08 by migarrid          #+#    #+#             */
+/*   Updated: 2025/06/02 00:52:30 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int	main(int ac, char **av)
 		error_exit(&data);
 	if (!parse_map(av[1], &data.map))
 		error_exit(&data);
-	render_fdf(&data, &data.map, &data.cam);
+	init_cam(&data.cam, &data.map);
+	render_fdf(&data, &data.map);
 	mlx_setup(&data);
 	return (0);
 }

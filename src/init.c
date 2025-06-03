@@ -6,11 +6,32 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 02:19:51 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/01 18:36:41 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/02 00:35:16 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
+
+void	init_line(t_line *line, t_point_2d a, t_point_2d b)
+{
+	line->dx = abs(b.x - a.x);
+	line->dy = abs(b.y - a.y);
+	if (a.x < b.x)
+		line->sx = 1;
+	else
+		line->sx = -1;
+	if (a.y < b.y)
+		line->sy = 1;
+	else
+		line->sy = -1;
+	line->error = line->dx - line->dy;
+	line->color1 = a.color;
+	line->color2 = b.color;
+	if (line->dy > line->dx)
+		line->steps = line->dy;
+	else
+		line->steps = line->dx;
+}
 
 void	init_cam(t_cam *cam, t_map *map)
 {
@@ -26,6 +47,7 @@ void	init_cam(t_cam *cam, t_map *map)
 	cam->beta = 0;
 	cam->gamma = 0;
 	cam->projection = ISOMETRIC;
+	printf("Succes Init Cam\n");
 }
 
 static void	init_map(t_map *map)

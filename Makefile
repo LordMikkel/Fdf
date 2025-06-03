@@ -6,7 +6,7 @@
 #    By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 17:55:34 by migarrid          #+#    #+#              #
-#    Updated: 2025/05/29 01:17:57 by migarrid         ###   ########.fr        #
+#    Updated: 2025/06/01 23:40:05 by migarrid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -92,12 +92,15 @@ BONUS_PCT = $(shell expr 100 \* $(BONUS_COUNT) / $(BONUS_COUNT_TOT))
 # **************************************************************************** #
 #                               Source File                                    #
 # **************************************************************************** #
-SRCS =				fdf.c \
+SRCS =				main.c \
 					exit.c \
 					free.c \
 					init.c \
 					mlx.c \
 					render.c \
+					draw.c \
+					projection.c \
+					rotation_3d.c \
 					parse_principal.c \
 					parse_calculate.c \
 					parse_allocate.c \

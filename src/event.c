@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 18:16:43 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/01 19:00:19 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/02 00:02:36 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ int	handle_key(int key, t_fdf *data)
 		data->cam.beta += 0.05f;
 	if (key == KEY_DOWN)
 		data->cam.beta -= 0.05f;
+	mlx_clear_window(data->mlx, data->win);
+	render_fdf(data, &data->map);
+	mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
 	return (0);
 }
 
