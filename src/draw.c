@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 22:46:57 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/02 01:10:52 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:21:13 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	draw_line(t_point p1, t_point p2, t_fdf *data)
 	{
 		ft_mlx_put_pixel(data, a.x, a.y, DEFAULT_COLOR);
 		if (a.x == b.x && a.y == b.y)
-			break ;
+		break ;
 		line.double_error = 2 * line.error;
 		if (line.double_error > -line.dy)
 		{
