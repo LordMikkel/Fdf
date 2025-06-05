@@ -1,5 +1,5 @@
 # Ignora
-*.txt
+#*.txt
 *.out
 *.o
 *.a
