@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 01:23:05 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/09 21:41:39 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/09 22:13:23 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,3 @@ void	set_lateral_view(t_cam *cam)
 	cam->gamma = 0;
 	cam->projection = ORTHOGONAL;
 }
-

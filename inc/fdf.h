@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 18:29:16 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/09 21:48:05 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/09 22:08:36 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,9 @@ int		assign_height_color(t_point *pt, t_map *map);
 void	mlx_setup(t_fdf *data);
 int		handle_key(int key, t_fdf *data);
 int		handle_mouse(int button, int x, int y, t_fdf *data);
+int		handle_mouse_move(int x, int y, t_fdf *data);
+int 	handle_mouse_release(int button, int x, int y, t_fdf *data);
+int		handle_expose(t_fdf *data);
 
 /* ************************************************************************** */
 /*                          Memory Management                                 */
