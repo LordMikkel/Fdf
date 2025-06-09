@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 00:58:39 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/09 19:08:42 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/09 21:50:06 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@ int	check_4d_mode(const char *av, t_map *map)
 {
 	if (ft_strcmp(av, "pentachoron") == 0)
 	{
+		printf("4d mode activated\n");
 		map->object = PENTACHORON;
 		return (1);
 	}
 	else if (ft_strcmp(av, "tesseract") == 0)
 	{
+		printf("4d mode activated\n");
 		map->object = TESSERACT;
 		return (1);
 	}
@@ -33,12 +35,14 @@ int	init_4d(const char *av, t_map *map)
 	if (map->object == PENTACHORON)
 	{
 		if (!init_pentachoron(map))
-			return (0);
+			return (ft_putstr_fd(ERR_MEM, STDERR), 0);
+		printf("Succes init pentachoron\n");
 	}
 	else if (map->object == TESSERACT)
 	{
 		if (!init_tesseract(map))
-			return (0);
+			return (ft_putstr_fd(ERR_MEM, STDERR), 0);
+		printf("Succes init tesseract\n");
 	}
 	return (1);
 }

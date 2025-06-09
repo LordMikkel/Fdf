@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 01:23:05 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/07 15:15:36 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/09 21:41:39 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,3 @@ void	set_lateral_view(t_cam *cam)
 	cam->projection = ORTHOGONAL;
 }
 
-void	scale_map_z(t_point **points, int width, int height, float scale)
-{
-	int	y;
-	int	x;
-
-	y = 0;
-	while (y < height)
-	{
-		x = 0;
-		while (x < width)
-		{
-			points[y][x].z *= scale;
-			x++;
-		}
-		y++;
-	}
-}

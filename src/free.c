@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 22:05:48 by migarrid          #+#    #+#             */
-/*   Updated: 2025/05/23 22:43:36 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/09 21:49:49 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ static void	free_graphics(t_fdf *data)
 	if (!data)
 		return ;
 	if (data->win)
-		mlx_destroy_window(data->mlx, data->win);
+		mlx_destroy_window(data->mlx, data->win); printf("Destroyed Window\n");
 	if (data->img.img)
-		mlx_destroy_image(data->mlx, data->img.img);
+		mlx_destroy_image(data->mlx, data->img.img); printf("Destroyed Image\n");
 	if (data->mlx)
 	{
-		mlx_destroy_display(data->mlx);
+		mlx_destroy_display(data->mlx); printf("Destroyed Display\n");
 		free(data->mlx);
 	}
 }
@@ -44,11 +44,11 @@ static void	free_map_points(t_map *map)
 	map->points = NULL;
 }
 
-int	free_data(t_fdf *data)
+void free_data(t_fdf *data)
 {
 	if (!data)
-		return (1);
+		return ;
 	free_map_points(&data->map);
+	printf("Succes at free all points\n");
 	free_graphics(data);
-	return (0);
 }

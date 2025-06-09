@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 18:29:16 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/09 21:37:51 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/09 21:48:05 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int		handle_mouse(int button, int x, int y, t_fdf *data);
 /*                          Memory Management                                 */
 /* ************************************************************************** */
 void	clear_image(t_fdf *data);
-int		free_data(t_fdf *data);
+void	free_data(t_fdf *data);
 
 /* ************************************************************************** */
 /*                                utils                                       */
