@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 01:23:16 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/09 21:03:38 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/09 21:41:44 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,22 @@ void	set_pov_view(t_cam *cam)
 	cam->beta = 0;
 	cam->gamma = 0;
 	cam->projection = POV;
+}
+
+void	scale_map_z(t_point **points, int width, int height, float scale)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	while (y < height)
+	{
+		x = 0;
+		while (x < width)
+		{
+			points[y][x].z *= scale;
+			x++;
+		}
+		y++;
+	}
 }

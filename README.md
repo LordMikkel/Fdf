@@ -1,13 +1,13 @@
 # Fdf
 Coding 3D Images
 
-Entender projeccion isometrica
+ver si podemos mejorar eso de la proyeccion porque maybe no hace falta
 Entender rotaciones
 Entender 4d a 3d
-Entender projeccion spherica
 
 implementar rotaciones 4d
 implementar el menu
+implementar color de fondo
 
 # 🔧 EDICIÓN
 # | Ctrl + L					→ Selecciona la línea actual
