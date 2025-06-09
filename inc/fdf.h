@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 18:29:16 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/02 00:35:25 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/09 21:37:51 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,34 @@ int		allocate_points_map_memory(t_map *map);
 /*                          Rendering & Projection                            */
 /* ************************************************************************** */
 void	render_fdf(t_fdf *data, t_map *map);
-void	render_map(t_fdf *data, t_map *map);
+void	render_3d_map(t_fdf *data, t_map *map);
 void	rotate_x(float *y, float *z, float angle);
 void	rotate_y(float *x, float *z, float angle);
 void	rotate_z(float *x, float *y, float angle);
-t_point	project_point(t_point point, t_cam cam);
+t_point	project_point(t_point point, t_map map, t_cam cam);
+
+/* ************************************************************************** */
+/*                            transformations                                 */
+/* ************************************************************************** */
+void	set_isometric_view(t_cam *cam);
+void	set_top_view(t_cam *cam);
+void	set_front_view(t_cam *cam);
+void	set_lateral_view(t_cam *cam);
+void	set_pov_view(t_cam *cam);
+void	set_spherical_view(t_cam *cam);
+void	scale_map_z(t_point **points, int width, int height, float scale);
+void	move_map_to_origin(t_point *point, t_map map, t_cam cam);
+
+/* ************************************************************************** */
+/*                                    4d                                      */
+/* ************************************************************************** */
+int		check_4d_mode(const char *av, t_map *map);
+int		init_4d(const char *av, t_map *map);
+int		diff_coords(t_point *a, t_point *b);
+int		init_tesseract(t_map *map);
+int		init_pentachoron(t_map *map);
+int		init_hecatonicosachoron(t_map *map);
+void	move_map_to_origin_4d(t_point *point, t_map map, t_cam cam);
 
 /* ************************************************************************** */
 /*                             Line Drawing                                   */
@@ -63,6 +86,8 @@ void	ft_mlx_put_pixel(t_fdf *data, int x, int y, int color);
 /* ************************************************************************** */
 /*                            Color Handling                                  */
 /* ************************************************************************** */
+int		interpolate_color(int color1, int color2, float t);
+int		assign_height_color(t_point *pt, t_map *map);
 
 /* ************************************************************************** */
 /*                            Event Handling                                  */
@@ -74,11 +99,13 @@ int		handle_mouse(int button, int x, int y, t_fdf *data);
 /* ************************************************************************** */
 /*                          Memory Management                                 */
 /* ************************************************************************** */
+void	clear_image(t_fdf *data);
 int		free_data(t_fdf *data);
 
 /* ************************************************************************** */
 /*                                utils                                       */
 /* ************************************************************************** */
 float	square(float x);
+void	find_min_max_z(t_map *map);
 
 #endif

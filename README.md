@@ -2,23 +2,12 @@
 Coding 3D Images
 
 Entender projeccion isometrica
-Entender projeccion spherica
 Entender rotaciones
 Entender 4d a 3d
-Entender bresshmeann algoritmo
+Entender projeccion spherica
 
-Implementar get_color
-implementar interpolar_color
-implementar eventos en donde pueda cambiar angulos especificos
-implementar zoom
-implemntar rotacion scroll
-implementar 4d
-Implementar cambios de profundidad
+implementar rotaciones 4d
 implementar el menu
-
-Arreglar que no se borre la imagen anterior
-Arreglar que gira en un extremo y queremos que gire en su centro
-Arreglar error de la libreria
 
 # 🔧 EDICIÓN
 # | Ctrl + L					→ Selecciona la línea actual

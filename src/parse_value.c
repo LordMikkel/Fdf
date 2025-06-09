@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 00:05:03 by migarrid          #+#    #+#             */
-/*   Updated: 2025/05/30 23:16:40 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/09 21:32:13 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,34 +22,35 @@ static int	fill_values(char **splitted, t_map *map, int row, int col)
 	if (splitted[1])
 		map->points[row][col].color = ft_strtol(splitted[1], 16);
 	else
-		map->points[row][col].color = DEFAULT_COLOR;
+		map->points[row][col].color
+			= assign_height_color(&map->points[row][col], map);
 	return (1);
 }
 
 static int	process_tokens(char *token, t_map *map, int row, int column)
 {
 	char	**splitted;
-	char	*trimmed;
 
-	trimmed = ft_strtrim(token, "\n");
-	if (!trimmed)
-		return (ft_putstr_fd(ERR_MEM, STDERR), 0);
-	splitted = ft_split(trimmed, ',');
+	splitted = ft_split(token, ',');
 	if (!splitted)
 		return (ft_putstr_fd(ERR_MEM, STDERR), 0);
 	if (!fill_values(splitted, map, row, column))
 		return (ft_putstr_fd(ERR_PARSE, STDERR), 0);
 	ft_free_str_array(splitted);
-	free(trimmed);
 	return (1);
 }
 
 static int	process_line(char *line, t_map *map, int row)
 {
 	char	**tokens;
+	char	*trimmed;
 	int		columns;
 
-	tokens = ft_split(line, ' ');
+	trimmed = ft_strtrim(line, " \n");
+	if (!trimmed)
+		return (ft_putstr_fd(ERR_MEM, STDERR), 0);
+	tokens = ft_split(trimmed, ' ');
+	free(trimmed);
 	if (!tokens)
 		return (ft_putstr_fd(ERR_MEM, STDERR), 0);
 	columns = 0;

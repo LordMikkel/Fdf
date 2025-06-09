@@ -6,13 +6,13 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 00:43:07 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/02 00:08:15 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/09 21:12:47 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-void	render_map(t_fdf *data, t_map *map)
+void	render_3d_map(t_fdf *data, t_map *map)
 {
 	int			x;
 	int			y;
@@ -25,24 +25,77 @@ void	render_map(t_fdf *data, t_map *map)
 		x = -1;
 		while (++x < map->width)
 		{
-			a = project_point(map->points[y][x], data->cam);
+			a = project_point(map->points[y][x], data->map, data->cam);
 			if (x + 1 < map->width)
 			{
-				b = project_point(map->points[y][x + 1], data->cam);
+				b = project_point(map->points[y][x + 1], data->map, data->cam);
 				draw_line(a, b, data);
 			}
 			if (y + 1 < map->height)
 			{
-				b = project_point(map->points[y + 1][x], data->cam);
+				b = project_point(map->points[y + 1][x], data->map, data->cam);
 				draw_line(a, b, data);
 			}
 		}
 	}
 }
 
+void	render_pentachoron_edges(t_fdf *data, t_map *map)
+{
+	int		i;
+	int		j;
+	t_point	p1;
+	t_point	p2;
+
+	i = 0;
+	while (i < 5)
+	{
+		j = i + 1;
+		p1 = project_point(map->points[0][i], *map, data->cam);
+		while (j < 5)
+		{
+			p2 = project_point(map->points[0][j], *map, data->cam);
+			draw_line(p1, p2, data);
+			j++;
+		}
+		i++;
+	}
+}
+
+void	render_tesseract_edges(t_fdf *data, t_map *map)
+{
+	int		i;
+	int		j;
+	t_point	p1;
+	t_point	p2;
+
+	i = 0;
+	while (i < 16)
+	{
+		j = i + 1;
+		p1 = project_point(map->points[0][i], *map, data->cam);
+		while (j < 16)
+		{
+			p2 = project_point(map->points[0][j], *map, data->cam);
+			if (diff_coords(&map->points[0][i], &map->points[0][j]) == 1)
+				draw_line(p1, p2, data);
+			j++;
+		}
+		i++;
+	}
+}
+
 void	render_fdf(t_fdf *data, t_map *map)
 {
-	mlx_clear_window(data->mlx, data->win);
-	render_map(data, map);
+	clear_image(data);
+	if (map->type == OBJECT_3D)
+		render_3d_map(data, map);
+	else if (map->type == OBJECT_4D)
+	{
+		if (map->object == PENTACHORON)
+			render_pentachoron_edges(data, map);
+		else if (map->object == TESSERACT)
+			render_tesseract_edges(data, map);
+	}
 	mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
 }
