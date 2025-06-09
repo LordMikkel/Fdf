@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   event.c                                            :+:      :+:    :+:   */
+/*   events1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/25 18:16:43 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/09 21:36:31 by migarrid         ###   ########.fr       */
+/*   Created: 2025/06/09 21:56:13 by migarrid          #+#    #+#             */
+/*   Updated: 2025/06/09 21:56:51 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,23 +58,6 @@ int	handle_key(int key, t_fdf *data)
 	handle_rotation_keys(key, data);
 	handle_view_keys(key, data);
 	handle_scale_keys(key, data);
-	render_fdf(data, &data->map);
-	return (0);
-}
-
-int	handle_mouse(int button, int x, int y, t_fdf *data)
-{
-	printf("button: %d\n", button);
-	printf("x: %d\n", x);
-	printf("y: %d\n", y);
-	if (button == ROTATE_RIGHT)
-		data->cam.gamma += 0.05f;
-	if (button == ROTATE_LEFT)
-		data->cam.gamma -= 0.05f;
-	if (button == ZOOM_IN)
-		data->cam.zoom *= 1.1f;
-	if (button == ZOOM_OUT)
-		data->cam.zoom /= 1.1f;
 	render_fdf(data, &data->map);
 	return (0);
 }

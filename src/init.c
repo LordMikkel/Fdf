@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 02:19:51 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/09 21:02:56 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/09 22:10:22 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,9 @@ static int	init_img(t_img *img, t_fdf *data)
 
 int	init_data(t_fdf *data)
 {
+	data->dragging = 0;
+	data->last_mouse_x = 0;
+	data->last_mouse_y = 0;
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		return (ft_putstr_fd(ERR_MLX, STDERR), 0);

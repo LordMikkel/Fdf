@@ -6,7 +6,7 @@
 #    By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 17:55:34 by migarrid          #+#    #+#              #
-#    Updated: 2025/06/08 02:17:13 by migarrid         ###   ########.fr        #
+#    Updated: 2025/06/09 22:01:37 by migarrid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -110,9 +110,10 @@ SRCS =				main.c \
 					parse_calculate.c \
 					parse_allocate.c \
 					parse_value.c \
-					event.c \
 					color.c \
 					4d.c \
+					events1.c \
+					events2.c \
 					utils.c \
 
 # **************************************************************************** #

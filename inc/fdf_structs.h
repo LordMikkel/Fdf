@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 18:59:36 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/09 19:27:01 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/09 21:58:19 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,9 @@ typedef struct s_fdf
 {
 	void	*mlx;
 	void	*win;
+	int		dragging;
+	int		last_mouse_x;
+	int		last_mouse_y;
 	t_img	img;
 	t_map	map;
 	t_cam	cam;
