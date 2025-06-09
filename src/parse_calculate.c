@@ -6,16 +6,27 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 22:15:13 by migarrid          #+#    #+#             */
-/*   Updated: 2025/05/24 00:47:10 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/07 16:43:37 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-static int	is_valid_number(char c)
+static int	token_is_number(const char *s)
 {
-	if (!ft_isdigit(c) && ft_issign(c) && ft_ishex(c))
+	int	i;
+
+	i = 0;
+	if (!s || !s[i])
 		return (0);
+	if (ft_issign(s[i]))
+		i++;
+	while (s[i])
+	{
+		if (!ft_isdigit(s[i]) && !ft_ishex(s[i]) && s[i] != '\n' && s[i] != ',')
+			return (0);
+		i++;
+	}
 	return (1);
 }
 
@@ -30,7 +41,7 @@ static int	validate_dimensions(const char *line, t_map *map)
 	columns = 0;
 	while (tokens[columns])
 	{
-		if (!is_valid_number(tokens[columns][0]))
+		if (!token_is_number(tokens[columns]))
 		{
 			ft_free_str_array(tokens);
 			return (ft_putstr_fd(ERR_PARSE, STDERR), 0);

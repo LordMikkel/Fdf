@@ -6,19 +6,18 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 02:48:13 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/03 11:46:43 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/09 20:58:25 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-void	project_3d_to_2d(t_point *point, int projection)
+static void	project_3d_to_2d(t_point *point, int projection, t_map map)
 {
-	float	radius;
-	float	theta;
-	float	phi;
 	float	iso_x;
 	float	iso_y;
+	float	distance;
+	float	factor;
 
 	if (projection == ISOMETRIC)
 	{
@@ -27,20 +26,19 @@ void	project_3d_to_2d(t_point *point, int projection)
 		point->x = iso_x;
 		point->y = iso_y;
 	}
-	else if (projection == PARALEL)
+	else if (projection == POV)
 	{
+		distance = 500.0f;
+		factor = distance / (-point->z + distance + 0.0001f);
+		point->x = point->x * factor;
+		point->y = point->y * factor;
 	}
-	else if (projection == SPERICHAL)
+	else if (projection == ORTHOGONAL)
 	{
-		radius = sqrtf(square(point->x) + square(point->y) + square(point->z));
-		theta = atan2f(point->y, point->x);
-		phi = acosf(point->z / (radius + 0.0001f));
-		point->x = radius * sinf(phi) * cosf(theta);
-		point->y = radius * sinf(phi) * sinf(theta);
 	}
 }
 
-void	project_4d_to_3d(t_point *point)
+static void	project_4d_to_3d(t_point *point)
 {
 	float	distance;
 	float	factor;
@@ -55,16 +53,20 @@ void	project_4d_to_3d(t_point *point)
 	}
 }
 
-t_point	project_point(t_point point, t_cam cam)
+t_point	project_point(t_point point, t_map map, t_cam cam)
 {
 	point.x = point.x * cam.zoom;
 	point.y = point.y * cam.zoom;
 	point.z = point.z * cam.zoom;
 	project_4d_to_3d(&point);
+	if (map.type == OBJECT_3D)
+		move_map_to_origin(&point, map, cam);
+	else if (map.type == OBJECT_4D)
+		move_map_to_origin_4d(&point, map, cam);
 	rotate_x(&point.y, &point.z, cam.alpha);
 	rotate_y(&point.x, &point.z, cam.beta);
 	rotate_z(&point.x, &point.y, cam.gamma);
-	project_3d_to_2d(&point, cam.projection);
+	project_3d_to_2d(&point, cam.projection, map);
 	point.x = point.x + cam.x_offset;
 	point.y = point.y + cam.y_offset;
 	return (point);

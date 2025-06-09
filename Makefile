@@ -6,7 +6,7 @@
 #    By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 17:55:34 by migarrid          #+#    #+#              #
-#    Updated: 2025/06/01 23:40:05 by migarrid         ###   ########.fr        #
+#    Updated: 2025/06/08 02:17:13 by migarrid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ NAME				= fdf
 #                            Compiler and Flags                                #
 # **************************************************************************** #
 CC					= cc
-CFLAGS				= -Wall -Wextra -Werror -g #-fsanitize=address,undefined -O0
+#CFLAGS				= -Wall -Wextra -Werror -g #-fsanitize=address,undefined -O0
 MLXI				= -L$(MINILIBX_DIR) -lmlx -lXext -lX11 -lm
 
 # **************************************************************************** #
@@ -48,7 +48,9 @@ DEPS				= $(HEADER) $(MAKEFILE) $(LIBFT_H)  $(LIBFT_MAKEFILE) $(MINILIBX_H) $(MI
 #                      File Paths and Dependencies                             #
 # **************************************************************************** #
 MAKEFILE				= Makefile
-HEADER					= $(INC_DIR)/fdf.h
+HEADER					= $(INC_DIR)/fdf.h \
+						  $(INC_DIR)/fdf_macros.h \
+						  $(INC_DIR)/fdf_structs.h
 LIBFT_A					= $(LIBFT_DIR)/libft_plus.a
 LIBFT_H					= $(LIBFT_DIR)/libft_plus.h
 LIBFT_MAKEFILE			= $(LIBFT_DIR)/Makefile
@@ -101,11 +103,16 @@ SRCS =				main.c \
 					draw.c \
 					projection.c \
 					rotation_3d.c \
+					traslation.c \
+					sets1.c \
+					sets2.c \
 					parse_principal.c \
 					parse_calculate.c \
 					parse_allocate.c \
 					parse_value.c \
 					event.c \
+					color.c \
+					4d.c \
 					utils.c \
 
 # **************************************************************************** #

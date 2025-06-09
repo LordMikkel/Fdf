@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 02:19:51 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/02 00:35:16 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/09 21:02:56 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,24 +25,27 @@ void	init_line(t_line *line, t_point_2d a, t_point_2d b)
 	else
 		line->sy = -1;
 	line->error = line->dx - line->dy;
-	line->color1 = a.color;
-	line->color2 = b.color;
-	if (line->dy > line->dx)
-		line->steps = line->dy;
-	else
-		line->steps = line->dx;
+	line->c1 = a.color;
+	line->c2 = b.color;
+	line->steps = ft_max(line->dx, line->dy);
+	line->t = 0;
 }
 
 void	init_cam(t_cam *cam, t_map *map)
 {
-	int	max_zoom_width;
-	int	max_zoom_height;
+	int		max_zoom_w;
+	int		maz_zoom_h;
+	int		max_zoom_d;
+	float	center_z;
 
-	max_zoom_width = (WIN_WIDTH / map->width) / 2;
-	max_zoom_height = (WIN_HEIGHT / map->height) / 2;
-	cam->zoom = fmin(max_zoom_width, max_zoom_height);
+	find_min_max_z(map);
+	max_zoom_w = (WIN_WIDTH / map->width) / 2;
+	maz_zoom_h = (WIN_HEIGHT / map->height) / 2;
+	max_zoom_d = ((WIN_HEIGHT / (map->max_z - map->min_z)) / 1.8);
+	center_z = (map->max_z + map->min_z) / 3;
+	cam->zoom = fmax(1, fmin(fmin(max_zoom_w, maz_zoom_h), max_zoom_d));
 	cam->x_offset = WIN_WIDTH / 2;
-	cam->y_offset = WIN_HEIGHT / 2;
+	cam->y_offset = (WIN_HEIGHT / 2) + center_z * cam->zoom;
 	cam->alpha = 0;
 	cam->beta = 0;
 	cam->gamma = 0;
@@ -55,6 +58,10 @@ static void	init_map(t_map *map)
 	map->points = NULL;
 	map->width = 0;
 	map->height = 0;
+	map->max_z = 0;
+	map->min_z = 0;
+	map->type = 0;
+	map->object = 0;
 	printf("Succes Init Map\n");
 }
 

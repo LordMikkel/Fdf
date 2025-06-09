@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 23:40:08 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/02 00:52:30 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/09 20:08:29 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,12 @@ int	main(int ac, char **av)
 	printf("Corrrect Number of Arguments\n");
 	if (!init_data(&data))
 		error_exit(&data);
-	if (!parse_map(av[1], &data.map))
+	if (check_4d_mode(av[1], &data.map))
+	{
+		if (!init_4d(av[1], &data.map))
+			error_exit(&data);
+	}
+	else if (!parse_map(av[1], &data.map))
 		error_exit(&data);
 	init_cam(&data.cam, &data.map);
 	render_fdf(&data, &data.map);

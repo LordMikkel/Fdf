@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 16:10:39 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/01 18:47:54 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/05 21:32:14 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ bool	ft_atoi_range(const char *nptr);
 long	ft_strtol(const char *nptr, int base);
 float	ft_strtof(const char *nptr);
 float	ft_square(float x);
+int		ft_max(int a, int b);
 int		ft_strcmp(const char *s1, const char *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);

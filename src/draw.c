@@ -6,18 +6,20 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 22:46:57 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/05 18:21:13 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/09 19:20:08 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-void	convert_point_to_int(t_point_2d *a, t_point_2d *b, t_point p1, t_point p2)
+void	conv_point_to_int(t_point_2d *a, t_point_2d *b, t_point p1, t_point p2)
 {
 	a->x = (int)roundf(p1.x);
 	a->y = (int)roundf(p1.y);
+	a->color = p1.color;
 	b->x = (int)roundf(p2.x);
 	b->y = (int)roundf(p2.y);
+	b->color = p2.color;
 }
 
 void	ft_mlx_put_pixel(t_fdf *data, int x, int y, int color)
@@ -32,18 +34,18 @@ void	ft_mlx_put_pixel(t_fdf *data, int x, int y, int color)
 
 void	draw_line(t_point p1, t_point p2, t_fdf *data)
 {
-	float	t;
-	t_line	line;
 	t_point_2d	a;
 	t_point_2d	b;
+	t_line		line;
 
-	convert_point_to_int(&a, &b, p1, p2);
+	conv_point_to_int(&a, &b, p1, p2);
 	init_line(&line, a, b);
 	while (TRUE)
 	{
-		ft_mlx_put_pixel(data, a.x, a.y, DEFAULT_COLOR);
+		line.mix_c = interpolate_color(line.c1, line.c2, line.t / line.steps);
+		ft_mlx_put_pixel(data, a.x, a.y, line.mix_c);
 		if (a.x == b.x && a.y == b.y)
-		break ;
+			break ;
 		line.double_error = 2 * line.error;
 		if (line.double_error > -line.dy)
 		{
@@ -55,6 +57,6 @@ void	draw_line(t_point p1, t_point p2, t_fdf *data)
 			line.error = line.error + line.dx;
 			a.y += line.sy;
 		}
-		t++;
+		line.t++;
 	}
 }
