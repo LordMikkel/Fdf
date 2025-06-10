@@ -85,6 +85,33 @@ void	render_tesseract_edges(t_fdf *data, t_map *map)
 	}
 }
 
+void	render_hexacosicoron_edges(t_fdf *data, t_map *map)
+{
+	int		i;
+	int		j;
+	t_point	p1;
+	t_point	p2;
+	double	dist;
+
+	i = 0;
+	while (i < 600)
+	{
+		j = i + 1;
+		p1 = project_point(map->points[0][i], *map, data->cam);
+		while (j < 600)
+		{
+			dist = calculate_distance(&map->points[0][i], &map->points[0][j]);
+			if (dist > 0.4 && dist < 0.9)
+			{
+				p2 = project_point(map->points[0][j], *map, data->cam);
+				draw_line(p1, p2, data);
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
 void	render_fdf(t_fdf *data, t_map *map)
 {
 	clear_image(data);
@@ -96,6 +123,8 @@ void	render_fdf(t_fdf *data, t_map *map)
 			render_pentachoron_edges(data, map);
 		else if (map->object == TESSERACT)
 			render_tesseract_edges(data, map);
+		else if (map->object == HEXACOSICORON)
+			render_hexacosicoron_edges(data, map);
 	}
 	mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
 }

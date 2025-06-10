@@ -12,16 +12,6 @@
 
 #include "../inc/fdf.h"
 
-void	conv_point_to_int(t_point_2d *a, t_point_2d *b, t_point p1, t_point p2)
-{
-	a->x = (int)roundf(p1.x);
-	a->y = (int)roundf(p1.y);
-	a->color = p1.color;
-	b->x = (int)roundf(p2.x);
-	b->y = (int)roundf(p2.y);
-	b->color = p2.color;
-}
-
 void	ft_mlx_put_pixel(t_fdf *data, int x, int y, int color)
 {
 	char	*dst;
@@ -30,6 +20,16 @@ void	ft_mlx_put_pixel(t_fdf *data, int x, int y, int color)
 		return ;
 	dst = data->img.addr + (y * data->img.length + x * (data->img.bpp / 8));
 	*(unsigned int *)dst = color;
+}
+
+void	conv_point_to_int(t_point_2d *a, t_point_2d *b, t_point p1, t_point p2)
+{
+	a->x = (int)roundf(p1.x);
+	a->y = (int)roundf(p1.y);
+	a->color = p1.color;
+	b->x = (int)roundf(p2.x);
+	b->y = (int)roundf(p2.y);
+	b->color = p2.color;
 }
 
 void	draw_line(t_point p1, t_point p2, t_fdf *data)

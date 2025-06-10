@@ -58,3 +58,17 @@ int	diff_coords(t_point *a, t_point *b)
 		diff++;
 	return (diff);
 }
+
+double	calculate_distance(t_point *p1, t_point *p2)
+{
+	double	dx;
+	double	dy;
+	double	dz;
+	double	dw;
+
+	dx = p1->x - p2->x;
+	dy = p1->y - p2->y;
+	dz = p1->z - p2->z;
+	dw = p1->w - p2->w;
+	return (sqrt(dx * dx + dy * dy + dz * dz + dw * dw));
+}

@@ -61,8 +61,6 @@ t_point	project_point(t_point point, t_map map, t_cam cam)
 	project_4d_to_3d(&point);
 	if (map.type == OBJECT_3D)
 		move_map_to_origin(&point, map, cam);
-	else if (map.type == OBJECT_4D)
-		move_map_to_origin_4d(&point, map, cam);
 	rotate_x(&point.y, &point.z, cam.alpha);
 	rotate_y(&point.x, &point.z, cam.beta);
 	rotate_z(&point.x, &point.y, cam.gamma);

@@ -23,6 +23,7 @@
 # define OBJECT_4D		4
 # define PENTACHORON	5
 # define TESSERACT		16
+# define HEXACOSICORON	600
 # define DEFAULT_ANG 	0.6154797f
 # define PI				3.14159265358979323846
 
@@ -77,8 +78,8 @@
 /* ************************************************************************** */
 /*                          Window Settings                                   */
 /* ************************************************************************** */
-# define WIN_WIDTH		720
-# define WIN_HEIGHT		720
+# define WIN_WIDTH		1080
+# define WIN_HEIGHT		1080
 
 /* ************************************************************************** */
 /*                                Colors                                      */
