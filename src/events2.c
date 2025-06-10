@@ -6,13 +6,13 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 21:56:25 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/09 22:13:05 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/09 22:17:53 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-int	handle_expose(t_fdf *data)
+int	handle_resize(t_fdf *data)
 {
 	render_fdf(data, &data->map);
 	return (0);

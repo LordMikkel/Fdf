@@ -6,7 +6,7 @@
 #    By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 17:55:34 by migarrid          #+#    #+#              #
-#    Updated: 2025/06/09 22:01:37 by migarrid         ###   ########.fr        #
+#    Updated: 2025/06/10 00:03:51 by migarrid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ RM					= rm -rf
 PRINT				= printf
 MAKE				= make
 MKDIR				= mkdir -p
+NORM				= norminette
 
 # **************************************************************************** #
 #                              Directories                                     #
@@ -161,7 +162,15 @@ $(MINILIBX_A): $(MINILIBX_MAKEFILE) $(MINILIBX_H)
 	@$(MAKE) -s -C $(MINILIBX_DIR)
 
 # Rule to compile bonus
-bonus:
+4d:
+	@./$(NAME) tesseract
+	@./$(NAME) pentachoron
+
+# Test the norminette in my .c files
+norm:
+	@$(NORM) $(SRC_DIR)
+	@$(NORM) $(INC_DIR)
+	@$(NORM) $(LIBFT_DIR)
 
 # Clean object files
 clean:

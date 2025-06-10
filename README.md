@@ -1,7 +1,7 @@
 # Fdf
 Coding 3D Images
 
-ver si podemos mejorar eso de la proyeccion porque maybe no hace falta
+ver si podemos mejorar eso de la proyeccion porque maybe no hace falta hacer otra vez la isometrica
 Entender rotaciones
 Entender 4d a 3d
 
