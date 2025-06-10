@@ -46,8 +46,8 @@ int		init_4d(const char *av, t_map *map);
 int		diff_coords(t_point *a, t_point *b);
 int		init_tesseract(t_map *map);
 int		init_pentachoron(t_map *map);
-int		init_hecatonicosachoron(t_map *map);
-void	move_map_to_origin_4d(t_point *point, t_map map, t_cam cam);
+int		init_hexacosicoron(t_map *map);
+double	calculate_distance(t_point *p1, t_point *p2);
 
 /* ************************************************************************** */
 /*                          Rendering & Projection                            */
