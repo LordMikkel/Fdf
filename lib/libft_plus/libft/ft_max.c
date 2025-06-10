@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 21:30:25 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/05 21:31:54 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/09 23:33:41 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_max(int a, int b)
 {
 	if (a > b)
-		return a;
+		return (a);
 	else
-		return b;
+		return (b);
 }

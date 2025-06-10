@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 18:59:15 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/09 21:03:26 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/09 23:32:54 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
 # define ISOMETRIC		0
 # define ORTHOGONAL		1
 # define POV			2
-# define PI				3.14159265358979323846
-# define DEFAULT_ANG 	0.6154797f
 # define OBJECT_3D		3
 # define OBJECT_4D		4
 # define PENTACHORON	5
 # define TESSERACT		16
+# define DEFAULT_ANG 	0.6154797f
+# define PI				3.14159265358979323846
 
 /* ************************************************************************** */
 /*                          Error & Limits                                    */
@@ -35,18 +35,14 @@
 # define ERR_ARGS		"Usage: Provide one .fdf file (ex: ./fdf map.fdf)\n"
 # define ERR_EXT		"Error: Invalid map format. file must be .fdf\n"
 # define ERR_OPEN		"Error: Can't open file. Check existence/permissions\n"
-# define ERR_READ		"Error: Read failed. May be corrupted/inaccessible\n"
 # define ERR_PARSE		"Error: Data parsing failed. Check number formatting\n"
 # define ERR_LINE		"Error: Line length mismatch. Rows must be equals\n"
-# define ERR_EMPTY		"Error: Empty file. Valid .fdf required\n"
 # define ERR_MEM		"Error: Memory alloc failed. Check system resources\n"
 # define ERR_MLX		"Error: Mlx init failed. Check system resources\n"
 
 /* ************************************************************************** */
 /*                          Key Bindings and Events                           */
 /* ************************************************************************** */
-# define CLOSE_EVENT	17
-# define NO_FILTER		0
 # define ESC_KEY		65307
 # define KEY_LEFT		65361
 # define KEY_RIGHT		65363
@@ -69,6 +65,14 @@
 # define ROTATE_LEFT	7
 # define ROTATE_RIGHT	6
 # define CLICK			1
+# define CLOSE_EVENT	17
+# define MOUSE_RELESE	5
+# define MOUSE_MOVE		6
+# define RESIZE			12
+# define NO_MASK		0
+# define MASK_MOUSE_R	(1L << 3)
+# define MASK_MOUSE_M	(1L << 6)
+# define MASK_RESIZE	(1L << 15)
 
 /* ************************************************************************** */
 /*                          Window Settings                                   */
@@ -79,10 +83,10 @@
 /* ************************************************************************** */
 /*                                Colors                                      */
 /* ************************************************************************** */
-# define DEFAULT_COLOR	-1
 # define COLOR_LOW		0x641D96
 # define COLOR_MID  	0x5F34C4
 # define COLOR_HIGH 	0x3A5DC2
+# define WHITE			0xFFFFFF
 # define CYAN			0x00E5FF
 # define AZURE			0x0099CC
 # define MINT			0x66FFCC
