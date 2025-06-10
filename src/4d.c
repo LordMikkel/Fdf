@@ -108,6 +108,7 @@ int	init_tesseract(t_map *map)
 
 int	init_hexacosicoron(t_map *map)
 {
+	ft_putstr_fd("Descomenta y no veas la norminette", STDERR);
 	return (0);
 }
 
