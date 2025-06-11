@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 18:29:16 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/09 23:34:18 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/11 18:51:38 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,12 @@ int		diff_coords(t_point *a, t_point *b);
 int		init_tesseract(t_map *map);
 int		init_pentachoron(t_map *map);
 int		init_hexacosicoron(t_map *map);
+void	rotate_xy(float *x, float *y, float angle);
+void	rotate_xz(float *x, float *z, float angle);
+void	rotate_xw(float *x, float *w, float angle);
+void	rotate_yz(float *y, float *z, float angle);
+void	rotate_yw(float *y, float *w, float angle);
+void	rotate_zw(float *z, float *w, float angle);
 double	calculate_distance(t_point *p1, t_point *p2);
 
 /* ************************************************************************** */

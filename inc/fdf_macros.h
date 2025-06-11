@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 18:59:15 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/09 23:32:54 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/11 22:58:53 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,17 @@
 # define KEY_W			119
 # define KEY_P			112
 # define KEY_S			115
+# define KEY_A			97
+# define KEY_D			100
+# define KEY_Z			122
+# define KEY_X			120
+# define KEY_E			101
+# define KEY_U			117
+# define KEY_J			106
+# define KEY_K			107
+# define KEY_B			98
+# define KEY_MENOR		44
+# define KEY_MAYOR		46
 # define ZOOM_IN		4
 # define ZOOM_OUT		5
 # define ROTATE_LEFT	7
@@ -71,9 +82,9 @@
 # define MOUSE_MOVE		6
 # define RESIZE			12
 # define NO_MASK		0
-# define MASK_MOUSE_R	(1L << 3)
-# define MASK_MOUSE_M	(1L << 6)
-# define MASK_RESIZE	(1L << 15)
+# define MASK_MOUSE_R	8		// 1 << 3
+# define MASK_MOUSE_M	64		// 1 << 6
+# define MASK_RESIZE	32768	// 1 << 15
 
 /* ************************************************************************** */
 /*                          Window Settings                                   */

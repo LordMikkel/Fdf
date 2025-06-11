@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 02:48:13 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/09 20:58:25 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/11 20:51:22 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,21 +44,25 @@ static void	project_4d_to_3d(t_point *point)
 	float	factor;
 
 	distance = 5.0f;
-	if (point->w != 0.0f)
-	{
-		factor = distance / (distance - point->w);
-		point->x = point->x * factor;
-		point->y = point->y * factor;
-		point->z = point->z * factor;
-	}
+	factor = distance / (distance - point->w);
+	point->x = point->x * factor;
+	point->y = point->y * factor;
+	point->z = point->z * factor;
 }
 
 t_point	project_point(t_point point, t_map map, t_cam cam)
 {
+	if (map.type == OBJECT_4D)
+	{
+		rotate_xy(&point.x, &point.y, cam.delta);
+		rotate_xz(&point.x, &point.z, cam.epsilon);
+		rotate_yw(&point.y, &point.w, cam.theta);
+		rotate_zw(&point.z, &point.w, cam.iota);
+		project_4d_to_3d(&point);
+	}
 	point.x = point.x * cam.zoom;
 	point.y = point.y * cam.zoom;
 	point.z = point.z * cam.zoom;
-	project_4d_to_3d(&point);
 	if (map.type == OBJECT_3D)
 		move_map_to_origin(&point, map, cam);
 	rotate_x(&point.y, &point.z, cam.alpha);

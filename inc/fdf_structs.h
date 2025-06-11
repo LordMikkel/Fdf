@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 18:59:36 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/09 21:58:19 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/11 20:43:52 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,10 @@ typedef struct s_cam
 	float	alpha;
 	float	beta;
 	float	gamma;
+	float	delta;
+	float	epsilon;
+	float	theta;
+	float	iota;
 	float	projection;
 }	t_cam;
 
