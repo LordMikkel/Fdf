@@ -6,7 +6,7 @@
 #    By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 17:55:34 by migarrid          #+#    #+#              #
-#    Updated: 2025/06/10 00:03:51 by migarrid         ###   ########.fr        #
+#    Updated: 2025/06/11 18:48:51 by migarrid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,6 +76,32 @@ BOLD 				= \033[1m
 CLEAR 				= \r\033[K
 
 # **************************************************************************** #
+#                               Source File                                    #
+# **************************************************************************** #
+SRCS =				main.c \
+					exit.c \
+					free.c \
+					init.c \
+					mlx.c \
+					render.c \
+					draw.c \
+					projection.c \
+					rotation_3d.c \
+					rotation_4d.c \
+					traslation.c \
+					sets1.c \
+					sets2.c \
+					parse_principal.c \
+					parse_calculate.c \
+					parse_allocate.c \
+					parse_value.c \
+					color.c \
+					4d.c \
+					events1.c \
+					events2.c \
+					utils.c \
+
+# **************************************************************************** #
 #                              Progress Bars                                   #
 # **************************************************************************** #
 SRC_COUNT_TOT := $(shell echo -n $(SRCS) | wc -w)
@@ -92,30 +118,6 @@ endif
 BONUS_COUNT := 0
 BONUS_PCT = $(shell expr 100 \* $(BONUS_COUNT) / $(BONUS_COUNT_TOT))
 
-# **************************************************************************** #
-#                               Source File                                    #
-# **************************************************************************** #
-SRCS =				main.c \
-					exit.c \
-					free.c \
-					init.c \
-					mlx.c \
-					render.c \
-					draw.c \
-					projection.c \
-					rotation_3d.c \
-					traslation.c \
-					sets1.c \
-					sets2.c \
-					parse_principal.c \
-					parse_calculate.c \
-					parse_allocate.c \
-					parse_value.c \
-					color.c \
-					4d.c \
-					events1.c \
-					events2.c \
-					utils.c \
 
 # **************************************************************************** #
 #                               Object File                                    #
@@ -162,9 +164,10 @@ $(MINILIBX_A): $(MINILIBX_MAKEFILE) $(MINILIBX_H)
 	@$(MAKE) -s -C $(MINILIBX_DIR)
 
 # Rule to compile bonus
-4d:
+4d: all
 	@./$(NAME) tesseract
 	@./$(NAME) pentachoron
+	@./$(NAME) hexacosicoron
 
 # Test the norminette in my .c files
 norm:

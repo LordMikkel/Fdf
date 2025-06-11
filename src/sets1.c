@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 01:23:05 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/09 22:13:23 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/11 20:50:45 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@ void	set_top_view(t_cam *cam)
 	cam->alpha = 0;
 	cam->beta = 0;
 	cam->gamma = 0;
+	cam->delta = 0;
+	cam->epsilon = 0;
+	cam->theta = 0;
+	cam->iota = 0;
 	cam->projection = ORTHOGONAL;
 }
 
@@ -25,6 +29,10 @@ void	set_front_view(t_cam *cam)
 	cam->alpha = PI / 2;
 	cam->beta = 0;
 	cam->gamma = 0;
+	cam->delta = 0;
+	cam->epsilon = 0;
+	cam->theta = 0;
+	cam->iota = 0;
 	cam->projection = ORTHOGONAL;
 }
 
@@ -33,5 +41,9 @@ void	set_lateral_view(t_cam *cam)
 	cam->alpha = PI / 2;
 	cam->beta = PI / 2;
 	cam->gamma = 0;
+	cam->delta = 0;
+	cam->epsilon = 0;
+	cam->theta = 0;
+	cam->iota = 0;
 	cam->projection = ORTHOGONAL;
 }

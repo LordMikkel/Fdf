@@ -21,6 +21,7 @@ implementar color de fondo
 # | F2							→ Renombrar variable/función
 # | F12							→ Ir a la definición
 # | Ctrl + Shift + L			→ Selecciona TODAS las ocurrencias
+# | Ctrl + Alt + i				→ Abrir y cerrar copilot
 
 # 🎯 SELECCIÓN COMPLEJA
 # | Shift + Alt + Arrastrar		→ Selección en bloque (columnas)

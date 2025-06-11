@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 02:19:51 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/09 22:10:22 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/11 20:44:51 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,10 @@ void	init_cam(t_cam *cam, t_map *map)
 	cam->alpha = 0;
 	cam->beta = 0;
 	cam->gamma = 0;
+	cam->delta = 0;
+	cam->epsilon = 0;
+	cam->theta = 0;
+	cam->iota = 0;
 	cam->projection = ISOMETRIC;
 	printf("Succes Init Cam\n");
 }
