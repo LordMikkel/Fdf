@@ -1,6 +1,7 @@
 # Ignora
-#*.txt
+*.txt
 *.out
+*.exe
 *.o
 *.a
 *.swp

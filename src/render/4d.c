@@ -6,11 +6,11 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 00:58:39 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/11 22:52:17 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/12 22:15:44 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/fdf.h"
+#include "../../inc/fdf.h"
 
 int	check_4d_mode(const char *av, t_map *map)
 {
@@ -35,7 +35,7 @@ int	check_4d_mode(const char *av, t_map *map)
 	return (0);
 }
 
-int	init_4d(const char *av, t_map *map)
+int	init_4d(t_map *map)
 {
 	map->type = OBJECT_4D;
 	if (map->object == PENTACHORON)
@@ -108,6 +108,7 @@ int	init_tesseract(t_map *map)
 
 int	init_hexacosicoron(t_map *map)
 {
+	map->object = HEXACOSICORON;
 	ft_putstr_fd("Descomenta y no veas la norminette", STDERR);
 	return (0);
 }

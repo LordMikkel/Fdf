@@ -6,11 +6,11 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 00:43:07 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/09 21:12:47 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/12 22:07:58 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/fdf.h"
+#include "../../inc/fdf.h"
 
 void	render_3d_map(t_fdf *data, t_map *map)
 {
@@ -26,12 +26,12 @@ void	render_3d_map(t_fdf *data, t_map *map)
 		while (++x < map->width)
 		{
 			a = project_point(map->points[y][x], data->map, data->cam);
-			if (x + 1 < map->width)
+			if (x + 1 < map->width - 1)
 			{
 				b = project_point(map->points[y][x + 1], data->map, data->cam);
 				draw_line(a, b, data);
 			}
-			if (y + 1 < map->height)
+			if (y + 1 < map->height && x < map->width - 1)
 			{
 				b = project_point(map->points[y + 1][x], data->map, data->cam);
 				draw_line(a, b, data);
@@ -127,4 +127,5 @@ void	render_fdf(t_fdf *data, t_map *map)
 			render_hexacosicoron_edges(data, map);
 	}
 	mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
+	draw_menu(data);
 }

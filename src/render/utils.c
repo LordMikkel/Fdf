@@ -6,11 +6,11 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 03:04:56 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/09 19:05:21 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/12 22:08:22 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/fdf.h"
+#include "../../inc/fdf.h"
 
 void	find_min_max_z(t_map *map)
 {

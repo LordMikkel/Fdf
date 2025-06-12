@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 18:59:15 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/11 22:58:53 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/12 21:36:20 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@
 # define ERR_EXT		"Error: Invalid map format. file must be .fdf\n"
 # define ERR_OPEN		"Error: Can't open file. Check existence/permissions\n"
 # define ERR_PARSE		"Error: Data parsing failed. Check number formatting\n"
-# define ERR_LINE		"Error: Line length mismatch. Rows must be equals\n"
 # define ERR_MEM		"Error: Memory alloc failed. Check system resources\n"
 # define ERR_MLX		"Error: Mlx init failed. Check system resources\n"
 
@@ -103,11 +102,15 @@
 # define AZURE			0x0099CC
 # define MINT			0x66FFCC
 # define GREEN			0x00FFD0
+# define DARK_GREEN		0x6DBFA0
 # define PURPLE			0x9966FF
 # define RED_ORANGE		0xFF4500
 # define DARK_ORANGE	0xFF8C00
 # define ORANGE			0xFFA500
 # define GOLD			0xFFD700
+# define MOON_GOLD		0xD4AF37
 # define TOMATO			0xFF6347
+# define SAND			0xC2B280
+# define GRAY			0x242424
 
 #endif

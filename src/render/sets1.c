@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sets2.c                                            :+:      :+:    :+:   */
+/*   sets1.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/07 01:23:16 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/11 20:50:56 by migarrid         ###   ########.fr       */
+/*   Created: 2025/06/07 01:23:05 by migarrid          #+#    #+#             */
+/*   Updated: 2025/06/12 22:08:10 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/fdf.h"
+#include "../../inc/fdf.h"
 
-void	set_isometric_view(t_cam *cam)
+void	set_top_view(t_cam *cam)
 {
 	cam->alpha = 0;
 	cam->beta = 0;
@@ -21,35 +21,29 @@ void	set_isometric_view(t_cam *cam)
 	cam->epsilon = 0;
 	cam->theta = 0;
 	cam->iota = 0;
-	cam->projection = ISOMETRIC;
+	cam->projection = ORTHOGONAL;
 }
 
-void	set_pov_view(t_cam *cam)
+void	set_front_view(t_cam *cam)
 {
-	cam->alpha = PI / 10;
+	cam->alpha = PI / 2;
 	cam->beta = 0;
 	cam->gamma = 0;
 	cam->delta = 0;
 	cam->epsilon = 0;
 	cam->theta = 0;
 	cam->iota = 0;
-	cam->projection = POV;
+	cam->projection = ORTHOGONAL;
 }
 
-void	scale_map_z(t_point **points, int width, int height, float scale)
+void	set_lateral_view(t_cam *cam)
 {
-	int	y;
-	int	x;
-
-	y = 0;
-	while (y < height)
-	{
-		x = 0;
-		while (x < width)
-		{
-			points[y][x].z *= scale;
-			x++;
-		}
-		y++;
-	}
+	cam->alpha = PI / 2;
+	cam->beta = PI / 2;
+	cam->gamma = 0;
+	cam->delta = 0;
+	cam->epsilon = 0;
+	cam->theta = 0;
+	cam->iota = 0;
+	cam->projection = ORTHOGONAL;
 }

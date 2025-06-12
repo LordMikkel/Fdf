@@ -6,11 +6,11 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 21:56:13 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/11 22:53:24 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/12 22:07:01 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/fdf.h"
+#include "../../inc/fdf.h"
 
 static void	handle_3d_rotation_keys(int key, t_fdf *data)
 {

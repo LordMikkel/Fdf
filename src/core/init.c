@@ -6,11 +6,11 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 02:19:51 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/11 20:44:51 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/12 22:06:49 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/fdf.h"
+#include "../../inc/fdf.h"
 
 void	init_line(t_line *line, t_point_2d a, t_point_2d b)
 {
@@ -36,12 +36,16 @@ void	init_cam(t_cam *cam, t_map *map)
 	int		max_zoom_w;
 	int		maz_zoom_h;
 	int		max_zoom_d;
+	int		z_range;
 	float	center_z;
 
 	find_min_max_z(map);
+	z_range = map->max_z - map->min_z;
+	if (z_range == 0)
+		z_range = 1;
 	max_zoom_w = (WIN_WIDTH / map->width) / 2;
 	maz_zoom_h = (WIN_HEIGHT / map->height) / 2;
-	max_zoom_d = ((WIN_HEIGHT / (map->max_z - map->min_z)) / 1.8);
+	max_zoom_d = ((WIN_HEIGHT / (z_range)) / 1.8);
 	center_z = (map->max_z + map->min_z) / 3;
 	cam->zoom = fmax(1, fmin(fmin(max_zoom_w, maz_zoom_h), max_zoom_d));
 	cam->x_offset = WIN_WIDTH / 2;

@@ -6,11 +6,11 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 18:26:03 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/11 21:35:00 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/12 22:08:07 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/fdf.h"
+#include "../../inc/fdf.h"
 
 void	rotate_xy(float *x, float *y, float angle)
 {

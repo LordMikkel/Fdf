@@ -6,11 +6,11 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 00:17:51 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/09 22:23:27 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/12 22:06:57 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/fdf.h"
+#include "../../inc/fdf.h"
 
 void	mlx_setup(t_fdf *data)
 {

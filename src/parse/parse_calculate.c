@@ -6,11 +6,11 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 22:15:13 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/07 16:43:37 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/12 22:07:23 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/fdf.h"
+#include "../../inc/fdf.h"
 
 static int	token_is_number(const char *s)
 {
@@ -48,9 +48,8 @@ static int	validate_dimensions(const char *line, t_map *map)
 		}
 		columns++;
 	}
-	if (columns != map->width && map->width != 0)
-		return (ft_putstr_fd(ERR_LINE, STDERR), 0);
-	map->width = columns;
+	if (columns > map->width)
+		map->width = columns;
 	ft_free_str_array(tokens);
 	return (1);
 }

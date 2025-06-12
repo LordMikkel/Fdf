@@ -6,11 +6,11 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 22:15:26 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/09 20:08:15 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/12 22:07:26 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/fdf.h"
+#include "../../inc/fdf.h"
 
 static int	is_valid_ext(const char *filename)
 {
