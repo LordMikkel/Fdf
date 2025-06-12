@@ -6,11 +6,11 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 21:56:25 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/09 22:17:53 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/12 22:23:42 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/fdf.h"
+#include "../../inc/fdf.h"
 
 int	handle_resize(t_fdf *data)
 {
@@ -34,7 +34,11 @@ int	handle_mouse_move(int x, int y, t_fdf *data)
 int	handle_mouse_release(int button, int x, int y, t_fdf *data)
 {
 	if (button == 1)
+	{
 		data->dragging = 0;
+		data->last_mouse_x = x;
+		data->last_mouse_y = y;
+	}
 	return (0);
 }
 

@@ -1,13 +1,13 @@
 # Fdf
 Coding 3D Images
 
-ver si podemos mejorar eso de la proyeccion porque maybe no hace falta hacer otra vez la isometrica
 Entender rotaciones
 Entender 4d a 3d
+Entender hooks
+Entender put_pixel
 
-implementar rotaciones 4d
-implementar el menu
-implementar color de fondo
+arreglar zoom 4d;
+ver si se puede como ajustar la posicion en relacion al menu
 
 # 🔧 EDICIÓN
 # | Ctrl + L					→ Selecciona la línea actual

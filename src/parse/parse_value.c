@@ -6,11 +6,11 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 00:05:03 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/09 21:32:13 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/12 22:07:31 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/fdf.h"
+#include "../../inc/fdf.h"
 
 static int	fill_values(char **splitted, t_map *map, int row, int col)
 {

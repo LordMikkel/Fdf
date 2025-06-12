@@ -6,7 +6,7 @@
 #    By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 17:55:34 by migarrid          #+#    #+#              #
-#    Updated: 2025/06/11 18:48:51 by migarrid         ###   ########.fr        #
+#    Updated: 2025/06/12 22:29:53 by migarrid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ NAME				= fdf
 #                            Compiler and Flags                                #
 # **************************************************************************** #
 CC					= cc
-#CFLAGS				= -Wall -Wextra -Werror -g #-fsanitize=address,undefined -O0
+CFLAGS				= -Wall -Wextra -Werror -g #-fsanitize=address,undefined -O0
 MLXI				= -L$(MINILIBX_DIR) -lmlx -lXext -lX11 -lm
 
 # **************************************************************************** #
@@ -38,9 +38,7 @@ INC_DIR				= inc
 LIB_DIR				= lib
 MAPS_DIR			= maps
 OBJ_DIR				= obj
-OBJ_BONUS_DIR		= $(OBJ_DIR)/bonus
 SRC_DIR				= src
-SRC_BONUS_DIR 		= $(SRC_DIR)/bonus
 LIBFT_DIR			= $(LIB_DIR)/libft_plus
 MINILIBX_DIR		= $(LIB_DIR)/minilibx-linux
 DEPS				= $(HEADER) $(MAKEFILE) $(LIBFT_H)  $(LIBFT_MAKEFILE) $(MINILIBX_H) $(MINILIBX_MAKEFILE)
@@ -78,28 +76,30 @@ CLEAR 				= \r\033[K
 # **************************************************************************** #
 #                               Source File                                    #
 # **************************************************************************** #
-SRCS =				main.c \
-					exit.c \
-					free.c \
-					init.c \
-					mlx.c \
-					render.c \
-					draw.c \
-					projection.c \
-					rotation_3d.c \
-					rotation_4d.c \
-					traslation.c \
-					sets1.c \
-					sets2.c \
-					parse_principal.c \
-					parse_calculate.c \
-					parse_allocate.c \
-					parse_value.c \
-					color.c \
-					4d.c \
-					events1.c \
-					events2.c \
-					utils.c \
+SRCS =				core/main.c \
+					core/exit.c \
+					core/free.c \
+					core/init.c \
+					core/mlx.c \
+					render/render.c \
+					render/draw.c \
+					render/projection.c \
+					render/rotation_3d.c \
+					render/rotation_4d.c \
+					render/traslation.c \
+					render/sets1.c \
+					render/sets2.c \
+					render/color.c \
+					render/4d.c \
+					parse/parse_principal.c \
+					parse/parse_calculate.c \
+					parse/parse_allocate.c \
+					parse/parse_value.c \
+					events/events1.c \
+					events/events2.c \
+					menu/menu1.c \
+					menu/menu2.c \
+					render/utils.c \
 
 # **************************************************************************** #
 #                              Progress Bars                                   #
@@ -111,37 +111,16 @@ endif
 SRC_COUNT := 0
 SRC_PCT = $(shell expr 100 \* $(SRC_COUNT) / $(SRC_COUNT_TOT))
 
-BONUS_COUNT_TOT := $(shell echo -n $(SRC_BONUS) | wc -w)
-ifeq ($(shell test $(BONUS_COUNT_TOT) -le 0; echo $$?),0)
-	BONUS_COUNT_TOT := $(shell echo -n $(SRC_BONUS) | wc -w)
-endif
-BONUS_COUNT := 0
-BONUS_PCT = $(shell expr 100 \* $(BONUS_COUNT) / $(BONUS_COUNT_TOT))
-
-
 # **************************************************************************** #
 #                               Object File                                    #
 # **************************************************************************** #
 OBJS		= $(SRCS:%.c=$(OBJ_DIR)/%.o)
-OBJS_BONUS 	= $(SRC_BONUS:%.c=$(OBJ_BONUS_DIR)/%.o)
-
-# Create the directory if it doesn't exist
-${OBJS}: | ${OBJ_DIR}
-${OBJS_BONUS}: | $(OBJ_DIR)
-$(OBJ_DIR):
-	@$(MKDIR) $(OBJ_DIR)
-	@$(MKDIR) $(OBJ_BONUS_DIR)
 
 # Rule to compile archive .c to ,o with progress bars
 ${OBJ_DIR}/%.o: ${SRC_DIR}/%.c $(DEPS)
 	@$(eval SRC_COUNT = $(shell expr $(SRC_COUNT) + 1))
+	@$(MKDIR) $(dir $@)
 	@$(PRINT) "\r%100s\r[ %d/%d (%d%%) ] Compiling $(BLUE)$<$(DEFAULT)...\n" "" $(SRC_COUNT) $(SRC_COUNT_TOT) $(SRC_PCT)
-	@$(CC) $(CFLAGS) -I. -c -o $@ $<
-
-# Rule to compile archive .c to ,o with progress bars (Bonus)
-$(OBJ_BONUS_DIR)/%.o: $(SRC_BONUS_DIR)/%.c $(DEPS)
-	@$(eval BONUS_COUNT = $(shell expr $(BONUS_COUNT) + 1))
-	@$(PRINT) "\r%100s\r[ %d/%d (%d%%) ] Compiling $(MAGENTA)$<$(DEFAULT)...\n" "" $(BONUS_COUNT) $(BONUS_COUNT_TOT) $(BONUS_PCT)
 	@$(CC) $(CFLAGS) -I. -c -o $@ $<
 
 # **************************************************************************** #
@@ -178,7 +157,7 @@ norm:
 # Clean object files
 clean:
 	@$(MAKE) clean -s -C $(LIBFT_DIR)
-	@$(RM) $(OBJS)
+	@$(RM) $(OBJ_DIR)
 	@$(PRINT) "${CLEAR}${RESET}${GREEN}»${RESET} [${PURPLE}${BOLD}${NAME}${RESET}]: Objects were cleaned ${GREEN}successfully${RESET}.\n${RESET}"
 
 # Full clean
@@ -190,9 +169,6 @@ fclean: clean
 # Rebuild everything
 re: fclean all
 
-# Rebuild everything including bonus
-rebonus: fclean all bonus
-
 # Phony targets
-.PHONY: all bonus clean fclean re rebonus
+.PHONY: all 4d clean fclean re
 .DEFAULT_GOAL := all

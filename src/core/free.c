@@ -6,11 +6,11 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 22:05:48 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/11 21:05:50 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/12 22:06:45 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/fdf.h"
+#include "../../inc/fdf.h"
 
 static void	free_graphics(t_fdf *data)
 {

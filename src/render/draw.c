@@ -6,11 +6,11 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 22:46:57 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/09 19:20:08 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/12 22:07:48 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/fdf.h"
+#include "../../inc/fdf.h"
 
 void	ft_mlx_put_pixel(t_fdf *data, int x, int y, int color)
 {

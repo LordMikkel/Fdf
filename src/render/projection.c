@@ -6,13 +6,13 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 02:48:13 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/11 20:51:22 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/12 22:14:32 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/fdf.h"
+#include "../../inc/fdf.h"
 
-static void	project_3d_to_2d(t_point *point, int projection, t_map map)
+static void	project_3d_to_2d(t_point *point, int projection)
 {
 	float	iso_x;
 	float	iso_y;
@@ -68,7 +68,7 @@ t_point	project_point(t_point point, t_map map, t_cam cam)
 	rotate_x(&point.y, &point.z, cam.alpha);
 	rotate_y(&point.x, &point.z, cam.beta);
 	rotate_z(&point.x, &point.y, cam.gamma);
-	project_3d_to_2d(&point, cam.projection, map);
+	project_3d_to_2d(&point, cam.projection);
 	point.x = point.x + cam.x_offset;
 	point.y = point.y + cam.y_offset;
 	return (point);

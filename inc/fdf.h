@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 18:29:16 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/11 18:51:38 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/12 22:32:00 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		allocate_points_map_memory(t_map *map);
 /*                                    4d                                      */
 /* ************************************************************************** */
 int		check_4d_mode(const char *av, t_map *map);
-int		init_4d(const char *av, t_map *map);
+int		init_4d(t_map *map);
 int		diff_coords(t_point *a, t_point *b);
 int		init_tesseract(t_map *map);
 int		init_pentachoron(t_map *map);
@@ -73,7 +73,6 @@ void	set_top_view(t_cam *cam);
 void	set_front_view(t_cam *cam);
 void	set_lateral_view(t_cam *cam);
 void	set_pov_view(t_cam *cam);
-void	set_spherical_view(t_cam *cam);
 void	scale_map_z(t_point **points, int width, int height, float scale);
 void	move_map_to_origin(t_point *point, t_map map, t_cam cam);
 
@@ -98,6 +97,13 @@ int		handle_mouse(int button, int x, int y, t_fdf *data);
 int		handle_mouse_move(int x, int y, t_fdf *data);
 int		handle_mouse_release(int button, int x, int y, t_fdf *data);
 int		handle_resize(t_fdf *data);
+
+/* ************************************************************************** */
+/*                                 menu                                       */
+/* ************************************************************************** */
+void	draw_menu(t_fdf *data);
+void	put_angle_info(t_fdf *data, int x, int *y, int step);
+void	put_zoom_info(t_fdf *data, int x, int *y);
 
 /* ************************************************************************** */
 /*                                utils                                       */

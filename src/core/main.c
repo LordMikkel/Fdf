@@ -6,11 +6,11 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 23:40:08 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/09 23:24:21 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/12 22:15:14 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/fdf.h"
+#include "../../inc/fdf.h"
 
 int	main(int ac, char **av)
 {
@@ -23,7 +23,7 @@ int	main(int ac, char **av)
 		error_exit(&data);
 	if (check_4d_mode(av[1], &data.map))
 	{
-		if (!init_4d(av[1], &data.map))
+		if (!init_4d(&data.map))
 			error_exit(&data);
 	}
 	else if (!parse_map(av[1], &data.map))
