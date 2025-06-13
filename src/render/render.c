@@ -6,13 +6,13 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 00:43:07 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/13 02:22:21 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/13 20:18:10 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/fdf.h"
 
-void	render_3d_map(t_fdf *data, t_map *map)
+void	render_3d_map(t_fdf *data, t_map *map, int error)
 {
 	int			x;
 	int			y;
@@ -26,12 +26,12 @@ void	render_3d_map(t_fdf *data, t_map *map)
 		while (++x < map->width)
 		{
 			a = project_point(map->points[y][x], data->map, data->cam);
-			if (x + 1 < map->width - 1)
+			if (x + 1 < map->width - error)
 			{
 				b = project_point(map->points[y][x + 1], data->map, data->cam);
 				draw_line(a, b, data);
 			}
-			if (y + 1 < map->height && x < map->width - 1)
+			if (y + 1 < map->height && x < map->width - error)
 			{
 				b = project_point(map->points[y + 1][x], data->map, data->cam);
 				draw_line(a, b, data);
@@ -101,7 +101,7 @@ void	render_hexacosicoron_edges(t_fdf *data, t_map *map)
 		while (j < 600)
 		{
 			dist = calculate_distance(&map->points[0][i], &map->points[0][j]);
-			if (dist > 0.4 && dist < 0.9)
+			if (dist > 2 && dist < 2.5)
 			{
 				p2 = project_point(map->points[0][j], *map, data->cam);
 				draw_line(p1, p2, data);
@@ -116,7 +116,7 @@ void	render_fdf(t_fdf *data, t_map *map)
 {
 	clear_image(data);
 	if (map->type == OBJECT_3D)
-		render_3d_map(data, map);
+		render_3d_map(data, map, map->error);
 	else if (map->type == OBJECT_4D)
 	{
 		if (map->object == PENTACHORON)

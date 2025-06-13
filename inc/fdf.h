@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 18:29:16 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/13 02:37:21 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/13 18:46:52 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ double	calculate_distance(t_point *p1, t_point *p2);
 /*                          Rendering & Projection                            */
 /* ************************************************************************** */
 void	render_fdf(t_fdf *data, t_map *map);
-void	render_3d_map(t_fdf *data, t_map *map);
+void	render_3d_map(t_fdf *data, t_map *map, int error);
 void	rotate_x(float *y, float *z, float angle);
 void	rotate_y(float *x, float *z, float angle);
 void	rotate_z(float *x, float *y, float angle);

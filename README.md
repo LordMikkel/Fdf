@@ -1,12 +1,13 @@
 # Fdf
 Coding 3D Images
 
+ver si podemos mejorar eso de la proyeccion porque maybe no hace falta hacer otra vez la isometrica
 Entender rotaciones
 Entender 4d a 3d
-Entender hooks
-Entender put_pixel
 
-arreglar render del hexashiron;
+implementar rotaciones 4d
+implementar el menu
+implementar color de fondo
 
 # 🔧 EDICIÓN
 # | Ctrl + L					→ Selecciona la línea actual
