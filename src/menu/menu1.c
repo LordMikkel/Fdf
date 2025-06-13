@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 21:37:47 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/12 22:33:38 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/13 01:56:42 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,9 @@ static void	put_stats(t_fdf *data, int x, int *y, int step)
 {
 	*y += step;
 	mlx_string_put(data->mlx, data->win, x, *y, DARK_GREEN, "FDF");
+	*y += step;
+	mlx_string_put(data->mlx, data->win, x + 20, *y, SAND,
+		"by: Mikel Garrido (@migarrid)");
 	*y += step * 2;
 	mlx_string_put(data->mlx, data->win, x, *y, AZURE, "STATS:");
 	*y += step;

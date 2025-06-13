@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 00:17:51 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/12 22:06:57 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/13 02:42:34 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void	mlx_setup(t_fdf *data)
 {
 	mlx_hook(data->win, CLOSE_EVENT, NO_MASK, close_exit, data);
-	mlx_key_hook(data->win, handle_key, data);
+	mlx_hook(data->win, KEY_PRESS, MASK_KEY_PRESS, handle_key, data);
+    mlx_hook(data->win, KEY_RELEASE, MASK_KEY_RELE, handle_key_release, data);
 	mlx_mouse_hook(data->win, handle_mouse, data);
 	mlx_hook(data->win, MOUSE_RELESE, MASK_MOUSE_R, handle_mouse_release, data);
 	mlx_hook(data->win, MOUSE_MOVE, MASK_MOUSE_M, handle_mouse_move, data);

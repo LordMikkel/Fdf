@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 21:56:13 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/12 22:07:01 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/13 02:29:54 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,10 @@ int	handle_key(int key, t_fdf *data)
 	handle_scale_keys(key, data);
 	render_fdf(data, &data->map);
 	return (0);
+}
+
+int handle_key_release(int key, t_fdf *data) {
+    (void)key;
+    (void)data;
+    return (0);
 }
