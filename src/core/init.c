@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 02:19:51 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/13 02:15:41 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/13 18:48:33 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ static void	init_map(t_map *map)
 	map->min_z = 0;
 	map->type = 0;
 	map->object = 0;
+	map->error = FALSE;
 	printf("Succes Init Map\n");
 }
 

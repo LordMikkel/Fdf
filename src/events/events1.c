@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 21:56:13 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/13 02:29:54 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/13 17:46:00 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ static void	handle_scale_keys(int key, t_fdf *data)
 
 int	handle_key(int key, t_fdf *data)
 {
-	printf("key: %d\n", key);
 	if (key == ESC_KEY)
 		close_exit(data);
 	handle_3d_rotation_keys(key, data);
@@ -87,8 +86,9 @@ int	handle_key(int key, t_fdf *data)
 	return (0);
 }
 
-int handle_key_release(int key, t_fdf *data) {
-    (void)key;
-    (void)data;
-    return (0);
+int handle_key_release(int key, t_fdf *data)
+{
+	(void)key;
+	(void)data;
+	return (0);
 }
