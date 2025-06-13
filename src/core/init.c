@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 02:19:51 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/12 22:06:49 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/13 02:15:41 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,26 +39,25 @@ void	init_cam(t_cam *cam, t_map *map)
 	int		z_range;
 	float	center_z;
 
+	ft_memset(&cam->zoom, 0, sizeof(float) * 11);
 	find_min_max_z(map);
 	z_range = map->max_z - map->min_z;
 	if (z_range == 0)
 		z_range = 1;
-	max_zoom_w = (WIN_WIDTH / map->width) / 2;
-	maz_zoom_h = (WIN_HEIGHT / map->height) / 2;
+	max_zoom_w = (WIN_WIDTH / map->width) / 1.8;
+	maz_zoom_h = (WIN_HEIGHT / map->height) / 1.8;
 	max_zoom_d = ((WIN_HEIGHT / (z_range)) / 1.8);
 	center_z = (map->max_z + map->min_z) / 3;
 	cam->zoom = fmax(1, fmin(fmin(max_zoom_w, maz_zoom_h), max_zoom_d));
-	cam->x_offset = WIN_WIDTH / 2;
-	cam->y_offset = (WIN_HEIGHT / 2) + center_z * cam->zoom;
-	cam->alpha = 0;
-	cam->beta = 0;
-	cam->gamma = 0;
-	cam->delta = 0;
-	cam->epsilon = 0;
-	cam->theta = 0;
-	cam->iota = 0;
+	cam->x_offset = (WIN_WIDTH / 2) + MENU_SIZE;
+	cam->y_offset = ((WIN_HEIGHT / 2) + center_z * cam->zoom);
+	if (map->object == PENTACHORON)
+		cam->zoom = (WIN_WIDTH / 6);
+	else if (map->object == TESSERACT)
+		cam->zoom = (WIN_WIDTH / 8);
+	else if (map->object == HEXACOSICORON)
+		cam->zoom = (WIN_WIDTH / 7);
 	cam->projection = ISOMETRIC;
-	printf("Succes Init Cam\n");
 }
 
 static void	init_map(t_map *map)

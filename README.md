@@ -6,8 +6,7 @@ Entender 4d a 3d
 Entender hooks
 Entender put_pixel
 
-arreglar zoom 4d;
-ver si se puede como ajustar la posicion en relacion al menu
+arreglar render del hexashiron;
 
 # 🔧 EDICIÓN
 # | Ctrl + L					→ Selecciona la línea actual
