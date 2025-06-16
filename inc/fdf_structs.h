@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 18:59:36 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/13 22:47:01 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/15 20:59:32 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct s_map
 	int		min_z;
 	int		type;
 	int		object;
+	int		error;
 }	t_map;
 
 typedef struct s_img

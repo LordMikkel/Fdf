@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 18:59:15 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/13 17:43:15 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/15 21:07:10 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define PENTACHORON	5
 # define TESSERACT		16
 # define HEXACOSICORON	600
-# define DEFAULT_ANG 	0.6154797f
+# define DEFAULT_ANG	0.6154797f
 # define PI				3.14159265358979323846
 
 /* ************************************************************************** */
