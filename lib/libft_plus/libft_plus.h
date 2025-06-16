@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 16:10:39 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/05 21:32:14 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/16 17:36:29 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include <stdint.h>
 # include <fcntl.h>
 # include <stdbool.h>
-# include <float.h>
 # include <limits.h>
 
 // LIBFT
