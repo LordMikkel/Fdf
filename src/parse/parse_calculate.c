@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 22:15:13 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/13 18:47:55 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/16 15:38:31 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	validate_dimensions(const char *line, t_map *map)
 		columns++;
 	}
 	if (columns != map->width && map->width != 0)
-		map->error = TRUE;
+		map->error += TRUE;
 	if (columns > map->width)
 		map->width = columns;
 	ft_free_str_array(tokens);
