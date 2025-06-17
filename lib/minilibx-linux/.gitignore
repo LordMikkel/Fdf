@@ -33,7 +33,6 @@ Makefile.gen
 
 # Libraries
 *.lib
-*.a
 *.la
 *.lo
 
