@@ -6,7 +6,7 @@
 #    By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 17:55:34 by migarrid          #+#    #+#              #
-#    Updated: 2025/06/16 16:02:41 by migarrid         ###   ########.fr        #
+#    Updated: 2025/06/17 17:18:30 by migarrid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ OBJ_DIR				= obj
 SRC_DIR				= src
 LIBFT_DIR			= $(LIB_DIR)/libft_plus
 MINILIBX_DIR		= $(LIB_DIR)/minilibx-linux
-DEPS				= $(HEADER) $(MAKEFILE) $(LIBFT_H)  $(LIBFT_MAKEFILE) $(MINILIBX_H) $(MINILIBX_MAKEFILE)
+DEPS				= $(HEADER) $(MAKEFILE) $(LIBFT_H) $(LIBFT_MAKEFILE) $(MINILIBX_H) $(MINILIBX_MAKEFILE)
 
 # **************************************************************************** #
 #                      File Paths and Dependencies                             #
