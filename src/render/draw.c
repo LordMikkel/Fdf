@@ -6,11 +6,16 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 22:46:57 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/12 22:07:48 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/17 19:32:54 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/fdf.h"
+
+int	is_on_screen(int x, int y)
+{
+	return (x >= 0 && x < WIN_WIDTH && y >= 0 && y < WIN_HEIGHT);
+}
 
 void	ft_mlx_put_pixel(t_fdf *data, int x, int y, int color)
 {
@@ -38,6 +43,8 @@ void	draw_line(t_point p1, t_point p2, t_fdf *data)
 	t_point_2d	b;
 	t_line		line;
 
+	if (!is_on_screen(p1.x, p1.y) && !is_on_screen(p2.x, p2.y))
+		return ;
 	conv_point_to_int(&a, &b, p1, p2);
 	init_line(&line, a, b);
 	while (TRUE)
