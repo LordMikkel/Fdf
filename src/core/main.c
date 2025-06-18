@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 23:40:08 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/16 15:51:31 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/17 21:35:49 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int ac, char **av)
 
 	if (ac != 2)
 		return (ft_putstr_fd(ERR_ARGS, STDERR), EXIT_FAILURE);
-	printf("Corrrect Number of Arguments\n");
+	printf("Correct Number of Arguments\n");
 	if (!init_data(&data))
 		error_exit(&data);
 	if (check_4d_mode(av[1], &data.map))

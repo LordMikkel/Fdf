@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 00:58:39 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/17 17:12:52 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/17 21:37:28 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,19 @@ int	init_4d(t_map *map)
 	{
 		if (!init_pentachoron(map))
 			return (ft_putstr_fd(ERR_MEM, STDERR), 0);
-		printf("Succes init pentachoron\n");
+		printf("Success init pentachoron\n");
 	}
 	else if (map->object == TESSERACT)
 	{
 		if (!init_tesseract(map))
 			return (ft_putstr_fd(ERR_MEM, STDERR), 0);
-		printf("Succes init tesseract\n");
+		printf("Success init tesseract\n");
 	}
 	else if (map->object == HEXACOSICORON)
 	{
 		if (!init_hexacosicoron(map))
 			return (ft_putstr_fd(ERR_MEM, STDERR), 0);
-		printf("Succes init tesseract\n");
+		printf("Success init tesseract\n");
 	}
 	return (1);
 }

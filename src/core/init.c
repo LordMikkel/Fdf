@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 02:19:51 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/16 15:59:31 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/17 21:36:28 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void	init_map(t_map *map)
 	map->type = 0;
 	map->object = 0;
 	map->error = FALSE;
-	printf("Succes Init Map\n");
+	printf("Success Init Map\n");
 }
 
 static int	init_img(t_img *img, t_fdf *data)
@@ -82,7 +82,7 @@ static int	init_img(t_img *img, t_fdf *data)
 			&img->length, &img->endian);
 	if (!img->addr)
 		return (0);
-	printf("Succes Init Image\n");
+	printf("Success Init Image\n");
 	return (1);
 }
 
@@ -97,7 +97,7 @@ int	init_data(t_fdf *data)
 	data->win = mlx_new_window(data->mlx, WIN_WIDTH, WIN_HEIGHT, "fdf");
 	if (!data->win)
 		return (ft_putstr_fd(ERR_MLX, STDERR), 0);
-	printf("Succes Init Data\n");
+	printf("Success Init Data\n");
 	if (!init_img(&data->img, data))
 		return (ft_putstr_fd(ERR_MLX, STDERR), 0);
 	init_map(&data->map);

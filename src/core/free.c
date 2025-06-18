@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 22:05:48 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/12 22:06:45 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/17 21:39:56 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,6 @@ void	free_data(t_fdf *data)
 	if (!data)
 		return ;
 	free_map_points(&data->map);
-	printf("Succes at free all points\n");
+	printf("Success freed all points\n");
 	free_graphics(data);
 }
