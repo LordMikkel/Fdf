@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 02:48:13 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/17 21:24:35 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/19 18:23:51 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,6 @@ static void	project_3d_to_2d(t_point *point, int projection)
 		factor = distance / (-point->z + distance);
 		point->x = point->x * factor;
 		point->y = point->y * factor;
-	}
-	else if (projection == ORTHOGONAL)
-	{
 	}
 }
 
