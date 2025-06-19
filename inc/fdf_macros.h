@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 18:59:15 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/19 01:25:04 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/19 16:22:34 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@
 # define KEY_RELEASE	3
 # define RESIZE			12
 # define NO_MASK		0
-# define MASK_KEY_PRESS	1		//1<<0
-# define MASK_KEY_RELE	2		//1<<1
+# define MASK_KEY_PRESS	1		// 1<<0
+# define MASK_KEY_RELE	2		// 1<<1
 # define MASK_MOUSE_R	8		// 1 << 3
 # define MASK_MOUSE_M	64		// 1 << 6
 # define MASK_RESIZE	32768	// 1 << 15
@@ -92,8 +92,8 @@
 /* ************************************************************************** */
 /*                          Window Settings                                   */
 /* ************************************************************************** */
-# define WIN_WIDTH		850
-# define WIN_HEIGHT		850
+# define WIN_WIDTH		1500
+# define WIN_HEIGHT		1500
 # define MENU_SIZE		80
 
 /* ************************************************************************** */
