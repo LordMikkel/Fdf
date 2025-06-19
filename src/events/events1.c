@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 21:56:13 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/15 21:17:50 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/19 01:28:15 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,40 +15,40 @@
 static void	handle_3d_rotation_keys(int key, t_fdf *data)
 {
 	if (key == KEY_RIGHT)
-		data->cam.beta += 0.05f;
+		data->cam.beta += 0.02f;
 	if (key == KEY_LEFT)
-		data->cam.beta -= 0.05f;
+		data->cam.beta -= 0.02f;
 	if (key == KEY_UP)
-		data->cam.alpha += 0.05f;
+		data->cam.alpha += 0.02f;
 	if (key == KEY_DOWN)
-		data->cam.alpha -= 0.05f;
+		data->cam.alpha -= 0.02f;
 	if (key == KEY_MENOR)
-		data->cam.gamma += 0.05f;
+		data->cam.gamma += 0.02f;
 	if (key == KEY_MAYOR)
-		data->cam.gamma -= 0.05f;
+		data->cam.gamma -= 0.02f;
 }
 
 static void	handle_4d_rotation_keys(int key, t_fdf *data)
 {
 	if (key == KEY_A)
 	{
-		data->cam.epsilon -= 0.05f;
-		data->cam.theta -= 0.05f;
+		data->cam.epsilon -= 0.02f;
+		data->cam.theta -= 0.02f;
 	}
 	if (key == KEY_D)
 	{
-		data->cam.epsilon += 0.05f;
-		data->cam.theta += 0.05f;
+		data->cam.epsilon += 0.02f;
+		data->cam.theta += 0.02f;
 	}
 	if (key == KEY_W)
 	{
-		data->cam.delta -= 0.05f;
-		data->cam.iota -= 0.05f;
+		data->cam.delta -= 0.02f;
+		data->cam.iota -= 0.02f;
 	}
 	if (key == KEY_S)
 	{
-		data->cam.delta += 0.05f;
-		data->cam.iota += 0.05f;
+		data->cam.delta += 0.02f;
+		data->cam.iota += 0.02f;
 	}
 }
 
