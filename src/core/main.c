@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 23:40:08 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/17 21:35:49 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/06/21 20:56:30 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,5 @@ int	main(int ac, char **av)
 	init_cam(&data.cam, &data.map);
 	render_fdf(&data, &data.map);
 	mlx_setup(&data);
-	return (0);
+	return (EXIT_SUCCESS);
 }
