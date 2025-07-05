@@ -6,7 +6,7 @@
 #    By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 17:55:34 by migarrid          #+#    #+#              #
-#    Updated: 2025/06/19 01:38:15 by migarrid         ###   ########.fr        #
+#    Updated: 2025/06/21 21:07:53 by migarrid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ NAME				= fdf
 #                            Compiler and Flags                                #
 # **************************************************************************** #
 CC					= cc
-CFLAGS				= -Wall -Wextra -Werror -Ofast -march=native -funroll-loops #-g
+#CFLAGS				= -Wall -Wextra -Werror -Ofast -march=native -funroll-loops #-g
 MLXI				= -L$(MINILIBX_DIR) -lmlx -lXext -lX11 -lm
 
 # **************************************************************************** #
@@ -46,16 +46,16 @@ DEPS				= $(HEADER) $(MAKEFILE) $(LIBFT_H) $(LIBFT_MAKEFILE) $(MINILIBX_H) $(MIN
 # **************************************************************************** #
 #                      File Paths and Dependencies                             #
 # **************************************************************************** #
-MAKEFILE				= Makefile
-HEADER					= $(INC_DIR)/fdf.h \
-						  $(INC_DIR)/fdf_macros.h \
-						  $(INC_DIR)/fdf_structs.h
-LIBFT_A					= $(LIBFT_DIR)/libft_plus.a
-LIBFT_H					= $(LIBFT_DIR)/libft_plus.h
-LIBFT_MAKEFILE			= $(LIBFT_DIR)/Makefile
-MINILIBX_A				= $(MINILIBX_DIR)/libmlx_Linux.a
-MINILIBX_H				= $(MINILIBX_DIR)/mlx.h
-MINILIBX_MAKEFILE		= $(MINILIBX_DIR)/Makefile
+MAKEFILE			= Makefile
+HEADER				= $(INC_DIR)/fdf.h \
+					  $(INC_DIR)/fdf_macros.h \
+					  $(INC_DIR)/fdf_structs.h
+LIBFT_A				= $(LIBFT_DIR)/libft_plus.a
+LIBFT_H				= $(LIBFT_DIR)/libft_plus.h
+LIBFT_MAKEFILE		= $(LIBFT_DIR)/Makefile
+MINILIBX_A			= $(MINILIBX_DIR)/libmlx_Linux.a
+MINILIBX_H			= $(MINILIBX_DIR)/mlx.h
+MINILIBX_MAKEFILE	= $(MINILIBX_DIR)/Makefile
 
 # **************************************************************************** #
 #                                   Colors                                     #
