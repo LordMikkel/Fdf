@@ -1,81 +1,117 @@
-# FDF - Framework de Visualización 3D/4D 🌐
+# FDF - Visualizador 3D/4D 🌐
 
-> **Un motor de renderizado matemático para visualización de mapas topográficos 3D y objetos geométricos 4D**
+> **Un motor de renderizado para mapas topográficos 3D y figuras geométricas 4D**
 
 [![42 School](https://img.shields.io/badge/42-School-000000?style=flat&logo=42&logoColor=white)](https://42.fr)
 [![C](https://img.shields.io/badge/C-A8B9CC?style=flat&logo=c&logoColor=white)](https://en.wikipedia.org/wiki/C_(programming_language))
-[![Mathematics](https://img.shields.io/badge/Mathematics-Linear_Algebra-blue)](https://en.wikipedia.org/wiki/Linear_algebra)
 
 ---
 
-## 📖 Descripción
+## 📖 ¿Qué es FDF?
 
-**FDF** es un proyecto ambicioso que trasciende los requisitos básicos del currículo de 42, desarrollado como una profunda exploración en **geometría computacional**, **álgebra lineal** y **matemáticas aplicadas**. Este motor de renderizado implementa visualización de mapas topográficos 3D y objetos geométricos 4D con rotaciones matemáticamente precisas.
+**FDF** es mi extensión del proyecto Wire Frame Drawing de 42. Mientras que el proyecto base solo requiere renderizar mapas 2D como wireframes 3D, decidí ir más allá e implementar:
 
-### 🎯 Motivación Personal
+- **Visualización de objetos 4D** como el tesseract y el pentachoron
+- **Múltiples sistemas de proyección** (isométrica, perspectiva, ortogonal)
+- **Rotaciones en 4 dimensiones** con controles intuitivos
+- **Interpolación de colores** automática según la elevación
 
-Elegí ampliar este proyecto para comprender en profundidad los fundamentos matemáticos que sustentan la **inteligencia artificial**, **data science** y el **desarrollo de motores gráficos**. La implementación de rotaciones en 4D y proyecciones geométricas proporciona una base sólida para futuras aplicaciones en visualización de datos multidimensionales y geometría computacional avanzada.
+### ¿Por qué amplié el proyecto?
 
----
-
-## ⚡ Características Principales
-
-### 🔮 Renderizado 3D Avanzado
-- **Múltiples perspectivas**: Isométrica, paralela, lateral, superior y POV personalizada
-- **Interpolación de colores** basada en elevación topográfica
-- **Transformaciones geométricas**: Traslación, escalado, zoom dinámico
-- **Rotaciones matemáticamente precisas** en los tres ejes
-
-### 🌌 Geometría 4D Implementada
-- **Tesseract (Hipercubo 4D)**: 16 vértices, 32 aristas, 24 caras cuadradas
-- **Pentachoron (Símplex 4D)**: 5 vértices, 10 aristas, 10 caras triangulares
-- **Hexacosicoron (600-cell)**: Polítopo regular 4D con 120 vértices
-- **Rotaciones en 6 planos 4D**: XY, XZ, XW, YZ, YW, ZW
-
-### 📊 Mapas Topográficos Personalizados
-- `sagrada_familia.fdf` - Representación arquitectónica de la basílica
-- `fachada.fdf` - Análisis geométrico de estructuras
-- `tower.fdf` - Visualización de estructuras verticales
-- Soporte para mapas `.fdf` con interpolación de colores
+Quería entender cómo funcionan las transformaciones geométricas desde cero, especialmente porque son fundamentales para:
+- Inteligencia artificial (espacios de alta dimensión)
+- Visualización de datos complejos
+- Motores gráficos y videojuegos
 
 ---
 
-## 🧮 Fundamentos Matemáticos
+## ⚡ Características
 
-### Derivación de Matrices de Rotación
+### 🔮 Renderizado 3D
+- **Vistas múltiples**: isométrica, frontal, lateral, superior y perspectiva
+- **Interpolación de colores** que cambia según la altura del terreno
+- **Zoom y rotación** en tiempo real
+- **Navegación con mouse** para explorar el mapa
 
-La implementación se basa en la **derivación propia de matrices de rotación 2D/3D mediante transformación de coordenadas polares e identidades trigonométricas**.
+### 🌌 Objetos 4D
+- **Tesseract**: El cubo de 4 dimensiones (16 vértices)
+- **Pentachoron**: El triángulo de 4 dimensiones (5 vértices)
+- **Hexacosicoron**: Figura compleja de 120 vértices
+- **Rotaciones 4D**: En 6 planos diferentes (XY, XZ, XW, YZ, YW, ZW)
 
-#### Rotación 2D - Base Matemática
+---
+
+## 🧮 ¿Cómo funcionan las rotaciones?
+
+### El problema: rotar un punto en el espacio
+
+Imagina que tienes un punto en 2D, por ejemplo `(3, 4)`, y quieres rotarlo 45 grados. ¿Cómo lo haces?
+
+### Mi solución paso a paso
+
+**Paso 1: Convertir a coordenadas polares**
 ```
-Para un punto P(x,y) en coordenadas cartesianas:
-r = √(x² + y²)
-θ = arctan(y/x)
+Cualquier punto (x, y) se puede expresar como:
+x = r × cos(θ)
+y = r × sin(θ)
 
-Rotación por ángulo α:
-x' = r·cos(θ + α) = r·cos(θ)·cos(α) - r·sin(θ)·sin(α) = x·cos(α) - y·sin(α)
-y' = r·sin(θ + α) = r·sin(θ)·cos(α) + r·cos(θ)·sin(α) = y·cos(α) + x·sin(α)
+Donde r = √(x² + y²) y θ = arctan(y/x)
 ```
 
-#### Matriz de Rotación 3D (Eje Z)
+**Paso 2: Sumar el ángulo de rotación**
 ```
-⎡ cos(α)  -sin(α)   0 ⎤   ⎡ x ⎤
-⎢ sin(α)   cos(α)   0 ⎥ × ⎢ y ⎥
-⎣   0        0      1 ⎦   ⎣ z ⎦
+Si queremos rotar α grados:
+x' = r × cos(θ + α)
+y' = r × sin(θ + α)
 ```
 
-#### Extensión a 4D - Rotaciones Planares
-En 4D, las rotaciones ocurren en **planos** en lugar de ejes. Cada rotación 4D se define por dos vectores ortonormales que determinan el plano de rotación:
+**Paso 3: Aplicar identidades trigonométricas**
+```
+cos(θ + α) = cos(θ)cos(α) - sin(θ)sin(α)
+sin(θ + α) = sin(θ)cos(α) + cos(θ)sin(α)
+```
+
+**Paso 4: Sustituir y simplificar**
+```
+x' = r×cos(θ)×cos(α) - r×sin(θ)×sin(α)
+y' = r×sin(θ)×cos(α) + r×cos(θ)×sin(α)
+
+Como x = r×cos(θ) e y = r×sin(θ):
+x' = x×cos(α) - y×sin(α)
+y' = y×cos(α) + x×sin(α)
+```
+
+### ¿Y en forma de matriz?
+
+Mi solución es exactamente lo mismo que la matriz de rotación:
+
+```
+⎡ cos(α)  -sin(α) ⎤   ⎡ x ⎤   ⎡ x×cos(α) - y×sin(α) ⎤
+⎢ sin(α)   cos(α) ⎥ × ⎢ y ⎥ = ⎢ x×sin(α) + y×cos(α) ⎥
+⎣                 ⎦   ⎣   ⎦   ⎣                     ⎦
+```
+
+**Es la misma fórmula.** Las matrices son solo una forma elegante de escribir el mismo concepto.
+
+### Rotaciones en 3D
+
+Para 3D, hago lo mismo pero por ejes. Por ejemplo, rotar en el eje Z:
 
 ```c
-// Rotación en plano XY (equivalente a rotación 3D en Z)
-void rotate_xy(float *x, float *y, float angle) {
+void rotate_z(float *x, float *y, float angle) {
     float prev_x = *x, prev_y = *y;
     *x = prev_x * cos(angle) - prev_y * sin(angle);
     *y = prev_x * sin(angle) + prev_y * cos(angle);
 }
+```
 
-// Rotación en plano XW (4ª dimensión)
+### Rotaciones en 4D: más simple de lo que parece
+
+En 4D no hay "ejes de rotación" como en 3D. En su lugar, rotas en **planos**.
+
+Por ejemplo, para rotar en el plano XW (la 4ª dimensión):
+
+```c
 void rotate_xw(float *x, float *w, float angle) {
     float prev_x = *x, prev_w = *w;
     *x = prev_x * cos(angle) - prev_w * sin(angle);
@@ -83,57 +119,40 @@ void rotate_xw(float *x, float *w, float angle) {
 }
 ```
 
-### Proyección 4D→3D→2D
+**¡Es exactamente la misma fórmula que en 2D!** Solo cambias las variables que participan en la rotación.
 
-La visualización de objetos 4D requiere **doble proyección**:
-
-1. **4D → 3D**: Proyección estereográfica o perspectiva desde un punto en la 4ª dimensión
-2. **3D → 2D**: Proyección de perspectiva tradicional para renderizado en pantalla
-
-```
-Proyección 4D→3D: (x, y, z, w) → (x/(w+d), y/(w+d), z/(w+d))
-donde d es la distancia del observador en la 4ª dimensión
-```
+En 4D tienes 6 planos posibles: XY, XZ, XW, YZ, YW, ZW. Cada uno se comporta como una rotación 2D independiente.
 
 ---
 
-## 🎮 Controles Interactivos
+## 🎮 Controles
 
-### Navegación 3D
-- **WASD**: Movimiento de cámara
-- **QE**: Rotación en eje Z
-- **RF**: Zoom in/out
-- **Flechas**: Rotación en ejes X e Y
-- **Mouse**: Navegación intuitiva con arrastre
+### Navegación básica
+- **Flechas**: Rotar en ejes X e Y
+- **< >** (comas): Rotar en eje Z
+- **+/-**: Escalar altura del mapa
+- **Mouse**: Arrastrar para mover la vista
+- **Scroll**: Zoom in/out
+- **ESC**: Salir
 
-### Perspectivas Predefinidas
-- **1**: Vista isométrica clásica
-- **2**: Vista superior (plano XY)
-- **3**: Vista frontal (plano XZ)
-- **4**: Vista lateral (plano YZ)
-- **5**: Vista POV personalizada
+### Cambiar vista
+- **I**: Vista isométrica
+- **T**: Vista superior
+- **F**: Vista frontal
+- **L**: Vista lateral
+- **P**: Vista en perspectiva
 
-### Controles 4D (Solo objetos 4D)
-- **7/8**: Rotación en plano XW
-- **9/0**: Rotación en plano YW
-- **U/I**: Rotación en plano ZW
+### Controles 4D (solo para objetos 4D)
+- **W/S**: Rotar en planos XZ y YW
+- **A/D**: Rotar en planos XY y ZW
 
 ---
 
 ## 🚀 Instalación y Uso
 
-### Prerrequisitos
-```bash
-# Ubuntu/Debian
-sudo apt-get install build-essential libx11-dev libxext-dev libbsd-dev
-
-# Arch Linux
-sudo pacman -S base-devel libx11 libxext
-```
-
 ### Compilación
 ```bash
-git clone [repository-url] fdf
+git clone [tu-repositorio-url] fdf
 cd fdf
 make
 ```
@@ -142,9 +161,9 @@ make
 
 #### Mapas 3D
 ```bash
-./fdf maps/sagrada_familia.fdf
-./fdf maps/tower.fdf
+./fdf maps/42.fdf
 ./fdf maps/mars.fdf
+./fdf maps/julia.fdf
 ```
 
 #### Objetos 4D
@@ -162,77 +181,89 @@ make 4d
 
 ```
 fdf/
-├── inc/                    # Headers y definiciones
-│   ├── fdf.h              # Declaraciones principales
+├── inc/                    # Headers
+│   ├── fdf.h              # Funciones principales
 │   ├── fdf_structs.h      # Estructuras de datos
-│   └── fdf_macros.h       # Constantes y macros
+│   └── fdf_macros.h       # Constantes y teclas
 ├── src/
-│   ├── core/              # Sistema principal
+│   ├── core/              # Inicialización y gestión de memoria
 │   ├── render/            # Motor de renderizado
-│   │   ├── rotation_3d.c  # Rotaciones 3D
-│   │   ├── rotation_4d.c  # Rotaciones 4D
-│   │   ├── projection.c   # Sistemas de proyección
-│   │   └── 4d.c          # Geometría 4D
-│   ├── parse/             # Análisis de archivos .fdf
-│   ├── events/            # Manejo de eventos
-│   └── menu/              # Interfaz de usuario
-├── maps/                  # Mapas topográficos
-└── lib/                   # Dependencias
+│   │   ├── rotation_3d.c  # Rotaciones en 3D
+│   │   ├── rotation_4d.c  # Rotaciones en 4D
+│   │   ├── projection.c   # Proyecciones 4D→3D→2D
+│   │   └── 4d.c          # Generación de objetos 4D
+│   ├── parse/             # Lectura de archivos .fdf
+│   ├── events/            # Controles de teclado/mouse
+│   └── menu/              # Interfaz gráfica
+├── maps/                  # Archivos .fdf de ejemplo
+└── lib/                   # MiniLibX y libft
 ```
 
 ---
 
-## 🔬 Aplicaciones y Aprendizajes
+## 🔬 Lo que aprendí
 
-### Conocimientos Técnicos Adquiridos
-- **Álgebra Lineal Aplicada**: Matrices de transformación, espacios vectoriales multidimensionales
-- **Geometría Computacional**: Proyecciones, interpolación, algoritmos de línea
-- **Matemáticas 4D**: Rotaciones planares, hiperobjetos, proyección estereográfica
-- **Optimización de Rendimiento**: Algoritmos eficientes para renderizado en tiempo real
+### Conceptos técnicos
+- **Rotaciones desde cero**: Derivar las fórmulas sin memorizar matrices
+- **Geometría 4D**: Cómo visualizar objetos que no podemos imaginar
+- **Proyecciones**: Convertir múltiples dimensiones en una imagen 2D
+- **Optimización gráfica**: Algoritmos eficientes para tiempo real
 
-### Relevancia para IA y Data Science
-- **Visualización de Datos Multidimensionales**: Base para técnicas como PCA, t-SNE
-- **Redes Neuronales**: Comprensión geométrica de espacios de alta dimensión
-- **Computer Vision**: Fundamentos de transformaciones geométricas y proyecciones
-- **Matemáticas Aplicadas**: Preparación para algoritmos de optimización y análisis numérico
-
-### Conexión con Motores Gráficos
-- **Pipeline de Renderizado**: Transformaciones modelo→mundo→vista→proyección
-- **Sistemas de Coordenadas**: Manejo de múltiples espacios de coordenadas
-- **Optimización Gráfica**: Técnicas de culling, interpolación y anti-aliasing
+### Conexión con otros campos
+- **Machine Learning**: Los espacios de alta dimensión son comunes en ML
+- **Visualización de datos**: Técnicas para representar información compleja
+- **Motores gráficos**: Pipeline básico de transformaciones geométricas
+- **Matemáticas aplicadas**: Resolver problemas reales con conceptos teóricos
 
 ---
 
-## 🌟 Características Avanzadas
+## 🌟 Características técnicas destacadas
 
-### Interpolación de Colores Inteligente
-- **Gradientes basados en elevación** para representación intuitiva del terreno
-- **Paletas de colores personalizables** según el rango de datos
-- **Interpolación linear** suave entre puntos adyacentes
+### Proyección 4D inteligente
+Para mostrar objetos 4D en la pantalla, uso **doble proyección**:
 
-### Optimizaciones de Rendimiento
-- **Algoritmo de Bresenham optimizado** para dibujo de líneas
-- **Culling de geometría** fuera del viewport
-- **Cálculos matemáticos optimizados** con funciones trigonométricas precalculadas
+1. **4D → 3D**: Proyecto desde la 4ª dimensión usando perspectiva
+```c
+// En projection.c
+factor = distance / (distance - point->w);
+point->x *= factor;
+point->y *= factor;
+point->z *= factor;
+```
 
----
+2. **3D → 2D**: Proyecto a la pantalla con vista isométrica o perspectiva
 
-## 🎯 Visión Futura
+### Interpolación de colores automática
+El programa analiza automáticamente la altura mínima y máxima del mapa, y asigna colores que van desde violeta (bajo) hasta dorado (alto), pasando por azul y verde.
 
-Este proyecto representa un paso fundamental en mi trayectoria hacia:
+### Pipeline de renderizado optimizado
+```c
+// En project_point()
+if (map.type == OBJECT_4D) {
+    // 1. Rotaciones 4D
+    rotate_xy(&point.x, &point.y, cam.delta);
+    rotate_xw(&point.x, &point.w, cam.epsilon);
+    // ... más rotaciones 4D
 
-- **Inteligencia Artificial**: Comprensión geométrica para algoritmos de ML
-- **Data Science**: Visualización avanzada de datasets multidimensionales
-- **Computer Graphics**: Base sólida para motores de renderizado 3D/4D
-- **Investigación Matemática**: Exploración de geometrías no euclidianas
+    // 2. Proyección 4D→3D
+    project_4d_to_3d(&point);
+}
+
+// 3. Transformaciones 3D estándar
+point.x *= cam.zoom;
+rotate_x(&point.y, &point.z, cam.alpha);
+// ...
+
+// 4. Proyección final 3D→2D
+project_3d_to_2d(&point, cam.projection);
+```
 
 ---
 
 ## 👨‍💻 Autor
 
 **Mikel Garrido** - Estudiante de 42 Barcelona
-*Apasionado por las matemáticas aplicadas, la inteligencia artificial y la visualización de datos*
 
 ---
 
-*"La geometría es el arte de pensar correctamente y dibujar figuras incorrectas."* - Henri Poincaré
+*Este proyecto me enseñó que las matemáticas complejas, cuando las entiendes paso a paso, son más simples de lo que parecen.*
