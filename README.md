@@ -25,65 +25,91 @@ Quería entender cómo funcionan las transformaciones geométricas desde cero, e
 
 ---
 
-## ⚡ Características
+## ⚡ Lo que hace el programa
 
-### 🔮 Renderizado 3D
-- **Vistas múltiples**: isométrica, frontal, lateral, superior y perspectiva
-- **Interpolación de colores** que cambia según la altura del terreno
-- **Zoom y rotación** en tiempo real
-- **Navegación con mouse** para explorar el mapa
+### � Mapas 3D
+Convierte archivos `.fdf` (que son básicamente tablas de números) en visualizaciones 3D:
 
-### 🌌 Objetos 4D
-- **Tesseract**: El cubo de 4 dimensiones (16 vértices)
-- **Pentachoron**: El triángulo de 4 dimensiones (5 vértices)
-- **Hexacosicoron**: Figura compleja de 120 vértices
-- **Rotaciones 4D**: En 6 planos diferentes (XY, XZ, XW, YZ, YW, ZW)
+```
+Archivo .fdf:        →        Visualización 3D:
+0  1  2  3                        /\
+1  2  3  4                       /  \
+2  3  4  5                      /____\
+3  4  5  6
+```
+
+### 🔮 Objetos 4D imposibles
+También puede mostrar figuras que existen en 4 dimensiones:
+
+| Objeto | Vértices | ¿Qué es? |
+|--------|----------|----------|
+| **Tesseract** | 16 | Un "cubo" de 4D |
+| **Pentachoron** | 5 | Un "triángulo" de 4D |
+| **Hexacosicoron** | 120 | Una esfera de 4D |
+
+### 🎨 Características visuales
+- **Colores automáticos**: Violeta para lo bajo, dorado para lo alto
+- **5 vistas diferentes**: Isométrica, frontal, lateral, superior y perspectiva
+- **Navegación fluida**: Mouse para mover, scroll para zoom
 
 ---
 
-## 🧮 ¿Cómo funcionan las rotaciones?
+## 🧮 La parte matemática interesante
 
-### El problema: rotar un punto en el espacio
+### El problema base: ¿cómo rotar un punto?
 
-Imagina que tienes un punto en 2D, por ejemplo `(3, 4)`, y quieres rotarlo 45 grados. ¿Cómo lo haces?
+Imagina que tienes un punto `P(3, 4)` y quieres rotarlo 45°. No hay una función mágica para esto, hay que derivar la fórmula.
 
-### Mi solución paso a paso
+### Mi proceso de demostración
 
-**Paso 1: Convertir a coordenadas polares**
+**🎯 Idea clave:** Todo punto se puede expresar en coordenadas polares.
+
 ```
-Cualquier punto (x, y) se puede expresar como:
-x = r × cos(θ)
-y = r × sin(θ)
-
-Donde r = √(x² + y²) y θ = arctan(y/x)
+   Y
+   ↑
+   |     • P(3,4)
+   |    /
+   |   /
+   |  /     r = √(3² + 4²) = 5
+   | /      θ = arctan(4/3) ≈ 53°
+   |/______→ X
+   O
 ```
 
-**Paso 2: Sumar el ángulo de rotación**
+**Paso 1: Convertir el punto**
 ```
-Si queremos rotar α grados:
+x = r × cos(θ) = 5 × cos(53°) = 3
+y = r × sin(θ) = 5 × sin(53°) = 4
+```
+
+**Paso 2: Rotar significa sumar ángulos**
+```
+Nuevo ángulo = θ + α (donde α es la rotación)
 x' = r × cos(θ + α)
 y' = r × sin(θ + α)
 ```
 
-**Paso 3: Aplicar identidades trigonométricas**
+**Paso 3: Aquí viene el truco matemático**
+
+Uso las identidades trigonométricas:
 ```
 cos(θ + α) = cos(θ)cos(α) - sin(θ)sin(α)
 sin(θ + α) = sin(θ)cos(α) + cos(θ)sin(α)
 ```
 
-**Paso 4: Sustituir y simplificar**
+**Paso 4: Sustituyo y ¡eureka!**
 ```
 x' = r×cos(θ)×cos(α) - r×sin(θ)×sin(α)
 y' = r×sin(θ)×cos(α) + r×cos(θ)×sin(α)
 
 Como x = r×cos(θ) e y = r×sin(θ):
-x' = x×cos(α) - y×sin(α)
-y' = y×cos(α) + x×sin(α)
+x' = x×cos(α) - y×sin(α)  ← ¡La fórmula final!
+y' = x×sin(α) + y×cos(α)
 ```
 
-### ¿Y en forma de matriz?
+### ¿Y las matrices famosas?
 
-Mi solución es exactamente lo mismo que la matriz de rotación:
+Mi derivación es **exactamente** la matriz de rotación:
 
 ```
 ⎡ cos(α)  -sin(α) ⎤   ⎡ x ⎤   ⎡ x×cos(α) - y×sin(α) ⎤
@@ -91,179 +117,136 @@ Mi solución es exactamente lo mismo que la matriz de rotación:
 ⎣                 ⎦   ⎣   ⎦   ⎣                     ⎦
 ```
 
-**Es la misma fórmula.** Las matrices son solo una forma elegante de escribir el mismo concepto.
+**Conclusión:** Las matrices son solo una notación elegante. Lo importante es entender el **por qué**.
 
-### Rotaciones en 3D
+### Rotaciones 3D: mismo principio, más ejes
 
-Para 3D, hago lo mismo pero por ejes. Por ejemplo, rotar en el eje Z:
+Para rotar en 3D alrededor del eje Z, uso la misma fórmula pero dejo Z intacta:
 
 ```c
 void rotate_z(float *x, float *y, float angle) {
-    float prev_x = *x, prev_y = *y;
-    *x = prev_x * cos(angle) - prev_y * sin(angle);
-    *y = prev_x * sin(angle) + prev_y * cos(angle);
+    float old_x = *x, old_y = *y;
+    *x = old_x * cos(angle) - old_y * sin(angle);
+    *y = old_x * sin(angle) + old_y * cos(angle);
+    // Z no cambia
 }
 ```
 
-### Rotaciones en 4D: más simple de lo que parece
+### Rotaciones 4D: el plot twist
 
-En 4D no hay "ejes de rotación" como en 3D. En su lugar, rotas en **planos**.
+**Aquí viene lo curioso:** En 4D no hay "ejes de rotación". Hay **planos de rotación**.
 
-Por ejemplo, para rotar en el plano XW (la 4ª dimensión):
+```
+3D: Rotas ALREDEDOR de un eje    4D: Rotas DENTRO de un plano
+
+    Z                                 4D tiene 6 planos:
+    ↑                                 XY, XZ, XW, YZ, YW, ZW
+    |
+    • ←→ Y                           Cada plano = rotación 2D
+   /
+  X
+```
+
+Rotar en el plano XW es **exactamente igual** que rotar en 2D:
 
 ```c
 void rotate_xw(float *x, float *w, float angle) {
-    float prev_x = *x, prev_w = *w;
-    *x = prev_x * cos(angle) - prev_w * sin(angle);
-    *w = prev_x * sin(angle) + prev_w * cos(angle);
+    float old_x = *x, old_w = *w;
+    *x = old_x * cos(angle) - old_w * sin(angle);
+    *w = old_x * sin(angle) + old_w * cos(angle);
+    // Y y Z no se tocan
 }
 ```
 
-**¡Es exactamente la misma fórmula que en 2D!** Solo cambias las variables que participan en la rotación.
+**¡Es la misma fórmula que derivé para 2D!** Solo cambio las variables.
 
-En 4D tienes 6 planos posibles: XY, XZ, XW, YZ, YW, ZW. Cada uno se comporta como una rotación 2D independiente.
+### El secreto de las proyecciones
 
----
+Para mostrar objetos 4D en la pantalla necesito **dos proyecciones**:
 
-## 🎮 Controles
-
-### Navegación básica
-- **Flechas**: Rotar en ejes X e Y
-- **< >** (comas): Rotar en eje Z
-- **+/-**: Escalar altura del mapa
-- **Mouse**: Arrastrar para mover la vista
-- **Scroll**: Zoom in/out
-- **ESC**: Salir
-
-### Cambiar vista
-- **I**: Vista isométrica
-- **T**: Vista superior
-- **F**: Vista frontal
-- **L**: Vista lateral
-- **P**: Vista en perspectiva
-
-### Controles 4D (solo para objetos 4D)
-- **W/S**: Rotar en planos XZ y YW
-- **A/D**: Rotar en planos XY y ZW
-
----
-
-## 🚀 Instalación y Uso
-
-### Compilación
-```bash
-git clone [tu-repositorio-url] fdf
-cd fdf
-make
-```
-
-### Ejecución
-
-#### Mapas 3D
-```bash
-./fdf maps/42.fdf
-./fdf maps/mars.fdf
-./fdf maps/julia.fdf
-```
-
-#### Objetos 4D
-```bash
-make 4d
-# Ejecuta automáticamente:
-# ./fdf tesseract
-# ./fdf pentachoron
-# ./fdf hexacosicoron
-```
-
----
-
-## 📁 Estructura del Proyecto
-
-```
-fdf/
-├── inc/                    # Headers
-│   ├── fdf.h              # Funciones principales
-│   ├── fdf_structs.h      # Estructuras de datos
-│   └── fdf_macros.h       # Constantes y teclas
-├── src/
-│   ├── core/              # Inicialización y gestión de memoria
-│   ├── render/            # Motor de renderizado
-│   │   ├── rotation_3d.c  # Rotaciones en 3D
-│   │   ├── rotation_4d.c  # Rotaciones en 4D
-│   │   ├── projection.c   # Proyecciones 4D→3D→2D
-│   │   └── 4d.c          # Generación de objetos 4D
-│   ├── parse/             # Lectura de archivos .fdf
-│   ├── events/            # Controles de teclado/mouse
-│   └── menu/              # Interfaz gráfica
-├── maps/                  # Archivos .fdf de ejemplo
-└── lib/                   # MiniLibX y libft
-```
-
----
-
-## 🔬 Lo que aprendí
-
-### Conceptos técnicos
-- **Rotaciones desde cero**: Derivar las fórmulas sin memorizar matrices
-- **Geometría 4D**: Cómo visualizar objetos que no podemos imaginar
-- **Proyecciones**: Convertir múltiples dimensiones en una imagen 2D
-- **Optimización gráfica**: Algoritmos eficientes para tiempo real
-
-### Conexión con otros campos
-- **Machine Learning**: Los espacios de alta dimensión son comunes en ML
-- **Visualización de datos**: Técnicas para representar información compleja
-- **Motores gráficos**: Pipeline básico de transformaciones geométricas
-- **Matemáticas aplicadas**: Resolver problemas reales con conceptos teóricos
-
----
-
-## 🌟 Características técnicas destacadas
-
-### Proyección 4D inteligente
-Para mostrar objetos 4D en la pantalla, uso **doble proyección**:
-
-1. **4D → 3D**: Proyecto desde la 4ª dimensión usando perspectiva
+**1. Proyección 4D → 3D (perspectiva)**
 ```c
-// En projection.c
+// Imagina que estás "lejos" en la 4ª dimensión
+distance = 5.0f;
 factor = distance / (distance - point->w);
-point->x *= factor;
-point->y *= factor;
+point->x *= factor;  // Los objetos "más profundos" en W
+point->y *= factor;  // se ven más pequeños
 point->z *= factor;
 ```
 
-2. **3D → 2D**: Proyecto a la pantalla con vista isométrica o perspectiva
-
-### Interpolación de colores automática
-El programa analiza automáticamente la altura mínima y máxima del mapa, y asigna colores que van desde violeta (bajo) hasta dorado (alto), pasando por azul y verde.
-
-### Pipeline de renderizado optimizado
+**2. Proyección 3D → 2D (POV)**
 ```c
-// En project_point()
-if (map.type == OBJECT_4D) {
-    // 1. Rotaciones 4D
-    rotate_xy(&point.x, &point.y, cam.delta);
-    rotate_xw(&point.x, &point.w, cam.epsilon);
-    // ... más rotaciones 4D
+// Misma idea pero desde la profundidad Z
+distance = 500.0f;
+factor = distance / (-point->z + distance);
+point->x *= factor;  // ¡Misma fórmula!
+point->y *= factor;
+```
 
-    // 2. Proyección 4D→3D
-    project_4d_to_3d(&point);
-}
+**Curiosidad:** La proyección POV y la proyección 4D→3D usan **exactamente** la misma matemática. Es perspectiva pura: "lo que está lejos se ve pequeño".
 
-// 3. Transformaciones 3D estándar
-point.x *= cam.zoom;
-rotate_x(&point.y, &point.z, cam.alpha);
-// ...
+---
 
-// 4. Proyección final 3D→2D
-project_3d_to_2d(&point, cam.projection);
+## 🎮 Cómo usar el programa
+
+### ⌨️ Controles básicos
+
+| Acción | Tecla | ¿Qué hace? |
+|--------|-------|------------|
+| **Rotar X/Y** | `↑↓←→` | Gira el objeto en pantalla |
+| **Rotar Z** | `< >` | Gira como una rueda |
+| **Mover** | Mouse + arrastrar | Desplaza la vista |
+| **Zoom** | Scroll | Acerca/aleja |
+| **Altura** | `+/-` | Hace el mapa más/menos montañoso |
+
+### 🎭 Cambiar perspectiva
+
+| Vista | Tecla | ¿Cómo se ve? |
+|-------|-------|--------------|
+| **Isométrica** | `I` | Como en videojuegos retro |
+| **Superior** | `T` | Desde arriba (mapa 2D) |
+| **Frontal** | `F` | Desde el frente |
+| **Lateral** | `L` | Desde un lado |
+| **Perspectiva** | `P` | Como con tus ojos |
+
+### 🌀 Controles 4D (solo tesseract, pentachoron, etc.)
+
+| Rotación | Teclas | Planos afectados |
+|----------|--------|------------------|
+| **Combo 1** | `W/S` | XZ + YW |
+| **Combo 2** | `A/D` | XY + ZW |
+
+*Los controles 4D mueven dos planos a la vez para crear efectos visuales interesantes*
+
+---
+
+## 🚀 Instalación y prueba
+
+### Compilar y ejecutar
+```bash
+git clone [tu-repositorio] fdf
+cd fdf
+make
+
+# Probar con mapas 3D
+./fdf maps/42.fdf
+./fdf maps/mars.fdf
+./fdf maps/julia.fdf
+
+# Probar objetos 4D
+make 4d
 ```
 
 ---
 
-## 👨‍💻 Autor
+## �‍💻 Reflexión final
 
-**Mikel Garrido** - Estudiante de 42 Barcelona
+Este proyecto me enseñó que **las matemáticas complejas son simples** cuando las entiendes paso a paso.
+
+La clave no está en memorizar fórmulas, sino en **derivarlas** y ver cómo los mismos principios se aplican desde 2D hasta 4D.
+
+Ahora, cuando veo un paper de ML con espacios de 1000 dimensiones, ya no me da miedo. Son solo muchas rotaciones 2D trabajando juntas.
 
 ---
 
-*Este proyecto me enseñó que las matemáticas complejas, cuando las entiendes paso a paso, son más simples de lo que parecen.*
+**Mikel Garrido** - 42 Barcelona
