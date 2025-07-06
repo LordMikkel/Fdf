@@ -294,26 +294,70 @@ Cada vértice del primer cubo se conecta con su correspondiente en el segundo cu
 
 ## 🎨 El motor de renderizado
 
+```c
+void	render_3d_map(t_fdf *data, t_map *map, int error)
+{
+	int			x;
+	int			y;
+	t_point		a;
+	t_point		b;
+
+	y = -1;
+	while (++y < map->height)
+	{
+		x = -1;
+		while (++x < map->width)
+		{
+			a = project_point(map->points[y][x], data->map, data->cam);
+			if (x + 1 < map->width - error)
+			{
+				b = project_point(map->points[y][x + 1], data->map, data->cam);
+				draw_line(a, b, data);
+			}
+			if (y + 1 < map->height && x < map->width - error)
+			{
+				b = project_point(map->points[y + 1][x], data->map, data->cam);
+				draw_line(a, b, data);
+			}
+		}
+	}
+}
+```
+
 ### Algoritmo de líneas vectoriales
 
 Para conectar dos puntos proyectados, uso una versión optimizada del algoritmo de Bresenham con interpolación de colores:
 
 ```c
-void draw_line(t_point start, t_point end, t_fdf *data) {
-    int dx = abs(end.x - start.x);
-    int dy = abs(end.y - start.y);
-    int steps = max(dx, dy);
+void	draw_line(t_point p1, t_point p2, t_fdf *data)
+{
+	t_point_2d	a;
+	t_point_2d	b;
+	t_line		line;
 
-    // Interpolación paramétrica
-    for (int i = 0; i <= steps; i++) {
-        float t = (float)i / steps;
-
-        int x = start.x + t * (end.x - start.x);
-        int y = start.y + t * (end.y - start.y);
-        int color = interpolate_color(start.color, end.color, t);
-
-        put_pixel(data, x, y, color);
-    }
+	if (!is_on_screen(p1.x, p1.y) && !is_on_screen(p2.x, p2.y))
+		return ;
+	conv_point_to_int(&a, &b, p1, p2);
+	init_line(&line, a, b);
+	while (TRUE)
+	{
+		line.mix_c = interpolate_color(line.c1, line.c2, line.t / line.steps);
+		ft_mlx_put_pixel(data, a.x, a.y, line.mix_c);
+		if (a.x == b.x && a.y == b.y)
+			break ;
+		line.double_error = 2 * line.error;
+		if (line.double_error > -line.dy)
+		{
+			line.error = line.error - line.dy;
+			a.x += line.sx;
+		}
+		if (line.double_error < line.dx)
+		{
+			line.error = line.error + line.dx;
+			a.y += line.sy;
+		}
+		line.t++;
+	}
 }
 ```
 
@@ -342,54 +386,28 @@ int	interpolate_color(int color1, int color2, float t)
 ### El pipeline completo
 
 ```c
-t_point project_point(t_point point, t_map map, t_cam cam) {
-    // 1. Rotaciones 4D (si es un objeto 4D)
-    if (map.type == OBJECT_4D) {
-        rotate_xy(&point.x, &point.y, cam.angle_xy);
-        rotate_xz(&point.x, &point.z, cam.angle_xz);
-        rotate_xw(&point.x, &point.w, cam.angle_xw);
-        rotate_yz(&point.y, &point.z, cam.angle_yz);
-        rotate_yw(&point.y, &point.w, cam.angle_yw);
-        rotate_zw(&point.z, &point.w, cam.angle_zw);
-
-        // Proyección 4D → 3D
-        project_4d_to_3d(&point, cam.distance_4d);
-    }
-
-    // 2. Escalado (zoom)
-    point.x *= cam.zoom;
-    point.y *= cam.zoom;
-    point.z *= cam.zoom;
-
-    // 3. Centrado del objeto
-    if (map.type == TOPOGRAPHIC_MAP) {
-        point.x -= map.width / 2;
-        point.y -= map.height / 2;
-    }
-
-    // 4. Rotaciones 3D
-    rotate_x(&point.y, &point.z, cam.pitch);
-    rotate_y(&point.x, &point.z, cam.yaw);
-    rotate_z(&point.x, &point.y, cam.roll);
-
-    // 5. Proyección 3D → 2D
-    switch(cam.projection) {
-        case ISOMETRIC:
-            project_isometric(&point);
-            break;
-        case PERSPECTIVE:
-            project_perspective(&point, cam.distance_3d);
-            break;
-        case ORTHOGONAL:
-            project_orthogonal(&point, cam.view_direction);
-            break;
-    }
-
-    // 6. Translación a pantalla
-    point.x += cam.center_x;
-    point.y += cam.center_y;
-
-    return point;
+t_point	project_point(t_point point, t_map map, t_cam cam)
+{
+	if (map.type == OBJECT_4D)
+	{
+		rotate_xy(&point.x, &point.y, cam.delta);
+		rotate_xz(&point.x, &point.z, cam.epsilon);
+		rotate_yw(&point.y, &point.w, cam.theta);
+		rotate_zw(&point.z, &point.w, cam.iota);
+		project_4d_to_3d(&point);
+	}
+	point.x = point.x * cam.zoom;
+	point.y = point.y * cam.zoom;
+	point.z = point.z * cam.zoom;
+	if (map.type == OBJECT_3D)
+		move_map_to_origin(&point, map, cam);
+	rotate_x(&point.y, &point.z, cam.alpha);
+	rotate_y(&point.x, &point.z, cam.beta);
+	rotate_z(&point.x, &point.y, cam.gamma);
+	project_3d_to_2d(&point, cam.projection);
+	point.x = point.x + cam.x_offset;
+	point.y = point.y + cam.y_offset;
+	return (point);
 }
 ```
 
@@ -400,7 +418,7 @@ t_point project_point(t_point point, t_map map, t_cam cam) {
 ### Compilación
 
 ```bash
-git clone [tu-repositorio] fdf
+git clone https://github.com/LordMikkel/Fdf.git
 cd fdf
 make
 ```
