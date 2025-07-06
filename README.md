@@ -1,405 +1,395 @@
-# FDF - Motor de Visualización Geométrica 3D/4D 🌐
+# FDF - Motor de Visualización Geométrica 3D/4D
 
-> **Un motor de renderizado vectorial para mapas topográficos 3D y objetos geométricos 4D desarrollado desde cero**
+> **Un motor de renderizado vectorial que transforma datos topográficos en visualizaciones 3D y explora la geometría 4D**
 
 [![42 School](https://img.shields.io/badge/42-School-000000?style=flat&logo=42&logoColor=white)](https://42.fr)
 [![C](https://img.shields.io/badge/C-A8B9CC?style=flat&logo=c&logoColor=white)](https://en.wikipedia.org/wiki/C_(programming_language))
 
 ---
 
-## 📖 Introducción: ¿Qué resuelve FDF?
+## 🎯 ¿Qué es FDF?
 
-**FDF** (FileDeFer, "wireframe" en francés) es mi extensión del proyecto 42 que trasciende el requisito básico de renderizar mapas 2D como wireframes 3D. He construido un motor completo de transformaciones geométricas que maneja:
+FDF (FileDeFer) comenzó como un proyecto de 42 School para renderizar mapas topográficos en 3D. Mi implementación va más allá: es un motor completo de transformaciones geométricas que explora tanto la visualización de datos del mundo real como la geometría de dimensiones superiores.
 
-- **Visualización de datos topográficos** desde archivos `.fdf`
-- **Objetos geométricos 4D** (tesseract, pentachoron, hexacosicoron)
-- **Múltiples sistemas de proyección** (isométrica, perspectiva, ortogonal)
-- **Rotaciones vectoriales en 6 planos 4D** con controles intuitivos
-- **Interpolación de colores** automática basada en la elevación
+### Características principales
 
-### ¿Por qué expandí el proyecto?
-
-Como futuro profesional en IA/Data Science, necesito entender cómo funcionan las transformaciones geométricas desde los fundamentos matemáticos. Estas operaciones son cruciales para:
-
-- **Machine Learning**: Espacios de características de alta dimensión
-- **Computer Vision**: Transformaciones de cámara y proyecciones
-- **Visualización de datos**: Representación de datos complejos
-- **Motores gráficos**: Pipeline de renderizado 3D
+- **Visualización topográfica**: Convierte datos de elevación en wireframes 3D interactivos
+- **Geometría 4D**: Explora objetos imposibles de visualizar directamente (tesseract, pentachoron)
+- **Múltiples proyecciones**: Isométrica, perspectiva, ortogonal - cada una con su propósito
+- **Rotaciones multidimensionales**: Controles intuitivos para navegar en 3D y 4D
+- **Colorización automática**: Mapeo altura-color para mejor comprensión visual
 
 ---
 
-## 🧮 El pipeline matemático: De datos a píxeles
+## 📊 De datos a visualización: El pipeline completo
 
-### Paso 1: Interpretación de datos como vectores posicionales
+### Paso 1: Interpretación de datos como vectores
 
-Cuando leo un archivo `.fdf`, cada número se convierte en un **vector posicional** en el espacio 3D:
-
-```
-Archivo 42.fdf (real):        →     Vectores 3D resultantes:
-0  0  0  0                             v₀ = (0,0,0)  v₁ = (1,0,0)  v₂ = (2,0,0)
-0  0 10 10                             v₄ = (0,1,0)  v₅ = (1,1,0)  v₆ = (2,1,10)
-0 10 10  0                             v₈ = (0,2,0)  v₉ = (1,2,10) v₁₀= (2,2,10)
-
-Regla de conversión:
-vector(col, row, valor) = (col, row, valor_altura)
-```
-
-**Ejemplo real del mapa 42.fdf:**
-- Posición `(2,1)` tiene valor `10` → Vector `v₆ = (2, 1, 10)`
-- Posición `(1,2)` tiene valor `10` → Vector `v₉ = (1, 2, 10)`
-
-El resultado es una **malla de vectores** donde cada vector representa un punto en el terreno 3D.
-
-**El truco:** Cada número del archivo se convierte en un punto `(x, y, z)` donde:
-- `x` = columna en el archivo
-- `y` = fila en el archivo
-- `z` = valor numérico (altura)
-
-### 🔮 Objetos 4D: Lo imposible hecho posible
-
-También puede mostrar figuras que existen en 4 dimensiones. Pero, ¿qué significa "4D"?
+Cada archivo `.fdf` contiene una matriz de elevaciones que interpreto como vectores posicionales:
 
 ```
-1D: Una línea      •————————•
+Archivo de ejemplo (42.fdf):
+0  0  0  0
+0  0 10 10
+0 10 10  0
 
-2D: Un cuadrado    •————————•
-                   |        |
-                   |        |
-                   •————————•
-
-3D: Un cubo        •————————•
-                  /|       /|
-                 / |      / |
-                •————————•  |
-                |  •—————|——•
-                | /      | /
-                |/       |/
-                •————————•
-
-4D: Un tesseract   ¡Imposible de dibujar!
-                   (Pero podemos proyectarlo)
+Se convierte en vectores 3D:
+(0,0,0) (1,0,0) (2,0,0) (3,0,0)
+(0,1,0) (1,1,0) (2,1,10) (3,1,10)
+(0,2,0) (1,2,10) (2,2,10) (3,2,0)
 ```
 
-| Objeto | Vértices | ¿Qué es realmente? | Peculiaridad |
-|--------|----------|-------------------|--------------|
-| **Tesseract** | 16 | 8 cubos conectados | Como un cubo, pero en 4D |
-| **Pentachoron** | 5 | 5 tetraedros unidos | El más simple polítopo 4D |
-| **Hexacosicoron** | 120 | 600 tetraedros | Una "esfera" hecha de triángulos |
+**Regla de conversión:**
+- `x = columna` en el archivo
+- `y = fila` en el archivo
+- `z = valor` de elevación
 
+Esto crea una malla de puntos donde cada coordenada representa tanto una posición como un vector desde el origen.
 
-### Paso 2: Pensando en vectores vs. coordenadas
+### Paso 2: Transformaciones geométricas
 
-**¿Por qué vectores y no solo coordenadas?**
+#### Las rotaciones como transformaciones lineales
 
-Cada punto es simultáneamente:
-- **Una coordenada**: "Estoy en la posición (x,y,z)"
-- **Un vector**: "Soy un desplazamiento desde el origen (0,0,0)"
+Una rotación en 2D es la transformación más fundamental. Para rotar un vector `v = (x,y)` por un ángulo θ:
 
-Cuando aplico rotaciones, estoy **rotando vectores alrededor del origen**:
+**Demostración paso a paso:**
 
-```c
-// En mi código: rotate_x(&point.y, &point.z, angle)
-// Matemáticamente: Rotar el vector (x,y,z) en el plano YZ
-
-Vector original:     v = (2, 1, 10)
-Después de rotar 90° en YZ: v' = (2, -10, 1)
+Primero, expresemos el vector en coordenadas polares:
+```
+x = r·cos(α)
+y = r·sin(α)
 ```
 
-Esta perspectiva vectorial es **fundamental** porque:
-1. Las rotaciones preservan el módulo del vector: `|v| = |v'|`
-2. Las transformaciones son lineales: `T(av + bw) = aT(v) + bT(w)`
-3. Puedo componer transformaciones multiplicando matrices
-
-### Paso 3: El álgebra de rotaciones vectoriales
-
-#### Rotación 2D: El caso fundamental
-
-Para rotar un vector `v = (x,y)` por un ángulo θ:
-
+Después de rotar θ grados, el nuevo ángulo es `α + θ`:
 ```
-Demostración geométrica:
+x' = r·cos(α + θ)
+y' = r·sin(α + θ)
+```
 
-    y ↑
-      |     v'(x',y')
-      |    /
-      |   /
-      |  /   θ+α
-      | /
-      |/____→ x
-    O      v(x,y)
+Aplicando las identidades trigonométricas:
+```
+cos(α + θ) = cos(α)cos(θ) - sin(α)sin(θ)
+sin(α + θ) = sin(α)cos(θ) + cos(α)sin(θ)
+```
 
-En coordenadas polares:
-x = r·cos(α)    y = r·sin(α)
+Sustituyendo:
+```
+x' = r·cos(α)cos(θ) - r·sin(α)sin(θ)
+y' = r·sin(α)cos(θ) + r·cos(α)sin(θ)
+```
 
-Después de rotar θ:
-x' = r·cos(α+θ) = r·cos(α)cos(θ) - r·sin(α)sin(θ)
-y' = r·sin(α+θ) = r·sin(α)cos(θ) + r·cos(α)sin(θ)
-
-Sustituyendo x,y:
+Como `r·cos(α) = x` y `r·sin(α) = y`:
+```
 x' = x·cos(θ) - y·sin(θ)
 y' = x·sin(θ) + y·cos(θ)
 ```
 
-**En mi código:**
+**Implementación en código:**
 ```c
-void rotate_xy(float *x, float *y, float angle) {
-    float prev_x = *x, prev_y = *y;
-    *x = prev_x * cos(angle) - prev_y * sin(angle);
-    *y = prev_x * sin(angle) + prev_y * cos(angle);
+void rotate_2d(float *x, float *y, float angle) {
+    float original_x = *x;
+    float original_y = *y;
+
+    *x = original_x * cos(angle) - original_y * sin(angle);
+    *y = original_x * sin(angle) + original_y * cos(angle);
 }
 ```
 
 #### Extensión a 3D: Rotaciones por planos
 
-En 3D, roto **dentro de planos**, no alrededor de ejes:
+En 3D, las rotaciones ocurren en planos, no alrededor de ejes. Cada rotación 3D es una rotación 2D en un plano específico:
 
 ```c
-// Rotación en plano YZ (eje X fijo)
+// Rotación en plano YZ (X permanece fijo)
 void rotate_x(float *y, float *z, float angle) {
-    float old_y = *y, old_z = *z;
+    float old_y = *y;
+    float old_z = *z;
+
     *y = old_y * cos(angle) - old_z * sin(angle);
     *z = old_y * sin(angle) + old_z * cos(angle);
-    // X no cambia: es el eje de rotación
+    // x no cambia - es perpendicular al plano YZ
 }
 ```
+
+**¿Por qué funciona esto?**
+
+Si imaginamos mirar desde el eje X hacia el origen, vemos el plano YZ como un plano 2D normal. La rotación "alrededor del eje X" es realmente una rotación *en el plano YZ*.
 
 #### El salto conceptual a 4D
 
-**En 4D no hay "ejes de rotación", solo planos de rotación:**
+**Aquí está la clave:** En 4D no hay "ejes de rotación". Solo hay planos de rotación.
 
 ```
-3D: 3 planos posibles     4D: 6 planos posibles
-    XY, XZ, YZ               XY, XZ, XW, YZ, YW, ZW
-
-Cada rotación 4D usa la MISMA fórmula que 2D:
+Dimensión | Planos de rotación posibles
+----------|---------------------------
+2D        | 1 plano: XY
+3D        | 3 planos: XY, XZ, YZ
+4D        | 6 planos: XY, XZ, XW, YZ, YW, ZW
 ```
+
+Cada rotación 4D usa **exactamente la misma fórmula** que las rotaciones 2D:
 
 ```c
-// Rotación en plano XW (4ª dimensión)
+// Rotación en plano XW (la cuarta dimensión)
 void rotate_xw(float *x, float *w, float angle) {
-    float prev_x = *x, prev_w = *w;
+    float prev_x = *x;
+    float prev_w = *w;
+
     *x = prev_x * cos(angle) - prev_w * sin(angle);
     *w = prev_x * sin(angle) + prev_w * cos(angle);
-    // Y,Z permanecen inalteradas
+    // y, z permanecen inalteradas
 }
 ```
 
-### Paso 4: Proyecciones como transformaciones lineales
+### Paso 3: Proyecciones - Reduciendo dimensiones
 
-#### Proyección 4D → 3D (Perspectiva dimensional)
+#### Proyección 4D → 3D: Perspectiva dimensional
 
-Para visualizar objetos 4D, uso **proyección perspectiva** desde la 4ª dimensión:
-
-```
-Idea: Los objetos "más lejos" en W se ven más pequeños
-
-Vector 4D original:    v = (x, y, z, w)
-Vector 3D proyectado:  v' = (x', y', z')
-
-Fórmula de proyección:
-factor = distancia / (distancia - w)
-x' = x × factor
-y' = y × factor
-z' = z × factor
-```
+Para visualizar objetos 4D, necesitamos "aplastarlos" a 3D usando proyección perspectiva:
 
 **Demostración geométrica:**
+
+Imaginemos un observador en la posición `(0,0,0,d)` en la cuarta dimensión, mirando hacia el "plano" W=0:
+
 ```
-Observador en (0,0,0,d) mira hacia W=0
-Punto P(x,y,z,w) proyectado en plano W=0
+Observador ---------> Plano W=0
+(0,0,0,d)            (x',y',z',0)
+            \
+             \
+              \
+               Punto P(x,y,z,w)
+```
 
 Por triángulos semejantes:
-x'/x = (d-0)/(d-w) = d/(d-w)
+```
+distancia_proyectada / distancia_real = distancia_observador / distancia_total
 
-Por tanto: x' = x × d/(d-w)
+x' / x = d / (d - w)
+
+Por tanto: x' = x × d / (d - w)
 ```
 
-#### Proyección 3D → 2D (Cinco sistemas)
-
-**1. Isométrica (preserva proporciones):**
-```c
-iso_x = (x - y) * cos(30°)  // ≈ 0.866
-iso_y = (x + y) * sin(30°) - z  // ≈ 0.5
-
-¿Por qué 30°? Hace que los tres ejes X,Y,Z
-se vean con la misma inclinación en pantalla.
+Lo mismo aplica para y' y z'. El factor de proyección es:
+```
+factor = d / (d - w)
 ```
 
-**2. Perspectiva (realismo visual):**
+**Implementación:**
 ```c
-factor = distancia / (-z + distancia)
-x' = x × factor
-y' = y × factor
-// Es la MISMA fórmula que 4D→3D
+void project_4d_to_3d(t_point *point, float distance) {
+    float factor = distance / (distance - point->w);
+
+    point->x *= factor;
+    point->y *= factor;
+    point->z *= factor;
+    // w se descarta después de la proyección
+}
 ```
 
-**3-5. Ortogonales (proyecciones puras):**
+#### Proyección 3D → 2D: Múltiples sistemas
+
+**1. Proyección Isométrica**
+
+La proyección isométrica preserva las proporciones y es ideal para análisis técnico:
+
 ```c
-Superior: x'=x, y'=y  (ignora Z)
-Frontal:  x'=x, y'=z  (ignora Y)
-Lateral:  x'=z, y'=y  (ignora X)
+// Ángulos que hacen que X, Y, Z se vean igualmente inclinados
+float iso_angle = 30.0 * M_PI / 180.0; // 30 grados en radianes
+
+iso_x = (x - y) * cos(iso_angle);  // ≈ 0.866
+iso_y = (x + y) * sin(iso_angle) - z;  // ≈ 0.5
+```
+
+**¿Por qué 30 grados?**
+
+En una proyección isométrica verdadera, los tres ejes X, Y, Z forman ángulos de 120° entre sí cuando se proyectan al plano 2D. Esto requiere que cada eje tenga una inclinación de 30° respecto a la horizontal.
+
+**2. Proyección Perspectiva**
+
+Simula cómo vemos los objetos en la realidad - los objetos más lejanos se ven más pequeños:
+
+```c
+void project_perspective(t_point *point, float distance) {
+    float factor = distance / (distance - point->z);
+
+    point->x *= factor;
+    point->y *= factor;
+    // z se usa para el cálculo pero no se renderiza
+}
+```
+
+**3. Proyecciones Ortogonales**
+
+Proyecciones "puras" que eliminan una dimensión:
+
+```c
+// Vista superior (elimina Z)
+top_x = x;
+top_y = y;
+
+// Vista frontal (elimina Y)
+front_x = x;
+front_y = z;
+
+// Vista lateral (elimina X)
+side_x = z;
+side_y = y;
 ```
 
 ---
 
-## 🔄 Mi implementación del pipeline completo
+## 🔮 Explorando la geometría 4D
 
-### La función central: `project_point`
+### ¿Qué significa "4D"?
+
+```
+1D: Una línea
+•————————•
+
+2D: Un cuadrado
+•————————•
+|        |
+|        |
+•————————•
+
+3D: Un cubo
+    •————————•
+   /|       /|
+  / |      / |
+ •————————•  |
+ |  •—————|——•
+ | /      | /
+ |/       |/
+ •————————•
+
+4D: Un tesseract
+(Imposible de dibujar directamente)
+```
+
+### Objetos 4D implementados
+
+| Objeto | Vértices | Descripción | Analogía |
+|--------|----------|-------------|----------|
+| **Tesseract** | 16 | Hipercubo 4D | Como un cubo, pero con una dimensión extra |
+| **Pentachoron** | 5 | Simplejo 4D | El análogo 4D de un triángulo/tetraedro |
+| **Hexacosicoron** | 120 | Polítopo complejo | Una "esfera" hecha de 600 tetraedros |
+
+### Construyendo un tesseract
+
+Un tesseract se construye tomando dos cubos y conectando sus vértices correspondientes:
+
+```c
+// Cubo 1: W = -1
+{-1,-1,-1,-1}, {1,-1,-1,-1}, {1,1,-1,-1}, {-1,1,-1,-1},
+{-1,-1,1,-1},  {1,-1,1,-1},  {1,1,1,-1},  {-1,1,1,-1},
+
+// Cubo 2: W = +1
+{-1,-1,-1,1},  {1,-1,-1,1},  {1,1,-1,1},  {-1,1,-1,1},
+{-1,-1,1,1},   {1,-1,1,1},   {1,1,1,1},   {-1,1,1,1}
+```
+
+Cada vértice del primer cubo se conecta con su correspondiente en el segundo cubo, creando un objeto 4D.
+
+---
+
+## 🎨 El motor de renderizado
+
+### Algoritmo de líneas vectoriales
+
+Para conectar dos puntos proyectados, uso una versión optimizada del algoritmo de Bresenham con interpolación de colores:
+
+```c
+void draw_line(t_point start, t_point end, t_fdf *data) {
+    int dx = abs(end.x - start.x);
+    int dy = abs(end.y - start.y);
+    int steps = max(dx, dy);
+
+    // Interpolación paramétrica
+    for (int i = 0; i <= steps; i++) {
+        float t = (float)i / steps;
+
+        int x = start.x + t * (end.x - start.x);
+        int y = start.y + t * (end.y - start.y);
+        int color = interpolate_color(start.color, end.color, t);
+
+        put_pixel(data, x, y, color);
+    }
+}
+```
+
+### Mapeo automático de colores
+
+Para visualizar elevaciones, mapeo automáticamente alturas a colores:
+
+```c
+int	interpolate_color(int color1, int color2, float t)
+{
+	t_color	c;
+
+	c.r1 = (color1 >> 16) & 0xFF;
+	c.g1 = (color1 >> 8) & 0xFF;
+	c.b1 = (color1) & 0xFF;
+	c.r2 = (color2 >> 16) & 0xFF;
+	c.g2 = (color2 >> 8) & 0xFF;
+	c.b2 = (color2) & 0xFF;
+	c.r = c.r1 + (int)((c.r2 - c.r1) * t);
+	c.g = c.g1 + (int)((c.g2 - c.g1) * t);
+	c.b = c.b1 + (int)((c.b2 - c.b1) * t);
+	return ((c.r << 16) | (c.g << 8) | c.b);
+}
+```
+
+### El pipeline completo
 
 ```c
 t_point project_point(t_point point, t_map map, t_cam cam) {
-    // 1. Si es 4D, rotaciones en los 6 planos 4D
+    // 1. Rotaciones 4D (si es un objeto 4D)
     if (map.type == OBJECT_4D) {
-        rotate_xy(&point.x, &point.y, cam.delta);    // Plano XY
-        rotate_xz(&point.x, &point.z, cam.epsilon);  // Plano XZ
-        rotate_yw(&point.y, &point.w, cam.theta);    // Plano YW (4D)
-        rotate_zw(&point.z, &point.w, cam.iota);     // Plano ZW (4D)
-        project_4d_to_3d(&point);                    // Proyección 4D→3D
+        rotate_xy(&point.x, &point.y, cam.angle_xy);
+        rotate_xz(&point.x, &point.z, cam.angle_xz);
+        rotate_xw(&point.x, &point.w, cam.angle_xw);
+        rotate_yz(&point.y, &point.z, cam.angle_yz);
+        rotate_yw(&point.y, &point.w, cam.angle_yw);
+        rotate_zw(&point.z, &point.w, cam.angle_zw);
+
+        // Proyección 4D → 3D
+        project_4d_to_3d(&point, cam.distance_4d);
     }
 
-    // 2. Aplicar zoom (escalado isométrico)
+    // 2. Escalado (zoom)
     point.x *= cam.zoom;
     point.y *= cam.zoom;
     point.z *= cam.zoom;
 
-    // 3. Centrar el objeto en el origen (solo para mapas 3D)
-    if (map.type == OBJECT_3D)
-        move_map_to_origin(&point, map, cam);
+    // 3. Centrado del objeto
+    if (map.type == TOPOGRAPHIC_MAP) {
+        point.x -= map.width / 2;
+        point.y -= map.height / 2;
+    }
 
-    // 4. Rotaciones 3D estándar
-    rotate_x(&point.y, &point.z, cam.alpha);  // Pitch
-    rotate_y(&point.x, &point.z, cam.beta);   // Yaw
-    rotate_z(&point.x, &point.y, cam.gamma);  // Roll
+    // 4. Rotaciones 3D
+    rotate_x(&point.y, &point.z, cam.pitch);
+    rotate_y(&point.x, &point.z, cam.yaw);
+    rotate_z(&point.x, &point.y, cam.roll);
 
-    // 5. Proyección 3D→2D según modo seleccionado
-    project_3d_to_2d(&point, cam.projection);
+    // 5. Proyección 3D → 2D
+    switch(cam.projection) {
+        case ISOMETRIC:
+            project_isometric(&point);
+            break;
+        case PERSPECTIVE:
+            project_perspective(&point, cam.distance_3d);
+            break;
+        case ORTHOGONAL:
+            project_orthogonal(&point, cam.view_direction);
+            break;
+    }
 
-    // 6. Translación a centro de pantalla
-    point.x += cam.x_offset;
-    point.y += cam.y_offset;
+    // 6. Translación a pantalla
+    point.x += cam.center_x;
+    point.y += cam.center_y;
 
     return point;
-}
-```
-
-### Controles vectoriales intuitivos
-
-| Acción | Tecla | Operación matemática |
-|--------|-------|---------------------|
-| **Rotación 3D** | `↑↓←→` | Modifica vectores (α,β,γ) de Euler |
-| **Rotación Z** | `< >` | Rotación en plano XY |
-| **Zoom vectorial** | `Mouse wheel` | Escalado: `v' = k·v` |
-| **Translación** | `Mouse drag` | Suma vectorial: `v' = v + offset` |
-
-**Controles 4D únicos:**
-| Rotación 4D | Tecla | Planos afectados |
-|-------------|-------|------------------|
-| **Combo 1** | `W/S` | XY + ZW (rotaciones acopladas) |
-| **Combo 2** | `A/D` | XZ + YW (rotaciones acopladas) |
-
----
-
-## 🎯 Casos de estudio con datos reales
-
-### Caso 1: Mapa topográfico "42"
-
-**Datos de entrada (42.fdf):**
-```
-0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
-0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
-0  0 10 10  0  0 10 10  0  0  0 10 10 10 10 10  0  0  0
-0  0 10 10  0  0 10 10  0  0  0  0  0  0  0 10 10  0  0
-```
-
-**Interpretación vectorial:**
-- Dimension: 19×12 puntos
-- Vector máximo: `(18, 11, 10)`
-- Patrón: Forma las letras "4" y "2" en relieve
-
-**Pipeline de transformación:**
-```
-Vector original: (2,2,10)
-1. Centrado: (2-9.5, 2-5.5, 10) = (-7.5, -3.5, 10)
-2. Zoom 2x: (-15, -7, 20)
-3. Rotación Y 30°: (-15×cos30° + 20×sin30°, -7, -15×sin30° + 20×cos30°)
-                 = (-3.0, -7, 9.8)
-4. Proyección isométrica: x' = (-3.0-(-7))×0.866 = 3.46
-                         y' = (-3.0+(-7))×0.5 - 9.8 = -14.8
-```
-
-### Caso 2: Fractal de Julia (julia.fdf)
-
-**Estructura de datos:**
-```
-1,0x810202 1,0x810202 1,0x810202 ...
-(valor, color_hex) para cada punto
-```
-
-**Características:**
-- Dimensión: 500×501 vectores (≈250,000 puntos)
-- Cada vector lleva información de altura Y color
-- Genera un paisaje fractal con degradado cromático
-
-### Caso 3: Tesseract 4D
-
-**Coordenadas de vértices (predefinidas):**
-```c
-// Los 16 vértices del tesseract
-{-1,-1,-1,-1}, {1,-1,-1,-1}, {1,1,-1,-1}, {-1,1,-1,-1},  // Cubo W=-1
-{-1,-1,1,-1},  {1,-1,1,-1},  {1,1,1,-1},  {-1,1,1,-1},   // Cubo W=-1
-{-1,-1,-1,1},  {1,-1,-1,1},  {1,1,-1,1},  {-1,1,-1,1},   // Cubo W=+1
-{-1,-1,1,1},   {1,-1,1,1},   {1,1,1,1},   {-1,1,1,1}     // Cubo W=+1
-```
-
-**Transformación completa:**
-```
-Vector inicial: (-1,-1,-1,-1)
-1. Rotación XY(0.1): (-1×cos0.1-(-1)×sin0.1, -1×sin0.1+(-1)×cos0.1, -1, -1)
-                   = (-0.895, -1.095, -1, -1)
-2. Rotación YW(0.2): (-0.895, -1.095×cos0.2-(-1)×sin0.2, -1, -1.095×sin0.2+(-1)×cos0.2)
-                   = (-0.895, -0.895, -1, -1.288)
-3. Proyección 4D→3D: factor = 5/(5-(-1.288)) = 0.796
-                    (-0.895×0.796, -0.895×0.796, -1×0.796) = (-0.712, -0.712, -0.796)
-4. Rotaciones 3D y proyección final a pantalla
-```
-
----
-
-## 🎨 Análisis del renderizado vectorial
-
-### Algoritmo de líneas: Bresenham optimizado
-
-Para conectar dos vectores proyectados `A(x₁,y₁)` y `B(x₂,y₂)`:
-
-```c
-void draw_line(t_point a, t_point b, t_fdf *data) {
-    int dx = abs(b.x - a.x);
-    int dy = abs(b.y - a.y);
-
-    // Vector dirección unitario
-    int sx = (a.x < b.x) ? 1 : -1;
-    int sy = (a.y < b.y) ? 1 : -1;
-
-    // Interpolación de colores a lo largo del vector
-    for (float t = 0; t <= 1; t += 1.0/max(dx,dy)) {
-        int color = interpolate_color(a.color, b.color, t);
-        put_pixel(data, lerp(a.x, b.x, t), lerp(a.y, b.y, t), color);
-    }
-}
-```
-
-### Interpolación cromática automática
-
-```c
-// Mapeo altura → color para visualización de datos
-int get_height_color(float z, float z_min, float z_max) {
-    float ratio = (z - z_min) / (z_max - z_min);
-
-    if (ratio < 0.2) return 0x0000FF;      // Azul (bajo)
-    if (ratio < 0.4) return 0x00FFFF;      // Cian
-    if (ratio < 0.6) return 0x00FF00;      // Verde
-    if (ratio < 0.8) return 0xFFFF00;      // Amarillo
-    return 0xFF0000;                       // Rojo (alto)
 }
 ```
 
@@ -407,133 +397,47 @@ int get_height_color(float z, float z_min, float z_max) {
 
 ## 🚀 Instalación y uso
 
-### Compilación y ejecución
+### Compilación
+
 ```bash
 git clone [tu-repositorio] fdf
 cd fdf
 make
-
-# Mapas topográficos 3D
-./fdf maps/42.fdf        # Logo 42 en wireframe
-./fdf maps/julia.fdf     # Fractal de Julia colorizado
-
-# Objetos geométricos 4D
-./fdf tesseract          # Hipercubo 4D
-./fdf pentachoron        # Simplejo 4D
 ```
 
-### Controles avanzados
+### Ejemplos de uso
+
+```bash
+# Mapas topográficos
+./fdf maps/42.fdf          # Logo de 42 School
+./fdf maps/julia.fdf       # Conjunto de Julia (fractal)
+./fdf maps/pyramide.fdf    # Pirámide simple
+
+# Objetos 4D
+./fdf tesseract            # Hipercubo 4D
+./fdf pentachoron         # Simplejo 4D
+./fdf hexacosicoron       # Polítopo complejo
+```
+
+### Controles interactivos
 
 **Navegación 3D:**
-- `↑↓←→`: Rotaciones principales (pitch/yaw)
-- `< >`: Rotación roll (eje Z)
+- `↑↓←→`: Rotación pitch/yaw
+- `< >`: Rotación roll
 - `Mouse drag`: Translación libre
-- `Mouse wheel`: Zoom vectorial
+- `Mouse wheel`: Zoom
 
 **Navegación 4D:**
-- `W/S`: Rotación combinada XY+ZW
-- `A/D`: Rotación combinada XZ+YW
-- `ESC`: Salir
+- `W/S`: Rotación planos XY + ZW
+- `A/D`: Rotación planos XZ + YW
+- `Q/E`: Rotación planos YZ + XW
 
-**Cambio de proyección:**
-- `I`: Isométrica (ideal para análisis técnico)
-- `P`: Perspectiva (realismo visual)
-- `T`: Top/Superior (vista de planta)
-- `F`: Frontal (alzado)
-- `L`: Lateral (perfil)
-
----
-
-## 🧠 Fundamentos matemáticos profundos
-
-### Álgebra lineal aplicada
-
-**1. Espacios vectoriales**
-- Cada punto/pixel es un vector en ℝ³ o ℝ⁴
-- Las transformaciones son funciones lineales T: ℝⁿ → ℝᵐ
-- Preservación de operaciones: T(αv + βw) = αT(v) + βT(w)
-
-**2. Matrices de rotación**
-```
-Rotación 2D (θ):         Rotación 3D X(α):
-┌ cos θ  -sin θ ┐        ┌ 1    0      0   ┐
-└ sin θ   cos θ ┘        │ 0  cos α -sin α │
-                         └ 0  sin α  cos α ┘
-```
-
-**3. Composición de transformaciones**
-```
-Transformación final = T₆ ∘ T₅ ∘ T₄ ∘ T₃ ∘ T₂ ∘ T₁
-Donde:
-T₁: Rotaciones 4D (si aplica)
-T₂: Proyección 4D→3D
-T₃: Escalado (zoom)
-T₄: Rotaciones 3D
-T₅: Proyección 3D→2D
-T₆: Translación a pantalla
-```
-
-### Trigonometría y geometría proyectiva
-
-**1. Identidades fundamentales usadas:**
-- `cos(α + β) = cos α cos β - sin α sin β`
-- `sin(α + β) = sin α cos β + cos α sin β`
-- Estas identidades **derivan** las fórmulas de rotación
-
-**2. Proyección perspectiva:**
-- Basada en triángulos semejantes
-- Cumple las leyes de la perspectiva renacentista
-- Preserva linealidad en planos paralelos
-
-### Conexión con IA y Data Science
-
-**1. Reducción de dimensionalidad:**
-- Mi proyección 4D→3D es análoga a PCA o t-SNE
-- Preserva estructura local mientras reduce dimensiones
-- Útil para visualizar embeddings de alta dimensión
-
-**2. Transformaciones de características:**
-- Las rotaciones son cambios de base en el espacio de características
-- Útil para entender invariancias en ML
-- Aplicable a data augmentation en computer vision
-
-**3. Optimización numérica:**
-- Uso de gradientes para suavizar animaciones
-- Interpolación lineal para transiciones fluidas
-- Control de error numérico en operaciones de punto flotante
-
----
-
-## 💡 Valor profesional y técnico
-
-### Para desarrolladores
-
-**Competencias técnicas demostradas:**
-- Implementación de algoritmos matemáticos complejos
-- Optimización de rendimiento (renderizado en tiempo real)
-- Arquitectura modular y escalable
-- Gestión de memoria en C (sin leaks)
-
-**Patrones de diseño aplicados:**
-- Pipeline de transformaciones (Chain of Responsibility)
-- Separación de concerns (rendering/input/data)
-- Abstracción de proyecciones (Strategy pattern)
-
-### Para reclutadores
-
-**¿Por qué este proyecto importa?**
-
-1. **Rigor matemático**: Demuestro comprensión profunda de álgebra lineal y geometría
-2. **Pensamiento algorítmico**: Optimización del pipeline de renderizado
-3. **Capacidad de abstracción**: Extensión natural de 3D a 4D
-4. **Orientación a resultados**: Producto funcional y visual
-
-**Aplicaciones directas en la industria:**
-- **Videojuegos**: Motores de renderizado, física, animación
-- **Realidad virtual**: Transformaciones de cámara, proyecciones estereoscópicas
-- **Visualización científica**: Representación de datos multidimensionales
-- **Machine Learning**: Visualización de espacios de características
-- **CAD/CAM**: Modelado geométrico, proyecciones técnicas
+**Proyecciones:**
+- `I`: Isométrica
+- `P`: Perspectiva
+- `T`: Vista superior
+- `F`: Vista frontal
+- `L`: Vista lateral
 
 ---
 
@@ -541,92 +445,56 @@ T₆: Translación a pantalla
 
 ### Complejidad computacional
 
-**Por frame renderizado:**
-- Transformación por punto: O(1) - operaciones matriciales constantes
-- Total por frame: O(n) donde n = número de puntos
-- Para julia.fdf (250k puntos): ~16ms en hardware moderno
+**Por cada frame:**
+- Transformación por punto: O(1) operaciones vectoriales
+- Total: O(n) donde n = número de puntos
+- Para mapas grandes (500×500): ~25ms en hardware moderno
 
-**Optimizaciones implementadas:**
-- Cálculo de sin/cos una sola vez por frame
-- Eliminación de divisiones innecesarias
-- Uso de lookup tables para interpolación de colores
+### Optimizaciones implementadas
 
-### Casos de uso realistas
-
-**1. Análisis topográfico:**
-```bash
-# Mapa real de elevaciones
-./fdf maps/mars.fdf      # Datos de superficie marciana
-./fdf maps/everest.fdf   # Modelo del Everest
-```
-
-**2. Visualización matemática:**
-```bash
-# Funciones 3D
-./fdf maps/paraboloid.fdf   # z = x² + y²
-./fdf maps/saddle.fdf       # z = x² - y²
-```
-
-**3. Arte generativo:**
-```bash
-# Fractales y formas procedurales
-./fdf maps/mandelbrot.fdf
-./fdf maps/spiral.fdf
-```
+1. **Precálculo trigonométrico**: `sin()` y `cos()` se calculan una vez por frame
+2. **Eliminación de divisiones**: Uso multiplicación por inversos precalculados
+3. **Interpolación vectorizada**: Operaciones SIMD cuando es posible
+4. **Clipping inteligente**: Solo renderizo puntos visibles
 
 ---
 
-## 🎓 Reflexión: Del código a la comprensión
+## 💭 Reflexiones técnicas
 
-### Los momentos "¡Eureka!" que transformaron mi perspectiva
+### Lecciones aprendidas
 
-**1. "Las rotaciones 4D son solo rotaciones 2D repetidas"**
-Al darme cuenta de que `rotate_xw()` usa exactamente la misma fórmula que `rotate_xy()`, entendí que las dimensiones superiores no son "mágicas" - son extensiones naturales de principios simples.
+**1. La elegancia de las matemáticas unificadas**
 
-**2. "Los vectores unifican geometría y álgebra"**
-Un punto (3,4,5) es simultáneamente:
-- Una posición en el espacio
-- Un vector desde el origen
-- Una combinación lineal de vectores base: 3î + 4ĵ + 5k̂
+Descubrir que las rotaciones 4D usan exactamente la misma fórmula que las rotaciones 2D fue revelador. No hay "magia" en las dimensiones superiores - son extensiones naturales de principios simples.
 
-**3. "Las proyecciones revelan estructura oculta"**
-Cuando roto un tesseract 4D y veo cómo cambia su "sombra" 2D, entiendo cómo nuestro cerebro puede percibir dimensiones que no puede visualizar directamente.
+**2. La importancia de la visualización**
 
-### Conexión con mi futuro profesional
+Ver cómo un tesseract "respira" mientras rota en 4D ayuda a entender conceptos que son imposibles de imaginar directamente. La visualización no es solo útil - es esencial para la comprensión.
 
-Este proyecto me enseñó que **la matemática compleja es simple cuando entiendes los fundamentos**. Ahora, cuando veo:
+**3. El poder de la abstracción vectorial**
 
-- Papers de ML con espacios de 1000 dimensiones
-- Algoritmos de computer vision con transformaciones proyectivas
-- Sistemas de IA con representaciones vectoriales complejas
+Tratar cada punto como un vector permite operaciones elegantes y composables. Las transformaciones se vuelven funciones matemáticas limpias en lugar de código imperativo complicado.
 
-No me intimidan. Son extensiones de los mismos principios que implementé aquí.
+### Aplicaciones en el mundo real
 
-**La geometría es el lenguaje universal de la matemática aplicada.**
+Este proyecto conecta directamente con:
+
+- **Computer Graphics**: Pipelines de renderizado, transformaciones de cámara
+- **Machine Learning**: Visualización de espacios de características multidimensionales
+- **Realidad Virtual**: Proyecciones estereoscópicas, tracking de movimiento
+- **Análisis de datos**: Representación visual de datasets complejos
+- **Ingeniería**: CAD, simulaciones físicas, análisis estructural
 
 ---
 
-## 📚 Referencias y recursos
+## 🎯 Conclusión
 
-### Matemática fundamental
-- **Linear Algebra Done Right** - Sheldon Axler
-- **Geometry of Linear Transformations** - MIT OpenCourseWare
-- **Quaternions and Rotation Sequences** - J.B. Kuipers
+FDF comenzó como un proyecto de visualización de mapas topográficos y evolucionó hacia una exploración profunda de la geometría multidimensional. A través de la implementación de transformaciones vectoriales, proyecciones y algoritmos de renderizado, no solo creé una herramienta funcional, sino que desarrollé una comprensión intuitiva de conceptos matemáticos fundamentales.
 
-### Aplicaciones en IA/ML
-- **Pattern Recognition and Machine Learning** - Christopher Bishop
-- **Deep Learning** - Ian Goodfellow, Yoshua Bengio
-- **Computer Vision: Algorithms and Applications** - Richard Szeliski
-
-### Implementación técnica
-- **Real-Time Rendering** - Tomas Akenine-Möller
-- **Computer Graphics: Principles and Practice** - Hughes, van Dam
-- **Numerical Recipes in C** - Press, Teukolsky, Vetterling
+El proyecto demuestra que las matemáticas complejas se vuelven accesibles cuando se construyen paso a paso desde principios básicos, y que la visualización es una herramienta poderosa para entender abstracciones que desafían la intuición.
 
 ---
 
 **Mikel Garrido** - 42 Barcelona
-*"Transformando datos en comprensión visual"*
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white)](your-linkedin)
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=flat&logo=github&logoColor=white)](your-github)
+*"Convirtiendo matemáticas abstractas en experiencias visuales comprensibles"*
