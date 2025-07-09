@@ -67,9 +67,8 @@ Un vector en 2D es una flecha que va desde un punto de origen (normalmente el (0
 
 Es importante entender que una coordenada o un par ordenado puede representarse como un número complejo que tiene una parte real (x) y una parte imaginaria (y). Esto es muy importante si queremos entender a profundidad toda la matemática que hay detrás, es por ello que te recomiendo mucho que veas estos dos video antes y luego regreses a esta demostracion para el proyecto FDF.
 
-https://www.youtube.com/watch?v=5FemcGdN3Xw
-
-https://www.youtube.com/watch?v=f7iOdIaourk
+Parte1: https://www.youtube.com/watch?v=5FemcGdN3Xw
+Parte2: https://www.youtube.com/watch?v=f7iOdIaourk
 
 #### Las rotaciones como transformaciones lineales
 
