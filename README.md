@@ -53,17 +53,18 @@ Formarian una figura pareciada a esto:
 
 Esto crea una malla de puntos donde cada coordenada representa tanto una posición como un vector desde el origen.
 
-## ¿Por qué rotar los puntos?
+## 🌀 ¿Por qué rotar los puntos?
 
 En la imagen adjunta los puntos están rotados. Si simplemente proyectáramos los puntos `(x, y, z)` como `(x, y)`, obtendríamos una **vista aérea plana**.
 
 Para crear la **ilusión de profundidad** o tridimensionalidad, necesitamos **rotar los puntos** como vectores antes de proyectarlos. Esto transforma cómo se dibujan en pantalla y nos da una sensación visual parecida a una perspectiva en 3D.
 
-### Paso 2: Transformaciones geométricas 🌀
+### Transformaciones geométricas
 
 Un vector en 2D es una flecha que va desde un punto de origen (normalmente el (0,0)) hasta un punto en el plano (x, y). Representa tanto una posición como una dirección y magnitud.
 
-**Que es una coordenada**
+### Que es una coordenada
+
 Es importante entender que una coordenada o un par ordenado es un numero complejo que tiene una parte real (x) y una parte imaginaria (y). esto es muy importante si queremos entender a profundidad toda la matematica que hay detras es por ello que te recomiendo mucho que veas este video antes y luego regreses a esta demostracion para el proyecto fdf.
 
 #### Las rotaciones como transformaciones lineales
@@ -548,7 +549,7 @@ Son las más simples - eliminan directamente una dimensión, como "aplastar" el 
 
 #### 🎲 Tesseract (Hipercubo 4D)
 
-![alt text](tesseract.png)
+![alt text](img/tesseract.png)
 
 **¿Qué es?**
 Un tesseract es la versión 4D de un cubo. Mientras un cubo tiene 8 vértices, el tesseract tiene 16.
@@ -573,7 +574,7 @@ Igual que un cubo se forma tomando dos cuadrados y conectándolos, un tesseract 
 
 #### 🔺 Pentachoron (Tetraedro 4D)
 
-![alt text](pentachoron.png)
+![alt text](img/pentachoron.png)
 
 **¿Qué es?**
 El polítopo 4D más simple, como un tetraedro pero en 4 dimensiones. Tiene 5 vértices (de ahí "penta").
@@ -591,7 +592,7 @@ El polítopo 4D más simple, como un tetraedro pero en 4 dimensiones. Tiene 5 v�
 
 #### ⚪ Hexacosicoron (600-cell)
 
-![alt text](hexacosicoron.png)
+![alt text](img/hexacosicoron.png)
 
 **¿Qué es?**
 Un polítopo 4D extremadamente complejo con 120 vértices y 600 tetraedros como caras.
