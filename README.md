@@ -19,7 +19,7 @@ FDF (FileDeFer) comenzó como un proyecto de 42 School para renderizar mapas top
 - **Rotaciones multidimensionales**: Controles intuitivos para navegar en 3D y 4D
 - **Colorización automática**: Mapeo altura-color para mejor comprensión visual
 
-<p align="center"> <img src="image/.score.png" alt="alt text" /> </p>
+<p align="center"> <img src="img/.score.png" alt="alt text" /> </p>
 
 ---
 
