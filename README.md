@@ -9,7 +9,7 @@
 
 ## 🎯 ¿Qué es FDF?
 
-FDF (FileDeFer) comenzó como un proyecto de 42 School para renderizar mapas topográficos en 3D. Mi implementación intenta ir un poco va más allá: es un motor completo de transformaciones geométricas que explora tanto la visualización de datos del mundo real (3D) como la geometría de dimensiones superiores (4D).
+FDF (FileDeFer) comenzó como un proyecto de 42 School para renderizar mapas topográficos en 3D. Mi implementación intenta ir un poco más allá: es un motor completo de transformaciones geométricas que explora tanto la visualización de datos del mundo real (3D) como la geometría de dimensiones superiores (4D).
 
 ### Características principales
 
@@ -42,7 +42,7 @@ Se convierte en vectores 3D (X,Y,Z):
 (0,3,0) (1,3,1) (2,3,1) (3,3,1) (4,3,0)
 (0,4,0) (1,4,0) (2,4,0) (3,4,0) (4,4,0)
 
-Formarian una figura pareciada a esto:
+Formarían una figura parecida a esto:
 ```
 <img src="img/basicpyramid.png" alt="alt text" /> </p>
 
@@ -63,9 +63,12 @@ Para crear la **ilusión de profundidad** o tridimensionalidad, necesitamos **ro
 
 Un vector en 2D es una flecha que va desde un punto de origen (normalmente el (0,0)) hasta un punto en el plano (x, y). Representa tanto una posición como una dirección y magnitud.
 
-### Que es una coordenada
+### Qué es una coordenada
 
-Es importante entender que una coordenada o un par ordenado es un numero complejo que tiene una parte real (x) y una parte imaginaria (y). esto es muy importante si queremos entender a profundidad toda la matematica que hay detras es por ello que te recomiendo mucho que veas este video antes y luego regreses a esta demostracion para el proyecto fdf.
+Es importante entender que una coordenada o un par ordenado puede representarse como un número complejo que tiene una parte real (x) y una parte imaginaria (y). Esto es muy importante si queremos entender a profundidad toda la matemática que hay detrás, es por ello que te recomiendo mucho que veas estos dos video antes y luego regreses a esta demostracion para el proyecto FDF.
+
+https://www.youtube.com/watch?v=5FemcGdN3Xw
+https://www.youtube.com/watch?v=f7iOdIaourk
 
 #### Las rotaciones como transformaciones lineales
 
@@ -191,7 +194,7 @@ e^(i·π/2) = cos(π/2) + i·sin(π/2) = 0 + i = i ✓
 e^(i·π) = cos(π) + i·sin(π) = -1 + 0i = -1 ✓
 ```
 
-#### Curiosidad Por que es la formula mas hermosa de las matematicas?
+#### Curiosidad: ¿Por qué es la fórmula más hermosa de las matemáticas?
 
 **La identidad más famosa:** Cuando θ = π (180°):
 ```
@@ -360,12 +363,12 @@ En esta vista, Y actúa como el "eje X del plano" y Z actúa como el "eje Y del 
 
 ```c
 // Rotación alrededor de X (en plano YZ)
-*y = prev_y * cos(angle) - prec_z * sin(angle);
-*z = prev_y * sin(angle) + prec_z * cos(angle);
+*y = prev_y * cos(angle) - prev_z * sin(angle);
+*z = prev_y * sin(angle) + prev_z * cos(angle);
 
 // Rotación alrededor de Y (en plano XZ)
-*x = prev_x * cos(angle) + prec_z * sin(angle);  // ¡SIGNO CAMBIADO!
-*z = -prev_x * sin(angle) + prec_z * cos(angle); // ¡SIGNO CAMBIADO!
+*x = prev_x * cos(angle) + prev_z * sin(angle);  // ¡SIGNO CAMBIADO!
+*z = -prev_x * sin(angle) + prev_z * cos(angle); // ¡SIGNO CAMBIADO!
 
 // Rotación alrededor de Z (en plano XY)
 *x = prev_x * cos(angle) - prev_y * sin(angle);
@@ -393,7 +396,7 @@ Todo depende de si estamos mirando el plano desde el lado "positivo" o "negativo
 
 #### El salto a 4D: Más simple de lo que parece
 
-En 4D seguimos usando las mismas fórmulas de rotación 2D, solo que ahora tenemos más planos donde rotar. son independientes entre estos y no se generan ejes perpendiculares por lo que es siempre la misma formula sin cambios de signo, paradojicamente mas sencillo que en 3D.
+En 4D seguimos usando las mismas fórmulas de rotación 2D, solo que ahora tenemos más planos donde rotar. Son independientes entre sí y no se generan ejes perpendiculares por lo que es siempre la misma fórmula sin cambios de signo, paradójicamente más sencillo que en 3D.
 
 💡 **¡Es la misma fórmula que en 2D!** Solo cambiamos qué coordenadas usamos.
 
@@ -424,14 +427,14 @@ Linterna → Objeto → Pared = Sombra
 ```
 
 **¿Cómo funciona?**
-- Esta sombra distorsiona las relaciones y distancia, no es lo mas fiel a la realidad pero nos permite verla en 3D
+- Esta sombra distorsiona las relaciones y distancia, no es lo más fiel a la realidad pero nos permite verla en 3D
 - Los puntos más "cerca" en la 4ª dimensión (W pequeña) se ven más grandes
 - Los puntos más "lejos" en la 4ª dimensión (W grande) se ven más pequeños
 - Es el mismo concepto de la perspectiva que luego aplicamos en nuestros otros tipos de proyección.
 
-**La fórmula de proyeccion**
+**La fórmula de proyección**
 ```
-Para proyectarlo devemos influir a cada uno de los otros valores de la coordenadas con este principio de perpectiva atraves de este factor:
+Para proyectarlo debemos influir a cada uno de los otros valores de las coordenadas con este principio de perspectiva a través de este factor:
 factor = distancia_observador / (distancia_observador - w)
 
 punto_3d = (x·factor, y·factor, z·factor)
@@ -473,11 +476,11 @@ Este ángulo `0.6154797` radianes (≈35.26°) viene de la combinación de dos r
 
 **¿Por qué este ángulo específico?**
 
-Este ángulo hace que los tres ejes X, Y, Z se vean exactamente iguales en longitud cuando se proyectan al plano 2D. Es el único ángulo que logra esto por eso se le llama isometria.
+Este ángulo hace que los tres ejes X, Y, Z se vean exactamente iguales en longitud cuando se proyectan al plano 2D. Es el único ángulo que logra esto por eso se le llama isometría.
 
 **2. Proyección Perspectiva (POV)**
 
-Esta es la proyección más realista - simula exactamente cómo vemos las cosas en la vida real y funciona igual a la sombra de la cuarta dimension:
+Esta es la proyección más realista - simula exactamente cómo vemos las cosas en la vida real y funciona igual a la sombra de la cuarta dimensión:
 
 ```c
 distance = 500.0f;  // Distancia del "observador"
@@ -536,7 +539,7 @@ Son las más simples - eliminan directamente una dimensión, como "aplastar" el 
  •————————•
 
 4D: Un tesseract
-(Imposible de dibujar directamente solo a traves de una sombra)
+(Imposible de dibujar directamente solo a través de una sombra)
 ```
 
 ### Objetos 4D implementados
@@ -726,7 +729,7 @@ int	interpolate_color(int color1, int color2, float t)
 }
 ```
 
-### El pipeline de proryecciones y rotaciones
+### El pipeline de proyecciones y rotaciones
 
 ```c
 t_point	project_point(t_point point, t_map map, t_cam cam)
@@ -734,7 +737,7 @@ t_point	project_point(t_point point, t_map map, t_cam cam)
 	if (map.type == OBJECT_4D)
 	{
 		rotate_xy(&point.x, &point.y, cam.delta);
-		rotate_xz(&point.x, &point.z, cam.epsilon);
+		rotate_xw(&point.x, &point.w, cam.epsilon);
 		rotate_yw(&point.y, &point.w, cam.theta);
 		rotate_zw(&point.z, &point.w, cam.iota);
 		project_4d_to_3d(&point);
@@ -804,7 +807,7 @@ make
 
 ## 🎯 Conclusión
 
-FDF comenzó como un proyecto de visualización de mapas topográficos y evolucionó hacia una exploración profunda de la geometría multidimensional. A través de la implementación de transformaciones vectoriales, proyecciones y algoritmos de renderizado, no sirvio para crear una herramienta funcional, sino que desarrollé una comprensión intuitiva de conceptos matemáticos fundamentales.
+FDF comenzó como un proyecto de visualización de mapas topográficos y evolucionó hacia una exploración profunda de la geometría multidimensional. A través de la implementación de transformaciones vectoriales, proyecciones y algoritmos de renderizado, no solo sirvió para crear una herramienta funcional, sino que desarrollé una comprensión intuitiva de conceptos matemáticos fundamentales.
 
 El proyecto demuestra que las matemáticas complejas se vuelven accesibles cuando se construyen paso a paso desde principios básicos, y que la visualización es una herramienta poderosa para entender abstracciones que desafían la intuición.
 
