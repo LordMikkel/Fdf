@@ -55,7 +55,7 @@ Formarían una figura parecida a esto:
 
 Esto crea una malla de puntos donde cada coordenada representa tanto una posición como un vector desde el origen.
 
-## 🌀 ¿Por qué rotar los puntos?
+## 🌀 Paso 2: Rotar los puntos
 
 En la imagen adjunta los puntos están rotados. Si simplemente proyectáramos los puntos `(x, y, z)` como `(x, y)`, obtendríamos una **vista aérea plana**.
 
@@ -65,7 +65,7 @@ Para crear la **ilusión de profundidad** o tridimensionalidad, necesitamos **ro
 
 Un vector en 2D es una flecha que va desde un punto de origen (normalmente el (0,0)) hasta un punto en el plano (x, y). Representa tanto una posición como una dirección y magnitud.
 
-### Qué es una coordenada
+### Qué es una coordenada?
 
 Es importante entender que una coordenada o un par ordenado puede representarse como un número complejo que tiene una parte real (x) y una parte imaginaria (y). Esto es muy importante si queremos entender a profundidad toda la matemática que hay detrás, es por ello que recomiendo mucho que veas estos dos videos antes y luego regreses a esta demostración para el proyecto FDF.
 
@@ -130,7 +130,7 @@ e = lim (n → ∞) (1 + 1/n)^n
 
 ### ¿Qué es la unidad imaginaria i?
 
-Los números imaginarios surgen cuando intentamos resolver x² = -1. En números reales es imposible, pero i nos lo permite:
+Los números imaginarios surgen cuando intentamos resolver y² = -1. En números reales es imposible, pero i nos lo permite:
 
 ```
 i = √(-1)
@@ -186,9 +186,9 @@ e^(iθ) = cos(θ) + i·sin(θ)
 ```
 
 **¿Por qué tiene sentido esta fórmula?**
-- **e^(something)** siempre representa algún tipo de "crecimiento" o "multiplicación"
+- **e^(algo)** siempre representa algún tipo de "crecimiento" o "multiplicación"
 - **i·θ** significa "rotar θ radianes"
-- **cos(θ) + i·sin(θ)** son las coordenadas exactas del punto en el círculo después de rotar θ
+- **cos(θ) + i·sin(θ)** son las coordenadas exactas del punto en el círculo después de rotar θ. Donde el cos es la parte real y el sen es la parte imaginaria.
 
 **Verificación directa:**
 ```
@@ -225,16 +225,16 @@ Si observas estos ejemplos, verás que cada punto al que llegamos se puede escri
 - O sea: x + iy
 
 Para cualquier ángulo θ:
-- **x = cos(θ)** (coordenada horizontal donde terminamos)
-- **y = sin(θ)** (coordenada vertical donde terminamos)
+- **x = cos(θ)** (coordenada real horizontal donde terminamos)
+- **y = sin(θ)** (coordenada imganaria vertical donde terminamos)
 
 Por tanto: **e^(iθ) = cos(θ) + i·sin(θ)**
 
-#### 🔍 Al fin ya podemos obtener las identidades trigonométricas
+#### 🔍 Al fin con esto ya podemos obtener las identidades trigonométricas
 
 Ahora que sabemos que **e^(iθ) = cos(θ) + i·sin(θ)**, podemos usarlo para derivar las famosas identidades de suma de ángulos que necesitamos.
 
-**Pregunta clave:** ¿Qué pasa si tengo dos rotaciones seguidas?
+**Como lo haremos, haciendo esta pregunta clave:** ¿Qué pasa si tengo dos rotaciones seguidas?
 
 Si roto primero α y luego θ, es lo mismo que rotar (α + θ) de una vez:
 ```
@@ -279,7 +279,7 @@ cos(α + θ) = cos(α)cos(θ) - sin(α)sin(θ)
 sin(α + θ) = sin(α)cos(θ) + cos(α)sin(θ)
 ```
 
-**¡Eureka!** Estas son exactamente las identidades trigonométricas que necesitábamos.
+**¡BRUTAL!** Estas son exactamente las identidades trigonométricas que necesitábamos y que habiamos mencionado al inicio.
 
 ## 🔄 Completando el círculo: Las fórmulas de rotación
 
@@ -816,7 +816,7 @@ El proyecto demuestra que las matemáticas complejas se vuelven accesibles cuand
 
 ---
 
-## ✍️ Credit
+## ✍️ Credito
 
 Soy Mikel Garrido, estudiante de 42 Barcelona. Siempre intento hacer la implementación más simple pero a la vez más robusta en todos mis proyectos. Espero poder ayudarte con esta guía.
 
