@@ -42,10 +42,9 @@ Se convierte en vectores 3D (X,Y,Z):
 (0,3,0) (1,3,1) (2,3,1) (3,3,1) (4,3,0)
 (0,4,0) (1,4,0) (2,4,0) (3,4,0) (4,4,0)
 
-
 Formarian una figura pareciada a esto:
-<img src="img/basicpyramid.png" alt="alt text" /> </p>
 ```
+<img src="img/basicpyramid.png" alt="alt text" /> </p>
 
 **Regla de conversión:**
 - `x = columna` en el archivo
