@@ -6,5 +6,6 @@
 *.a
 *.py
 *.swp
+fdf
 ./obj
 .editorconfig
