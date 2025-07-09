@@ -572,7 +572,7 @@ Igual que un cubo se forma tomando dos cuadrados y conectándolos, un tesseract 
 - Al rotar en planos XY o ZW: Los cubos internos se tuercen y deforman
 - **Efecto visual:** Como si fuera un cubo que se estira hacia una dimensión invisible
 
-#### 🔺 Pentachoron (Tetraedro 4D)
+#### 🔺 Pentachoron
 
 ![alt text](img/pentachoron.png)
 
