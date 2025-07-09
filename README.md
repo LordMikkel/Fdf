@@ -9,13 +9,13 @@
 
 ## 🎯 ¿Qué es FDF?
 
-FDF (FileDeFer) comenzó como un proyecto de 42 School para renderizar mapas topográficos en 3D. Mi implementación va más allá: es un motor completo de transformaciones geométricas que explora tanto la visualización de datos del mundo real como la geometría de dimensiones superiores.
+FDF (FileDeFer) comenzó como un proyecto de 42 School para renderizar mapas topográficos en 3D. Mi implementación intenta ir un poco va más allá: es un motor completo de transformaciones geométricas que explora tanto la visualización de datos del mundo real (3D) como la geometría de dimensiones superiores (4D).
 
 ### Características principales
 
 - **Visualización topográfica**: Convierte datos de elevación en wireframes 3D interactivos
-- **Geometría 4D**: Explora objetos imposibles de visualizar directamente (tesseract, pentachoron)
-- **Múltiples proyecciones**: Isométrica, perspectiva, ortogonal - cada una con su propósito
+- **Geometría 4D**: Explora objetos imposibles de visualizar directamente (tesseract, pentachoron, hexacosicoron)
+- **Múltiples proyecciones**: Isométrica, perspectiva, ortogonal
 - **Rotaciones multidimensionales**: Controles intuitivos para navegar en 3D y 4D
 - **Colorización automática**: Mapeo altura-color para mejor comprensión visual
 
@@ -28,15 +28,23 @@ FDF (FileDeFer) comenzó como un proyecto de 42 School para renderizar mapas top
 Cada archivo `.fdf` contiene una matriz de elevaciones que interpreto como vectores posicionales:
 
 ```
-Archivo de ejemplo (42.fdf):
-0  0  0  0
-0  0 10 10
-0 10 10  0
+Archivo de ejemplo una piramide (42.fdf):
+0 0 0 0 0
+0 1 1 1 0
+0 1 2 1 0
+0 1 1 1 0
+0 0 0 0 0
 
-Se convierte en vectores 3D:
-(0,0,0) (1,0,0) (2,0,0) (3,0,0)
-(0,1,0) (1,1,0) (2,1,10) (3,1,10)
-(0,2,0) (1,2,10) (2,2,10) (3,2,0)
+Se convierte en vectores 3D (X,Y,Z):
+(0,0,0) (1,0,0) (2,0,0) (3,0,0) (4,0,0)
+(0,1,0) (1,1,1) (2,1,1) (3,1,1) (4,1,0)
+(0,2,0) (1,2,1) (2,2,2) (3,2,1) (4,2,0)
+(0,3,0) (1,3,1) (2,3,1) (3,3,1) (4,3,0)
+(0,4,0) (1,4,0) (2,4,0) (3,4,0) (4,4,0)
+
+
+Formarian una figura pareciada a esto:
+<img src="img/basicpyramid.png" alt="alt text" /> </p>
 ```
 
 **Regla de conversión:**
@@ -46,11 +54,23 @@ Se convierte en vectores 3D:
 
 Esto crea una malla de puntos donde cada coordenada representa tanto una posición como un vector desde el origen.
 
-### Paso 2: Transformaciones geométricas
+## ¿Por qué rotar los puntos?
+
+En la imagen adjunta los puntos están rotados. Si simplemente proyectáramos los puntos `(x, y, z)` como `(x, y)`, obtendríamos una **vista aérea plana**.
+
+Para crear la **ilusión de profundidad** o tridimensionalidad, necesitamos **rotar los puntos** como vectores antes de proyectarlos. Esto transforma cómo se dibujan en pantalla y nos da una sensación visual parecida a una perspectiva en 3D.
+
+### Paso 2: Transformaciones geométricas 🌀
+
+Un vector en 2D es una flecha que va desde un punto de origen (normalmente el (0,0)) hasta un punto en el plano (x, y). Representa tanto una posición como una dirección y magnitud.
+
+**Que es una coordenada**
+Es importante entender que una coordenada o un par ordenado es un numero complejo que tiene una parte real (x) y una parte imaginaria (y). esto es muy importante si queremos entender a profundidad toda la matematica que hay detras es por ello que te recomiendo mucho que veas este video antes y luego regreses a esta demostracion para el proyecto fdf.
 
 #### Las rotaciones como transformaciones lineales
 
-Una rotación en 2D es la transformación más fundamental. Para rotar un vector `v = (x,y)` por un ángulo θ:
+Una rotación en 2D es la transformación más fundamental.
+Para rotar un vector `v = (x,y)` por un ángulo θ:
 
 **Demostración paso a paso:**
 
@@ -60,129 +80,373 @@ x = r·cos(α)
 y = r·sin(α)
 ```
 
-Después de rotar θ grados, el nuevo ángulo es `α + θ`:
+- `r` es la distancia desde el origen (la magnitud del vector)
+- `α` es el ángulo original del vector respecto al eje x
+
+Al rotarlo por un nuevo ángulo `θ`, el vector pasa a tener una orientación `α + θ`:
 ```
 x' = r·cos(α + θ)
 y' = r·sin(α + θ)
 ```
 
-Aplicando las identidades trigonométricas:
+**¡Aquí está el problema!** Necesitamos las identidades trigonométricas:
 ```
 cos(α + θ) = cos(α)cos(θ) - sin(α)sin(θ)
 sin(α + θ) = sin(α)cos(θ) + cos(α)sin(θ)
 ```
 
-Sustituyendo:
+Pero **¿de dónde vienen estas fórmulas?** Para entenderlo completamente, necesitamos hacer un viaje por los fundamentos matemáticos.
+
+## 💸 ¿Qué es `e`? El fundamento del crecimiento
+
+Antes de entender las rotaciones complejas, conozcamos al número `e`.
+
+El número e es irracional (e ≈ 2.718...). Mientras π aparece en círculos, **e aparece en todo lo que crece**: bacterias, intereses bancarios, redes neuronales, incluso en física cuántica.
+
+### El experimento del banco infinito
+
+Imagina que metes 1 € en el banco y el interés es del 100% anual:
+
 ```
-x' = r·cos(α)cos(θ) - r·sin(α)sin(θ)
-y' = r·sin(α)cos(θ) + r·cos(α)sin(θ)
+Si pagan 1 vez al año:     1 € × (1 + 1) = 2.00 €
+Si pagan 2 veces al año:   1 € × (1 + 0.5)² = 2.25 €
+Si pagan 4 veces al año:   1 € × (1 + 0.25)⁴ = 2.44 €
+Si pagan 12 veces al año:  1 € × (1 + 1/12)¹² = 2.61 €
+Si pagan infinitas veces:  1 € × lim(n→∞)(1 + 1/n)ⁿ = 2.718... €
 ```
 
-Como `r·cos(α) = x` y `r·sin(α) = y`:
+Ese límite mágico es **e**:
+```
+e = lim (n → ∞) (1 + 1/n)^n
+```
+
+## 🌀 Los números complejos: El giro hacia lo imaginario
+
+### ¿Qué es la unidad imaginaria i?
+
+Los números imaginarios surgen cuando intentamos resolver x² = -1. En números reales es imposible, pero i nos lo permite:
+
+```
+i = √(-1)
+i² = -1
+```
+
+**Desde el punto de vista geométrico**, multiplicar por i es rotar 90°:
+```
+i⁰ = 1        (0° - punto de partida)
+i¹ = i        (90° - un cuarto de vuelta)
+i² = -1       (180° - media vuelta)
+i³ = -i       (270° - tres cuartos de vuelta)
+i⁴ = 1        (360° - vuelta completa)
+```
+
+### La identidad de Euler: El crecimiento que gira
+
+Estos cambios de los números imaginarios los podemos explicar con la identidad de Euler. Pero primero, conectemos las ideas:
+
+**Lo que sabemos hasta ahora:**
+- **e** representa crecimiento continuo
+- **i** representa rotación de 90°
+- **i²** = -1 es una rotación de 180°
+
+**La pregunta natural:** ¿Qué pasa cuando combinamos crecimiento (e) con rotación (i)?
+
+#### 🧭 El patrón de las rotaciones
+
+Observemos otra vez el comportamiento de i:
+```
+i⁰ = 1        (0° - punto de partida)
+i¹ = i        (90° - giramos hacia "arriba")
+i² = -1       (180° - giramos hacia la "izquierda")
+i³ = -i       (270° - giramos hacia "abajo")
+i⁴ = 1        (360° - volvemos al inicio)
+```
+
+**Cada potencia de i nos lleva a un punto específico en el círculo unitario.** ¿No te parece familiar? Son exactamente las coordenadas que nos darían cos y sin en esos ángulos:
+
+```
+cos(0°) + i·sin(0°) = 1 + i·0 = 1
+cos(90°) + i·sin(90°) = 0 + i·1 = i
+cos(180°) + i·sin(180°) = -1 + i·0 = -1
+cos(270°) + i·sin(270°) = 0 + i·(-1) = -i
+```
+
+#### ⚡ El momento de la revelación
+
+**¿Coincidencia?** ¡Para nada! Lo que estamos viendo es que:
+
+```
+e^(iθ) = cos(θ) + i·sin(θ)
+```
+
+**¿Por qué tiene sentido esta fórmula?**
+- **e^(something)** siempre representa algún tipo de "crecimiento" o "multiplicación"
+- **i·θ** significa "rotar θ radianes"
+- **cos(θ) + i·sin(θ)** son las coordenadas exactas del punto en el círculo después de rotar θ
+
+**Verificación directa:**
+```
+e^(i·0) = cos(0) + i·sin(0) = 1 + 0i = 1 ✓
+e^(i·π/2) = cos(π/2) + i·sin(π/2) = 0 + i = i ✓
+e^(i·π) = cos(π) + i·sin(π) = -1 + 0i = -1 ✓
+```
+
+#### Curiosidad Por que es la formula mas hermosa de las matematicas?
+
+**La identidad más famosa:** Cuando θ = π (180°):
+```
+e^(iπ) = cos(π) + i·sin(π) = -1 + 0i = -1
+```
+
+**Reorganizando:** e^(iπ) + 1 = 0
+
+Esta ecuación conecta cinco constantes fundamentales (e, i, π, 1, 0) y es considerada una de las más bellas de las matemáticas.
+
+**Resumen visual:**
+```
+e^(i·0) = 1        (no giramos, seguimos en (1,0))
+e^(i·π/2) = i      (giramos 90°, vamos a (0,1))
+e^(i·π) = -1       (giramos 180°, vamos a (-1,0))
+e^(i·2π) = 1       (giramos 360°, volvemos a (1,0))
+```
+
+**La clave:** e^(iθ) = cos(θ) + i·sin(θ) nos da exactamente el punto correcto en el círculo para cualquier ángulo θ.
+
+#### 🔄 La fórmula emerge
+
+Si observas estos ejemplos, verás que cada punto al que llegamos se puede escribir como:
+- Las coordenadas (x, y) del punto final
+- O sea: x + iy
+
+Para cualquier ángulo θ:
+- **x = cos(θ)** (coordenada horizontal donde terminamos)
+- **y = sin(θ)** (coordenada vertical donde terminamos)
+
+Por tanto: **e^(iθ) = cos(θ) + i·sin(θ)**
+
+#### 🔍 Al fin ya podemos obtener las identidades trigonométricas
+
+Ahora que sabemos que **e^(iθ) = cos(θ) + i·sin(θ)**, podemos usarlo para derivar las famosas identidades de suma de ángulos que necesitamos.
+
+**Pregunta clave:** ¿Qué pasa si tengo dos rotaciones seguidas?
+
+Si roto primero α y luego θ, es lo mismo que rotar (α + θ) de una vez:
+```
+e^(iα) × e^(iθ) = e^(i(α + θ))
+```
+
+**Lado izquierdo** (dos rotaciones por separado):
+```
+e^(iα) × e^(iθ) = (cos(α) + i·sin(α)) × (cos(θ) + i·sin(θ))
+```
+
+Expandiendo esta multiplicación:
+```
+= cos(α)cos(θ) + cos(α)·i·sin(θ) + i·sin(α)cos(θ) + i·sin(α)·i·sin(θ)
+= cos(α)cos(θ) + i·cos(α)sin(θ) + i·sin(α)cos(θ) + i²·sin(α)sin(θ)
+```
+
+Como i² = -1:
+```
+= cos(α)cos(θ) - sin(α)sin(θ) + i(cos(α)sin(θ) + sin(α)cos(θ))
+```
+
+**Lado derecho** (una rotación total):
+```
+e^(i(α + θ)) = cos(α + θ) + i·sin(α + θ)
+```
+
+**¡Igualando ambos lados!**
+```
+cos(α + θ) + i·sin(α + θ) = [cos(α)cos(θ) - sin(α)sin(θ)] + i[cos(α)sin(θ) + sin(α)cos(θ)]
+```
+
+Para que dos números complejos sean iguales, sus partes reales e imaginarias deben ser iguales:
+
+**Parte real:**
+```
+cos(α + θ) = cos(α)cos(θ) - sin(α)sin(θ)
+```
+
+**Parte imaginaria:**
+```
+sin(α + θ) = sin(α)cos(θ) + cos(α)sin(θ)
+```
+
+**¡Eureka!** Estas son exactamente las identidades trigonométricas que necesitábamos.
+
+## 🔄 Completando el círculo: Las fórmulas de rotación
+
+**Ahora podemos terminar lo que empezamos:**
+
+Teníamos:
+```
+x' = r·cos(α + θ)
+y' = r·sin(α + θ)
+```
+
+Aplicando nuestras identidades recién derivadas:
+```
+x' = r·[cos(α)cos(θ) - sin(α)sin(θ)]
+y' = r·[sin(α)cos(θ) + cos(α)sin(θ)]
+```
+
+Como el punto original era (x, y) = (r·cos(α), r·sin(α)):
 ```
 x' = x·cos(θ) - y·sin(θ)
 y' = x·sin(θ) + y·cos(θ)
 ```
 
 **Implementación en código:**
-```c
-void rotate_2d(float *x, float *y, float angle) {
-    float original_x = *x;
-    float original_y = *y;
 
-    *x = original_x * cos(angle) - original_y * sin(angle);
-    *y = original_x * sin(angle) + original_y * cos(angle);
+En nuestro codigo luce de esta manera:
+
+```c
+void rotate_2d(float *x, float *y, float angle)
+{
+    float prev_x = *x;
+    float prev_y = *y;
+
+    *x = prev_x * cos(angle) - prev_y * sin(angle);
+    *y = prev_x * sin(angle) + prev_y * cos(angle);
 }
 ```
 
 #### Extensión a 3D: Rotaciones por planos
 
-En 3D, las rotaciones ocurren en planos, no alrededor de ejes. Cada rotación 3D es una rotación 2D en un plano específico:
+En 3D, las rotaciones ocurren en planos, no alrededor de ejes. Cada rotación 3D es una rotación 2D en un plano específico.
+
+**¿Por qué decimos "rotar alrededor del eje X"?**
+
+Cuando decimos "rotar alrededor del eje X", realmente queremos decir "rotar en el plano perpendicular al eje X". El eje X se mantiene fijo, y los otros dos ejes (Y y Z) forman el plano de rotación.
 
 ```c
-// Rotación en plano YZ (X permanece fijo)
-void rotate_x(float *y, float *z, float angle) {
-    float old_y = *y;
-    float old_z = *z;
+// Rotación "alrededor del eje X" = rotación en el plano YZ
+void rotate_x(float *y, float *z, float angle)
+{
+    float prev_y = *y;
+    float prev_z = *z;
 
-    *y = old_y * cos(angle) - old_z * sin(angle);
-    *z = old_y * sin(angle) + old_z * cos(angle);
+    *y = prev_y * cos(angle) - prev_z * sin(angle);
+    *z = prev_y * sin(angle) + prev_z * cos(angle);
     // x no cambia - es perpendicular al plano YZ
 }
 ```
 
-**¿Por qué funciona esto?**
+**¿Por qué funcionan estas fórmulas exactas?**
 
-Si imaginamos mirar desde el eje X hacia el origen, vemos el plano YZ como un plano 2D normal. La rotación "alrededor del eje X" es realmente una rotación *en el plano YZ*.
-
-#### El salto conceptual a 4D
-
-**Aquí está la clave:** En 4D no hay "ejes de rotación". Solo hay planos de rotación.
+Si imaginamos mirar desde el eje X hacia el origen, vemos el plano YZ como un plano 2D normal:
 
 ```
-Dimensión | Planos de rotación posibles
-----------|---------------------------
-2D        | 1 plano: XY
-3D        | 3 planos: XY, XZ, YZ
-4D        | 6 planos: XY, XZ, XW, YZ, YW, ZW
+Vista desde +X mirando hacia el origen:
+     Z↑
+     |
+     |
+     •———→ Y
 ```
 
-Cada rotación 4D usa **exactamente la misma fórmula** que las rotaciones 2D:
+En esta vista, Y actúa como el "eje X del plano" y Z actúa como el "eje Y del plano". Por eso usamos exactamente las mismas fórmulas de rotación 2D que derivamos antes.
+
+#### ⚠️ ¡Cuidado con la orientación de los ejes!
+
+**Aquí viene lo importante:** Los signos en las fórmulas cambian según qué plano estamos rotando. ¿Por qué?
+
+**La clave:** Cada rotación es básicamente una rotación 2D en un plano específico, pero la orientación de los ejes en ese plano determina los signos.
+
+**Piénsalo así:**
+- Rotación X: Rotas en el plano YZ → Los ejes Y y Z se comportan como X e Y en 2D normal
+- Rotación Y: Rotas en el plano XZ → Pero ahora X y Z no están en la misma orientación que X e Y
+- Rotación Z: Rotas en el plano XY → Vuelve a ser como 2D normal
 
 ```c
-// Rotación en plano XW (la cuarta dimensión)
-void rotate_xw(float *x, float *w, float angle) {
+// Rotación alrededor de X (en plano YZ)
+*y = prev_y * cos(angle) - prec_z * sin(angle);
+*z = prev_y * sin(angle) + prec_z * cos(angle);
+
+// Rotación alrededor de Y (en plano XZ)
+*x = prev_x * cos(angle) + prec_z * sin(angle);  // ¡SIGNO CAMBIADO!
+*z = -prev_x * sin(angle) + prec_z * cos(angle); // ¡SIGNO CAMBIADO!
+
+// Rotación alrededor de Z (en plano XY)
+*x = prev_x * cos(angle) - prev_y * sin(angle);
+*y = prev_x * sin(angle) + prev_y * cos(angle);
+```
+
+**¿Por qué estos cambios de signo?**
+
+Todo depende de si estamos mirando el plano desde el lado "positivo" o "negativo" del eje:
+
+1. **Rotar alrededor de X:** Miramos desde +X hacia el origen
+   - Y→, Z↑
+   - Rotación positiva va de Y hacia Z (antihorario)
+   - Fórmulas normales: `y' = y·cos - z·sin, z' = y·sin + z·cos`
+
+2. **Rotar alrededor de Y:** Miramos desde +Y hacia el origen
+   - X←, Z↑
+   - Esta diferente orientación de los ejes requiere ajustar los signos en las fórmulas
+   - Para que queden como X↑, Z→
+
+3. **Rotar alrededor de Z:** Miramos desde +Z hacia el origen
+   - X→, Y↑
+   - Es como el caso normal 2D
+
+
+#### El salto a 4D: Más simple de lo que parece
+
+En 4D seguimos usando las mismas fórmulas de rotación 2D, solo que ahora tenemos más planos donde rotar. son independientes entre estos y no se generan ejes perpendiculares por lo que es siempre la misma formula sin cambios de signo, paradojicamente mas sencillo que en 3D.
+
+💡 **¡Es la misma fórmula que en 2D!** Solo cambiamos qué coordenadas usamos.
+
+```c
+// Rotar en el plano XW (usando la 4ª dimensión)
+void rotate_xw(float *x, float *w, float angle)
+{
     float prev_x = *x;
     float prev_w = *w;
 
     *x = prev_x * cos(angle) - prev_w * sin(angle);
     *w = prev_x * sin(angle) + prev_w * cos(angle);
-    // y, z permanecen inalteradas
+    // y, z NO cambian - no están en este plano
 }
 ```
 
 ### Paso 3: Proyecciones - Reduciendo dimensiones
 
-#### Proyección 4D → 3D: Perspectiva dimensional
+#### Proyección 4D → 3D: Como hacer una "sombra" dimensional
 
-Para visualizar objetos 4D, necesitamos "aplastarlos" a 3D usando proyección perspectiva:
+**En realidad es simple:** Imagina que tienes una linterna y quieres ver la "sombra" de un objeto 4D en nuestro mundo 3D.
 
-**Demostración geométrica:**
-
-Imaginemos un observador en la posición `(0,0,0,d)` en la cuarta dimensión, mirando hacia el "plano" W=0:
-
+**Analogía fácil:**
 ```
-Observador ---------> Plano W=0
-(0,0,0,d)            (x',y',z',0)
-            \
-             \
-              \
-               Punto P(x,y,z,w)
+Linterna → Objeto → Pared = Sombra
+         → 3D     → 2D    = Sombra 2D (lo que vemos normalmente)
+         → 4D     → 3D    = "Sombra" 3D (lo que necesitamos)
 ```
 
-Por triángulos semejantes:
-```
-distancia_proyectada / distancia_real = distancia_observador / distancia_total
+**¿Cómo funciona?**
+- Esta sombra distorsiona las relaciones y distancia, no es lo mas fiel a la realidad pero nos permite verla en 3D
+- Los puntos más "cerca" en la 4ª dimensión (W pequeña) se ven más grandes
+- Los puntos más "lejos" en la 4ª dimensión (W grande) se ven más pequeños
+- Es el mismo concepto de la perspectiva que luego aplicamos en nuestros otros tipos de proyección.
 
-x' / x = d / (d - w)
+**La fórmula de proyeccion**
+```
+Para proyectarlo devemos influir a cada uno de los otros valores de la coordenadas con este principio de perpectiva atraves de este factor:
+factor = distancia_observador / (distancia_observador - w)
 
-Por tanto: x' = x × d / (d - w)
+punto_3d = (x·factor, y·factor, z·factor)
 ```
 
-Lo mismo aplica para y' y z'. El factor de proyección es:
-```
-factor = d / (d - w)
-```
-
-**Implementación:**
+**En código:**
 ```c
-void project_4d_to_3d(t_point *point, float distance) {
+void project_4d_to_3d(t_point *point, float distance)
+{
     float factor = distance / (distance - point->w);
 
-    point->x *= factor;
-    point->y *= factor;
-    point->z *= factor;
-    // w se descarta después de la proyección
+    point->x *= factor;  // Ajustar X según la "distancia 4D"
+    point->y *= factor;  // Ajustar Y según la "distancia 4D"
+    point->z *= factor;  // Ajustar Z según la "distancia 4D"
+    // w se descarta - ya no lo necesitamos
 }
 ```
 
@@ -190,53 +454,62 @@ void project_4d_to_3d(t_point *point, float distance) {
 
 **1. Proyección Isométrica**
 
-La proyección isométrica preserva las proporciones y es ideal para análisis técnico:
+La proyección isométrica es como hacer varias rotaciones 3D seguidas, pero "pre-calculadas" en una fórmula:
 
 ```c
-// Ángulos que hacen que X, Y, Z se vean igualmente inclinados
-float iso_angle = 30.0 * M_PI / 180.0; // 30 grados en radianes
+// El ángulo específico: 0.6154797f ≈ 35.26° (radianes)
+float iso_angle = 0.6154797f;
 
-iso_x = (x - y) * cos(iso_angle);  // ≈ 0.866
-iso_y = (x + y) * sin(iso_angle) - z;  // ≈ 0.5
+iso_x = (x - y) * cos(iso_angle);  // ≈ 0.816
+iso_y = (x + y) * sin(iso_angle) - z;  // ≈ 0.577
 ```
 
-**¿Por qué 30 grados?**
+**¿De dónde sale ese ángulo?**
 
-En una proyección isométrica verdadera, los tres ejes X, Y, Z forman ángulos de 120° entre sí cuando se proyectan al plano 2D. Esto requiere que cada eje tenga una inclinación de 30° respecto a la horizontal.
+Este ángulo `0.6154797` radianes (≈35.26°) viene de la combinación de dos rotaciones:
 
-**2. Proyección Perspectiva**
+1. **Rotación de 45° alrededor del eje Z** (para que X e Y se vean iguales)
+2. **Rotación de ~35.26° alrededor del eje X** (para que Z también se vea igual)
 
-Simula cómo vemos los objetos en la realidad - los objetos más lejanos se ven más pequeños:
+**¿Por qué este ángulo específico?**
+
+Este ángulo hace que los tres ejes X, Y, Z se vean exactamente iguales en longitud cuando se proyectan al plano 2D. Es el único ángulo que logra esto por eso se le llama isometria.
+
+**2. Proyección Perspectiva (POV)**
+
+Esta es la proyección más realista - simula exactamente cómo vemos las cosas en la vida real y funciona igual a la sombra de la cuarta dimension:
 
 ```c
-void project_perspective(t_point *point, float distance) {
-    float factor = distance / (distance - point->z);
+distance = 500.0f;  // Distancia del "observador"
+factor = distance / (-point->z + distance);
+point->x = point->x * factor;
+point->y = point->y * factor;
+```
 
-    point->x *= factor;
-    point->y *= factor;
-    // z se usa para el cálculo pero no se renderiza
-}
+**¿Cómo funciona?**
+- Los objetos **más cerca** (Z negativa) se ven **más grandes**
+- Los objetos **más lejos** (Z positiva) se ven **más pequeños**
+- Crea la ilusión de **profundidad real**
+
+**Analogía:** Es como mirar por una ventana - los coches lejanos se ven pequeños, los cercanos se ven grandes.
+
+**Ejemplo visual:**
+```
+Vista perspectiva de una carretera:
+🚗 ← Coche cerca (se ve grande)
+  🚙 ← Coche medio (se ve mediano)
+    🚕 ← Coche lejos (se ve pequeño)
 ```
 
 **3. Proyecciones Ortogonales**
 
-Proyecciones "puras" que eliminan una dimensión:
+Son las más simples - eliminan directamente una dimensión, como "aplastar" el objeto.
 
-```c
-// Vista superior (elimina Z)
-top_x = x;
-top_y = y;
-
-// Vista frontal (elimina Y)
-front_x = x;
-front_y = z;
-
-// Vista lateral (elimina X)
-side_x = z;
-side_y = y;
-```
-
----
+| Tecla | Proyección   | Qué elimina       | Qué conserva | Para qué sirve            |
+|-------|--------------|-------------------|--------------|---------------------------|
+| `T`   | **Top**      | Z (altura)        | X, Y         | Mapas, vista desde arriba |
+| `F`   | **Front**    | Y (profundidad)   | X, Z         | Alzados, vista frontal    |
+| `L`   | **Lateral**  | X (anchura)       | Z, Y         | Perfiles, vista de lado   |
 
 ## 🔮 Explorando la geometría 4D
 
@@ -263,7 +536,7 @@ side_y = y;
  •————————•
 
 4D: Un tesseract
-(Imposible de dibujar directamente)
+(Imposible de dibujar directamente solo a traves de una sombra)
 ```
 
 ### Objetos 4D implementados
@@ -274,21 +547,91 @@ side_y = y;
 | **Pentachoron** | 5 | Simplejo 4D | El análogo 4D de un triángulo/tetraedro |
 | **Hexacosicoron** | 120 | Polítopo complejo | Una "esfera" hecha de 600 tetraedros |
 
-### Construyendo un tesseract
+#### 🎲 Tesseract (Hipercubo 4D)
 
-Un tesseract se construye tomando dos cubos y conectando sus vértices correspondientes:
+![alt text](tesseract.png)
+
+**¿Qué es?**
+Un tesseract es la versión 4D de un cubo. Mientras un cubo tiene 8 vértices, el tesseract tiene 16.
+
+**¿Cómo se construye?**
+Igual que un cubo se forma tomando dos cuadrados y conectándolos, un tesseract se forma tomando dos cubos y conectando sus vértices correspondientes:
 
 ```c
-// Cubo 1: W = -1
+// Cubo 1: W = -1 (el cubo "de atrás" en la 4ª dimensión)
 {-1,-1,-1,-1}, {1,-1,-1,-1}, {1,1,-1,-1}, {-1,1,-1,-1},
 {-1,-1,1,-1},  {1,-1,1,-1},  {1,1,1,-1},  {-1,1,1,-1},
 
-// Cubo 2: W = +1
+// Cubo 2: W = +1 (el cubo "de adelante" en la 4ª dimensión)
 {-1,-1,-1,1},  {1,-1,-1,1},  {1,1,-1,1},  {-1,1,-1,1},
 {-1,-1,1,1},   {1,-1,1,1},   {1,1,1,1},   {-1,1,1,1}
 ```
 
-Cada vértice del primer cubo se conecta con su correspondiente en el segundo cubo, creando un objeto 4D.
+**¿Qué vemos al rotarlo?**
+- Al rotar en planos XW o YW: El tesseract parece "respirar" - se contrae y expande
+- Al rotar en planos XY o ZW: Los cubos internos se tuercen y deforman
+- **Efecto visual:** Como si fuera un cubo que se estira hacia una dimensión invisible
+
+#### 🔺 Pentachoron (Tetraedro 4D)
+
+![alt text](pentachoron.png)
+
+**¿Qué es?**
+El polítopo 4D más simple, como un tetraedro pero en 4 dimensiones. Tiene 5 vértices (de ahí "penta").
+
+**Estructura:**
+```c
+// 5 vértices que forman el simplejo 4D más básico
+{1,1,1,1}, {1,-1,-1,1}, {-1,1,-1,1}, {-1,-1,1,1}, {0,0,0,-1}
+```
+
+**¿Qué vemos al rotarlo?**
+- Al rotar: Parece que los vértices "saltan" entre posiciones
+- Las líneas se cruzan de formas imposibles en 3D
+- **Efecto visual:** Como una red que se retuerce en patrones hipnóticos
+
+#### ⚪ Hexacosicoron (600-cell)
+
+![alt text](hexacosicoron.png)
+
+**¿Qué es?**
+Un polítopo 4D extremadamente complejo con 120 vértices y 600 tetraedros como caras.
+
+**Estructura:**
+- 120 vértices dispuestos simétricamente
+- Se aproxima a una "hiperesfera" en 4D
+- Es el análogo 4D de un icosaedro
+
+**¿Qué vemos al rotarlo?**
+- **Densidad visual impresionante:** 600 tetraedros creando patrones complejos
+- Al rotar: Parece una "medusa" de luz que pulsa y se deforma
+- **Efecto visual:** Como galaxias de puntos que danzan en formaciones imposibles
+
+### 🌀 El poder de las rotaciones 4D
+
+**¿Por qué rotar en 4D es tan revelador?**
+
+Cuando rotamos objetos 4D, vemos aspectos que son imposibles de percibir desde una perspectiva fija:
+
+```c
+// Rotaciones simultáneas en múltiples planos
+rotate_xy(&point.x, &point.y, cam.delta);  // Como rotar una moneda
+rotate_xw(&point.x, &point.w, cam.epsilon); // Rotación "hacia afuera" 4D
+rotate_yw(&point.y, &point.w, cam.theta);   // Otra rotación "imposible"
+rotate_zw(&point.z, &point.w, cam.iota);    // Y otra más
+```
+
+**Efectos visuales que vemos:**
+
+1. **"Breathing" (Respiración):** El objeto parece hincharse y contraerse
+2. **"Inside-out" (Vuelta del revés):** Partes internas salen afuera
+3. **"Impossible connections":** Líneas que se conectan de formas imposibles en 3D
+4. **"Morphing":** El objeto cambia de forma completamente
+
+**¿Por qué es importante?**
+- Nos ayuda a **intuir** la geometría 4D
+- Revela **simetrías ocultas** que no vemos en una vista estática
+- Es como ver un objeto 3D desde todos los ángulos a la vez, pero en 4D
 
 ---
 
@@ -383,7 +726,7 @@ int	interpolate_color(int color1, int color2, float t)
 }
 ```
 
-### El pipeline completo
+### El pipeline de proryecciones y rotaciones
 
 ```c
 t_point	project_point(t_point point, t_map map, t_cam cam)
@@ -459,60 +802,17 @@ make
 
 ---
 
-## 🔬 Análisis de rendimiento
-
-### Complejidad computacional
-
-**Por cada frame:**
-- Transformación por punto: O(1) operaciones vectoriales
-- Total: O(n) donde n = número de puntos
-- Para mapas grandes (500×500): ~25ms en hardware moderno
-
-### Optimizaciones implementadas
-
-1. **Precálculo trigonométrico**: `sin()` y `cos()` se calculan una vez por frame
-2. **Eliminación de divisiones**: Uso multiplicación por inversos precalculados
-3. **Interpolación vectorizada**: Operaciones SIMD cuando es posible
-4. **Clipping inteligente**: Solo renderizo puntos visibles
-
----
-
-## 💭 Reflexiones técnicas
-
-### Lecciones aprendidas
-
-**1. La elegancia de las matemáticas unificadas**
-
-Descubrir que las rotaciones 4D usan exactamente la misma fórmula que las rotaciones 2D fue revelador. No hay "magia" en las dimensiones superiores - son extensiones naturales de principios simples.
-
-**2. La importancia de la visualización**
-
-Ver cómo un tesseract "respira" mientras rota en 4D ayuda a entender conceptos que son imposibles de imaginar directamente. La visualización no es solo útil - es esencial para la comprensión.
-
-**3. El poder de la abstracción vectorial**
-
-Tratar cada punto como un vector permite operaciones elegantes y composables. Las transformaciones se vuelven funciones matemáticas limpias en lugar de código imperativo complicado.
-
-### Aplicaciones en el mundo real
-
-Este proyecto conecta directamente con:
-
-- **Computer Graphics**: Pipelines de renderizado, transformaciones de cámara
-- **Machine Learning**: Visualización de espacios de características multidimensionales
-- **Realidad Virtual**: Proyecciones estereoscópicas, tracking de movimiento
-- **Análisis de datos**: Representación visual de datasets complejos
-- **Ingeniería**: CAD, simulaciones físicas, análisis estructural
-
----
-
 ## 🎯 Conclusión
 
-FDF comenzó como un proyecto de visualización de mapas topográficos y evolucionó hacia una exploración profunda de la geometría multidimensional. A través de la implementación de transformaciones vectoriales, proyecciones y algoritmos de renderizado, no solo creé una herramienta funcional, sino que desarrollé una comprensión intuitiva de conceptos matemáticos fundamentales.
+FDF comenzó como un proyecto de visualización de mapas topográficos y evolucionó hacia una exploración profunda de la geometría multidimensional. A través de la implementación de transformaciones vectoriales, proyecciones y algoritmos de renderizado, no sirvio para crear una herramienta funcional, sino que desarrollé una comprensión intuitiva de conceptos matemáticos fundamentales.
 
 El proyecto demuestra que las matemáticas complejas se vuelven accesibles cuando se construyen paso a paso desde principios básicos, y que la visualización es una herramienta poderosa para entender abstracciones que desafían la intuición.
 
 ---
 
-**Mikel Garrido** - 42 Barcelona
+## ✍️ Credit
 
-*"Convirtiendo matemáticas abstractas en experiencias visuales comprensibles"*
+Soy Mikel Garrido, estudiante de 42 Barcelona. Siempre intento hacer la implementación más simple pero a la vez más robusta en todos mis proyectos. Espero poder ayudarte con esta guía.
+
+[![42](https://img.shields.io/badge/-migarrid-000000?style=flat&logo=42&logoColor=white)](https://profile.intra.42.fr/users/migarrid)
+
