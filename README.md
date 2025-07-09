@@ -19,6 +19,8 @@ FDF (FileDeFer) comenzó como un proyecto de 42 School para renderizar mapas top
 - **Rotaciones multidimensionales**: Controles intuitivos para navegar en 3D y 4D
 - **Colorización automática**: Mapeo altura-color para mejor comprensión visual
 
+<p align="center"> <img src="image/.score.png" alt="alt text" /> </p>
+
 ---
 
 ## 📊 De datos a visualización: El pipeline completo
@@ -28,7 +30,7 @@ FDF (FileDeFer) comenzó como un proyecto de 42 School para renderizar mapas top
 Cada archivo `.fdf` contiene una matriz de elevaciones que interpreto como vectores posicionales:
 
 ```
-Archivo de ejemplo una piramide (42.fdf):
+Archivo de ejemplo una pirámide (42.fdf):
 0 0 0 0 0
 0 1 1 1 0
 0 1 2 1 0
@@ -65,7 +67,7 @@ Un vector en 2D es una flecha que va desde un punto de origen (normalmente el (0
 
 ### Qué es una coordenada
 
-Es importante entender que una coordenada o un par ordenado puede representarse como un número complejo que tiene una parte real (x) y una parte imaginaria (y). Esto es muy importante si queremos entender a profundidad toda la matemática que hay detrás, es por ello que te recomiendo mucho que veas estos dos video antes y luego regreses a esta demostracion para el proyecto FDF.
+Es importante entender que una coordenada o un par ordenado puede representarse como un número complejo que tiene una parte real (x) y una parte imaginaria (y). Esto es muy importante si queremos entender a profundidad toda la matemática que hay detrás, es por ello que recomiendo mucho que veas estos dos videos antes y luego regreses a esta demostración para el proyecto FDF.
 
 Parte1: https://www.youtube.com/watch?v=5FemcGdN3Xw
 
@@ -303,7 +305,7 @@ y' = x·sin(θ) + y·cos(θ)
 
 **Implementación en código:**
 
-En nuestro codigo luce de esta manera:
+En nuestro código luce de esta manera:
 
 ```c
 void rotate_2d(float *x, float *y, float angle)
@@ -671,7 +673,7 @@ void	render_3d_map(t_fdf *data, t_map *map, int error)
 }
 ```
 
-### Algoritmo de líneas vectoriales
+### Algoritmo para dibujar las líneas
 
 Para conectar dos puntos proyectados, uso una versión optimizada del algoritmo de Bresenham con interpolación de colores:
 
