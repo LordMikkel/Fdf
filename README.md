@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="https://studio.youtube.com/video/mFSVPARuHaU/edit" target="_blank" rel="noopener noreferrer">
+  <a href="https://youtube.com/shorts/mFSVPARuHaU" target="_blank" rel="noopener noreferrer">
     Original + Interestellar epic music
   </a>
 </p>
