@@ -7,7 +7,7 @@
 
 <p align="center">
   <a href="https://youtube.com/shorts/mFSVPARuHaU">
-    <img src="./img/hexacosicoron.jpg" alt="Short personalizado" width="300"/>
+    <img src="./img/hexacosicoron.png" alt="Short personalizado" width="300"/>
   </a>
 </p>
 
