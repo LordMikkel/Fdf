@@ -8,11 +8,6 @@
 ---
 
 <table>
-  <tr>
-    <td width="50%" align="center" valign="top">
-      <img src="img/output.gif" alt="FDF GIF" style="max-width: 100%; height: auto;" />
-    </td>
-    <td width="50%" valign="top">
 
 ## 📋 Índice de contenidos
 
@@ -27,6 +22,11 @@
 - [🎯 Conclusión](#-conclusión)
 - [✍️ Crédito](#️-crédito)
 
+  <tr>
+    <td width="50%" align="center" valign="top">
+      <img src="img/output.gif" alt="FDF GIF" style="max-width: 100%; height: auto;" />
+    </td>
+    <td width="50%" valign="top">
     </td>
   </tr>
 </table>
