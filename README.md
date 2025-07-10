@@ -5,6 +5,8 @@
 [![42 School](https://img.shields.io/badge/42-School-000000?style=flat&logo=42&logoColor=white)](https://42.fr)
 [![C](https://img.shields.io/badge/C-A8B9CC?style=flat&logo=c&logoColor=white)](https://en.wikipedia.org/wiki/C_(programming_language))
 
+[![FDF](https://img.youtube.com/vi/mFSVPARuHaU/hqdefault.jpg)](https://youtube.com/shorts/mFSVPARuHaU)
+
 ---
 
 ## 📋 Índice de contenidos
