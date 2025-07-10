@@ -770,9 +770,9 @@ make
 
 ```bash
 # Mapas topográficos
-./fdf maps/42.fdf			# Logo de 42 School
-./fdf maps/julia.fdf			# Conjunto de Julia (fractal)
-./fdf maps/pyramide.fdf			# Pirámide simple
+./fdf maps/42.fdf				# Logo de 42 School
+./fdf maps/julia.fdf				# Conjunto de Julia (fractal)
+./fdf maps/pyramide.fdf				# Pirámide simple
 ./fdf maps/sagrada_familia_detailed.fdf		# Mapa customizado simulando la sagrada familia
 
 # Objetos 4D
