@@ -5,15 +5,7 @@
 [![42 School](https://img.shields.io/badge/42-School-000000?style=flat&logo=42&logoColor=white)](https://42.fr)
 [![C](https://img.shields.io/badge/C-A8B9CC?style=flat&logo=c&logoColor=white)](https://en.wikipedia.org/wiki/C_(programming_language))
 
-<p align="center">
-  <a href="https://youtube.com/shorts/mFSVPARuHaU">
-    <img src="./img/hexacosicoron.png" alt="Short personalizado" width="300"/>
-  </a>
-</p>
-
-<p align="center">
-  <em>Haz Ctrl + clic (o Cmd + clic en Mac) para abrir en una nueva pestaña</em>
-</p>
+![alt text](image/output.gif)
 
 ---
 
