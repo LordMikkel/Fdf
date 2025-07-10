@@ -7,6 +7,21 @@
 
 ---
 
+## 📋 Índice de contenidos
+
+- [🎯 ¿Qué es FDF?](#-qué-es-fdf)
+- [📊 De datos a visualización: El pipeline completo](#-de-datos-a-visualización-el-pipeline-completo)
+  - [📊 Paso 1: Interpretación de datos como vectores](#paso-1-interpretación-de-datos-como-vectores)
+  - [🌀 Paso 2: Rotar los puntos](#-paso-2-rotar-los-puntos)
+  - [📐 Paso 3: Proyecciones - Reduciendo dimensiones](#-paso-3-proyecciones---reduciendo-dimensiones)
+- [🔮 Explorando la geometría 4D](#-explorando-la-geometría-4d)
+- [🎨 El motor de renderizado](#-el-motor-de-renderizado)
+- [🚀 Instalación y uso](#-instalación-y-uso)
+- [🎯 Conclusión](#-conclusión)
+- [✍️ Crédito](#️-crédito)
+
+---
+
 ## 🎯 ¿Qué es FDF?
 
 FDF (FileDeFer) comenzó como un proyecto de 42 School para renderizar mapas topográficos en 3D. Mi implementación intenta ir un poco más allá: es un motor completo de transformaciones geométricas que explora tanto la visualización de datos del mundo real (3D) como la geometría de dimensiones superiores (4D).
@@ -25,7 +40,7 @@ FDF (FileDeFer) comenzó como un proyecto de 42 School para renderizar mapas top
 
 ## 📊 De datos a visualización: El pipeline completo
 
-### Paso 1: Interpretación de datos como vectores
+## Paso 1: Interpretación de datos como vectores
 
 Cada archivo `.fdf` contiene una matriz de elevaciones que interpreto como vectores posicionales:
 
@@ -103,7 +118,7 @@ sin(α + θ) = sin(α)cos(θ) + cos(α)sin(θ)
 
 Pero **¿de dónde vienen estas fórmulas?** Para entenderlo completamente, necesitamos hacer un viaje por los fundamentos matemáticos.
 
-## 💸 ¿Qué es `e`? El fundamento del crecimiento
+### 💸 ¿Qué es `e`? El fundamento del crecimiento
 
 Antes de entender las rotaciones complejas, conozcamos al número `e`.
 
@@ -126,7 +141,7 @@ Ese límite mágico es **e**:
 e = lim (n → ∞) (1 + 1/n)^n
 ```
 
-## 🌀 Los números complejos: El giro hacia lo imaginario
+### 🌀 Los números complejos: El giro hacia lo imaginario
 
 ### ❓ ¿Qué es la unidad imaginaria i?
 
@@ -295,7 +310,7 @@ sin(α + θ) = sin(α)cos(θ) + cos(α)sin(θ)
 
 **¡BRUTAL! 💥** Estas son exactamente las identidades trigonométricas que necesitábamos y que habiamos mencionado al inicio.
 
-## 🔄 Completando el círculo: Las fórmulas de rotación
+### 🔄 Completando el círculo: Las fórmulas de rotación
 
 **Ahora podemos terminar lo que empezamos:**
 
@@ -430,7 +445,7 @@ void rotate_xw(float *x, float *w, float angle)
 }
 ```
 
-### 📐 Paso 3: Proyecciones - Reduciendo dimensiones
+## 📐 Paso 3: Proyecciones - Reduciendo dimensiones
 
 #### 🔮 Proyección 4D → 3D: Como hacer una "sombra" dimensional
 
@@ -514,7 +529,7 @@ point->y = point->y * factor;
 **Analogía:** Es como mirar por una ventana - los coches lejanos se ven pequeños, los cercanos se ven grandes.
 
 ![alt text](img/pov.png)
-i
+
 **📏 3. Proyecciones Ortogonales**
 
 Son las más simples - eliminan directamente una dimensión, como "aplastar" el objeto.
@@ -736,34 +751,6 @@ int	interpolate_color(int color1, int color2, float t)
 	c.g = c.g1 + (int)((c.g2 - c.g1) * t);
 	c.b = c.b1 + (int)((c.b2 - c.b1) * t);
 	return ((c.r << 16) | (c.g << 8) | c.b);
-}
-```
-
-### ⚙️ El pipeline de proyecciones y rotaciones
-
-```c
-t_point	project_point(t_point point, t_map map, t_cam cam)
-{
-	if (map.type == OBJECT_4D)
-	{
-		rotate_xy(&point.x, &point.y, cam.delta);
-		rotate_xw(&point.x, &point.w, cam.epsilon);
-		rotate_yw(&point.y, &point.w, cam.theta);
-		rotate_zw(&point.z, &point.w, cam.iota);
-		project_4d_to_3d(&point);
-	}
-	point.x = point.x * cam.zoom;
-	point.y = point.y * cam.zoom;
-	point.z = point.z * cam.zoom;
-	if (map.type == OBJECT_3D)
-		move_map_to_origin(&point, map, cam);
-	rotate_x(&point.y, &point.z, cam.alpha);
-	rotate_y(&point.x, &point.z, cam.beta);
-	rotate_z(&point.x, &point.y, cam.gamma);
-	project_3d_to_2d(&point, cam.projection);
-	point.x = point.x + cam.x_offset;
-	point.y = point.y + cam.y_offset;
-	return (point);
 }
 ```
 
