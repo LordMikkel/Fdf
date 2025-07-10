@@ -5,7 +5,11 @@
 [![42 School](https://img.shields.io/badge/42-School-000000?style=flat&logo=42&logoColor=white)](https://42.fr)
 [![C](https://img.shields.io/badge/C-A8B9CC?style=flat&logo=c&logoColor=white)](https://en.wikipedia.org/wiki/C_(programming_language))
 
-<p align="center"> [![FDF](https://img.youtube.com/vi/mFSVPARuHaU/hqdefault.jpg)](https://youtube.com/shorts/mFSVPARuHaU)
+<p align="center">
+  <a href="https://youtube.com/shorts/mFSVPARuHaU" target="_blank">
+    <img src="https://img.youtube.com/vi/mFSVPARuHaU/hqdefault.jpg" alt="FDF" />
+  </a>
+</p>
 
 ---
 
