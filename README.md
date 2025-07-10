@@ -7,7 +7,9 @@
 
 ---
 
-<table>
+<table style="border-collapse: collapse; border: none; width: 100%;">
+  <tr>
+    <td style="border: none; width: 50%; vertical-align: top; padding-right: 20px;">
 
 ## 📋 Índice de contenidos
 
@@ -22,14 +24,21 @@
 - [🎯 Conclusión](#-conclusión)
 - [✍️ Crédito](#️-crédito)
 
-  <tr>
-    <td width="50%" align="center" valign="top">
-      <img src="img/output.gif" alt="FDF GIF" style="max-width: 100%; height: auto;" />
     </td>
-    <td width="50%" valign="top">
+    <td style="border: none; width: 50%; vertical-align: top; text-align: center;">
+
+      <img src="img/output.gif" alt="FDF GIF" style="max-width: 100%; height: auto;" />
+
+      <p>
+        <a href="https://youtube.com/shorts/mFSVPARuHaU" target="_blank" rel="noopener noreferrer">
+          Original + Interestellar epic music
+        </a>
+      </p>
+
     </td>
   </tr>
 </table>
+
 ---
 
 ## 🎯 ¿Qué es FDF?
