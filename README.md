@@ -65,7 +65,7 @@ Para crear la **ilusión de profundidad** o tridimensionalidad, necesitamos **ro
 
 Un vector en 2D es una flecha que va desde un punto de origen (normalmente el (0,0)) hasta un punto en el plano (x, y). Representa tanto una posición como una dirección y magnitud.
 
-### Qué es una coordenada?
+### 🔢 Qué es una coordenada?
 
 Es importante entender que una coordenada o un par ordenado puede representarse como un número complejo que tiene una parte real (x) y una parte imaginaria (y). Esto es muy importante si queremos entender a profundidad toda la matemática que hay detrás, es por ello que recomiendo mucho que veas estos dos videos antes y luego regreses a esta demostración para el proyecto FDF.
 
@@ -73,7 +73,7 @@ Parte1: https://www.youtube.com/watch?v=5FemcGdN3Xw
 
 Parte2: https://www.youtube.com/watch?v=f7iOdIaourk
 
-#### Las rotaciones como transformaciones lineales
+#### 🔄 Las rotaciones como transformaciones lineales
 
 Una rotación en 2D es la transformación más fundamental.
 Para rotar un vector `v = (x,y)` por un ángulo θ:
@@ -86,8 +86,8 @@ x = r·cos(α)
 y = r·sin(α)
 ```
 
-- `r` es la distancia desde el origen (la magnitud del vector)
-- `α` es el ángulo original del vector respecto al eje x
+- `r` es la distancia desde el origen (la magnitud del vector) || r = √(x² + y²) por pitagoras
+- `α` es el ángulo original del vector respecto al eje x || α = atan2(y, x)
 
 Al rotarlo por un nuevo ángulo `θ`, el vector pasa a tener una orientación `α + θ`:
 ```
@@ -109,7 +109,7 @@ Antes de entender las rotaciones complejas, conozcamos al número `e`.
 
 El número e es irracional (e ≈ 2.718...). Mientras π aparece en círculos, **e aparece en todo lo que crece**: bacterias, intereses bancarios, redes neuronales, incluso en física cuántica.
 
-### El experimento del banco infinito
+### 🏦 El experimento del banco infinito
 
 Imagina que metes 1 € en el banco y el interés es del 100% anual:
 
@@ -128,7 +128,7 @@ e = lim (n → ∞) (1 + 1/n)^n
 
 ## 🌀 Los números complejos: El giro hacia lo imaginario
 
-### ¿Qué es la unidad imaginaria i?
+### ❓ ¿Qué es la unidad imaginaria i?
 
 Los números imaginarios surgen cuando intentamos resolver y² = -1. En números reales es imposible, pero i nos lo permite:
 
@@ -146,7 +146,7 @@ i³ = -i       (270° - tres cuartos de vuelta)
 i⁴ = 1        (360° - vuelta completa)
 ```
 
-### La identidad de Euler: El crecimiento que gira
+### 🌪️ La identidad de Euler: El crecimiento que gira
 
 Estos cambios de los números imaginarios los podemos explicar con la identidad de Euler. Pero primero, conectemos las ideas:
 
@@ -177,9 +177,23 @@ cos(180°) + i·sin(180°) = -1 + i·0 = -1
 cos(270°) + i·sin(270°) = 0 + i·(-1) = -i
 ```
 
-#### ⚡ El momento de la revelación
+**🤔 ¿Esto es casualidad?**
 
-**¿Coincidencia?** ¡Para nada! Lo que estamos viendo es que:
+Tenemos dos patrones que parecen describir exactamente lo mismo:
+- **Las potencias de i:** i⁰, i¹, i², i³... nos dan puntos en el círculo
+- **Las funciones trigonométricas:** cos(θ) + i·sin(θ) también nos dan puntos en el círculo
+
+**Pero aquí está la conexión clave:** Sabemos que **e** representa crecimiento exponencial. ¿Qué pasaría si combináramos el crecimiento exponencial (e) con la rotación (i)?
+
+Recordemos que **e^x** significa "multiplicar e por sí mismo x veces de manera continua". Entonces **e^(i·θ)** debería significar "aplicar la rotación i de manera continua θ radianes".
+
+**🎯 La conexión:** Las potencias de **i** nos dan rotaciones discretas (90°, 180°, 270°...), pero **e^(i·θ)** nos da rotación continua para cualquier ángulo θ.
+
+Si **e^(algo)** siempre representa "multiplicación repetida", entonces **e^(i·θ)** debería representar "rotación repetida" θ radianes.
+
+#### ⚡ El momento de revelación
+
+**¿Coincidencia?** ¡Para nada! Lo que estamos viendo es la identidad de Euler:
 
 ```
 e^(iθ) = cos(θ) + i·sin(θ)
@@ -197,7 +211,7 @@ e^(i·π/2) = cos(π/2) + i·sin(π/2) = 0 + i = i ✓
 e^(i·π) = cos(π) + i·sin(π) = -1 + 0i = -1 ✓
 ```
 
-#### Curiosidad: ¿Por qué es la fórmula más hermosa de las matemáticas?
+#### 💎 Curiosidad: ¿Por qué es la fórmula más hermosa de las matemáticas?
 
 **La identidad más famosa:** Cuando θ = π (180°):
 ```
@@ -218,7 +232,7 @@ e^(i·2π) = 1       (giramos 360°, volvemos a (1,0))
 
 **La clave:** e^(iθ) = cos(θ) + i·sin(θ) nos da exactamente el punto correcto en el círculo para cualquier ángulo θ.
 
-#### 🔄 La fórmula emerge
+#### 🎯 La fórmula emerge
 
 Si observas estos ejemplos, verás que cada punto al que llegamos se puede escribir como:
 - Las coordenadas (x, y) del punto final
@@ -279,7 +293,7 @@ cos(α + θ) = cos(α)cos(θ) - sin(α)sin(θ)
 sin(α + θ) = sin(α)cos(θ) + cos(α)sin(θ)
 ```
 
-**¡BRUTAL!** Estas son exactamente las identidades trigonométricas que necesitábamos y que habiamos mencionado al inicio.
+**¡BRUTAL! 💥** Estas son exactamente las identidades trigonométricas que necesitábamos y que habiamos mencionado al inicio.
 
 ## 🔄 Completando el círculo: Las fórmulas de rotación
 
@@ -303,7 +317,7 @@ x' = x·cos(θ) - y·sin(θ)
 y' = x·sin(θ) + y·cos(θ)
 ```
 
-**Implementación en código:**
+**💻 Implementación en código:**
 
 En nuestro código luce de esta manera:
 
@@ -318,7 +332,7 @@ void rotate_2d(float *x, float *y, float angle)
 }
 ```
 
-#### Extensión a 3D: Rotaciones por planos
+#### 🧊 Extensión a 3D: Rotaciones por planos
 
 En 3D, las rotaciones ocurren en planos, no alrededor de ejes. Cada rotación 3D es una rotación 2D en un plano específico.
 
@@ -397,7 +411,7 @@ Todo depende de si estamos mirando el plano desde el lado "positivo" o "negativo
    - Es como el caso normal 2D
 
 
-#### El salto a 4D: Más simple de lo que parece
+#### 👽 El salto a 4D: Más simple de lo que parece
 
 En 4D seguimos usando las mismas fórmulas de rotación 2D, solo que ahora tenemos más planos donde rotar. Son independientes entre sí y no se generan ejes perpendiculares por lo que es siempre la misma fórmula sin cambios de signo, paradójicamente más sencillo que en 3D.
 
@@ -416,9 +430,9 @@ void rotate_xw(float *x, float *w, float angle)
 }
 ```
 
-### Paso 3: Proyecciones - Reduciendo dimensiones
+### 📐 Paso 3: Proyecciones - Reduciendo dimensiones
 
-#### Proyección 4D → 3D: Como hacer una "sombra" dimensional
+#### 🔮 Proyección 4D → 3D: Como hacer una "sombra" dimensional
 
 **En realidad es simple:** Imagina que tienes una linterna y quieres ver la "sombra" de un objeto 4D en nuestro mundo 3D.
 
@@ -456,9 +470,9 @@ void project_4d_to_3d(t_point *point, float distance)
 }
 ```
 
-#### Proyección 3D → 2D: Múltiples sistemas
+#### 📊 Proyección 3D → 2D: Múltiples sistemas
 
-**1. Proyección Isométrica**
+**📐 1. Proyección Isométrica**
 
 La proyección isométrica es como hacer varias rotaciones 3D seguidas, pero "pre-calculadas" en una fórmula:
 
@@ -481,7 +495,7 @@ Este ángulo `0.6154797` radianes (≈35.26°) viene de la combinación de dos r
 
 Este ángulo hace que los tres ejes X, Y, Z se vean exactamente iguales en longitud cuando se proyectan al plano 2D. Es el único ángulo que logra esto por eso se le llama isometría.
 
-**2. Proyección Perspectiva (POV)**
+**👁️ 2. Proyección Perspectiva (POV)**
 
 Esta es la proyección más realista - simula exactamente cómo vemos las cosas en la vida real y funciona igual a la sombra de la cuarta dimensión:
 
@@ -499,15 +513,9 @@ point->y = point->y * factor;
 
 **Analogía:** Es como mirar por una ventana - los coches lejanos se ven pequeños, los cercanos se ven grandes.
 
-**Ejemplo visual:**
-```
-Vista perspectiva de una carretera:
-🚗 ← Coche cerca (se ve grande)
-  🚙 ← Coche medio (se ve mediano)
-    🚕 ← Coche lejos (se ve pequeño)
-```
-
-**3. Proyecciones Ortogonales**
+![alt text](img/pov.png)
+i
+**📏 3. Proyecciones Ortogonales**
 
 Son las más simples - eliminan directamente una dimensión, como "aplastar" el objeto.
 
@@ -519,7 +527,7 @@ Son las más simples - eliminan directamente una dimensión, como "aplastar" el 
 
 ## 🔮 Explorando la geometría 4D
 
-### ¿Qué significa "4D"?
+### ❓ ¿Qué significa "4D"?
 
 ```
 1D: Una línea
@@ -545,7 +553,7 @@ Son las más simples - eliminan directamente una dimensión, como "aplastar" el 
 (Imposible de dibujar directamente solo a través de una sombra)
 ```
 
-### Objetos 4D implementados
+### 🎲 Objetos 4D implementados
 
 | Objeto | Vértices | Descripción | Analogía |
 |--------|----------|-------------|----------|
@@ -557,10 +565,10 @@ Son las más simples - eliminan directamente una dimensión, como "aplastar" el 
 
 ![alt text](img/tesseract.png)
 
-**¿Qué es?**
+**🔍 ¿Qué es?**
 Un tesseract es la versión 4D de un cubo. Mientras un cubo tiene 8 vértices, el tesseract tiene 16.
 
-**¿Cómo se construye?**
+**🏗️ ¿Cómo se construye?**
 Igual que un cubo se forma tomando dos cuadrados y conectándolos, un tesseract se forma tomando dos cubos y conectando sus vértices correspondientes:
 
 ```c
@@ -573,7 +581,7 @@ Igual que un cubo se forma tomando dos cuadrados y conectándolos, un tesseract 
 {-1,-1,1,1},   {1,-1,1,1},   {1,1,1,1},   {-1,1,1,1}
 ```
 
-**¿Qué vemos al rotarlo?**
+**👀 ¿Qué vemos al rotarlo?**
 - Al rotar en planos XW o YW: El tesseract parece "respirar" - se contrae y expande
 - Al rotar en planos XY o ZW: Los cubos internos se tuercen y deforman
 - **Efecto visual:** Como si fuera un cubo que se estira hacia una dimensión invisible
@@ -582,16 +590,16 @@ Igual que un cubo se forma tomando dos cuadrados y conectándolos, un tesseract 
 
 ![alt text](img/pentachoron.png)
 
-**¿Qué es?**
+**🔍 ¿Qué es?**
 El polítopo 4D más simple, como un tetraedro pero en 4 dimensiones. Tiene 5 vértices (de ahí "penta").
 
-**Estructura:**
+**⭐ Estructura:**
 ```c
 // 5 vértices que forman el simplejo 4D más básico
 {1,1,1,1}, {1,-1,-1,1}, {-1,1,-1,1}, {-1,-1,1,1}, {0,0,0,-1}
 ```
 
-**¿Qué vemos al rotarlo?**
+**👀 ¿Qué vemos al rotarlo?**
 - Al rotar: Parece que los vértices "saltan" entre posiciones
 - Las líneas se cruzan de formas imposibles en 3D
 - **Efecto visual:** Como una red que se retuerce en patrones hipnóticos
@@ -603,12 +611,12 @@ El polítopo 4D más simple, como un tetraedro pero en 4 dimensiones. Tiene 5 v�
 **¿Qué es?**
 Un polítopo 4D extremadamente complejo con 120 vértices y 600 tetraedros como caras.
 
-**Estructura:**
+**⭐ Estructura:**
 - 120 vértices dispuestos simétricamente
 - Se aproxima a una "hiperesfera" en 4D
 - Es el análogo 4D de un icosaedro
 
-**¿Qué vemos al rotarlo?**
+**👀 ¿Qué vemos al rotarlo?**
 - **Densidad visual impresionante:** 600 tetraedros creando patrones complejos
 - Al rotar: Parece una "medusa" de luz que pulsa y se deforma
 - **Efecto visual:** Como galaxias de puntos que danzan en formaciones imposibles
@@ -620,11 +628,10 @@ Un polítopo 4D extremadamente complejo con 120 vértices y 600 tetraedros como 
 Cuando rotamos objetos 4D, vemos aspectos que son imposibles de percibir desde una perspectiva fija:
 
 ```c
-// Rotaciones simultáneas en múltiples planos
-rotate_xy(&point.x, &point.y, cam.delta);  // Como rotar una moneda
-rotate_xw(&point.x, &point.w, cam.epsilon); // Rotación "hacia afuera" 4D
-rotate_yw(&point.y, &point.w, cam.theta);   // Otra rotación "imposible"
-rotate_zw(&point.z, &point.w, cam.iota);    // Y otra más
+rotate_xy(&point.x, &point.y, cam.delta);
+rotate_xw(&point.x, &point.w, cam.epsilon);
+rotate_yw(&point.y, &point.w, cam.theta);
+rotate_zw(&point.z, &point.w, cam.iota);
 ```
 
 **Efectos visuales que vemos:**
@@ -673,7 +680,7 @@ void	render_3d_map(t_fdf *data, t_map *map, int error)
 }
 ```
 
-### Algoritmo para dibujar las líneas
+### ➡️ Algoritmo para dibujar las líneas
 
 Para conectar dos puntos proyectados, uso una versión optimizada del algoritmo de Bresenham con interpolación de colores:
 
@@ -710,7 +717,7 @@ void	draw_line(t_point p1, t_point p2, t_fdf *data)
 }
 ```
 
-### Mapeo automático de colores
+### 🎨 Mapeo automático de colores
 
 Para visualizar elevaciones, mapeo automáticamente alturas a colores:
 
@@ -732,7 +739,7 @@ int	interpolate_color(int color1, int color2, float t)
 }
 ```
 
-### El pipeline de proyecciones y rotaciones
+### ⚙️ El pipeline de proyecciones y rotaciones
 
 ```c
 t_point	project_point(t_point point, t_map map, t_cam cam)
@@ -764,7 +771,7 @@ t_point	project_point(t_point point, t_map map, t_cam cam)
 
 ## 🚀 Instalación y uso
 
-### Compilación
+### 🔧 Compilación
 
 ```bash
 git clone https://github.com/LordMikkel/Fdf.git
@@ -772,13 +779,14 @@ cd fdf
 make
 ```
 
-### Ejemplos de uso
+### 🎮 Ejemplos de uso
 
 ```bash
 # Mapas topográficos
-./fdf maps/42.fdf          # Logo de 42 School
-./fdf maps/julia.fdf       # Conjunto de Julia (fractal)
-./fdf maps/pyramide.fdf    # Pirámide simple
+./fdf maps/42.fdf							# Logo de 42 School
+./fdf maps/julia.fdf						# Conjunto de Julia (fractal)
+./fdf maps/pyramide.fdf						# Pirámide simple
+./fdf maps/sagrada_familia_detailed.fdf		# Mapa customizado simulando la sagrada familia
 
 # Objetos 4D
 ./fdf tesseract            # Hipercubo 4D
@@ -786,20 +794,20 @@ make
 ./fdf hexacosicoron       # Polítopo complejo
 ```
 
-### Controles interactivos
+### 🎯 Controles interactivos
 
-**Navegación 3D:**
+**🎮 Navegación 3D:**
 - `↑↓←→`: Rotación pitch/yaw
 - `< >`: Rotación roll
 - `Mouse drag`: Translación libre
 - `Mouse wheel`: Zoom
 
-**Navegación 4D:**
+**🌌 Navegación 4D:**
 - `W/S`: Rotación planos XY + ZW
 - `A/D`: Rotación planos XZ + YW
 - `Q/E`: Rotación planos YZ + XW
 
-**Proyecciones:**
+**📐 Proyecciones:**
 - `I`: Isométrica
 - `P`: Perspectiva
 - `T`: Vista superior
@@ -816,7 +824,7 @@ El proyecto demuestra que las matemáticas complejas se vuelven accesibles cuand
 
 ---
 
-## ✍️ Credito
+## ✍️ Crédito
 
 Soy Mikel Garrido, estudiante de 42 Barcelona. Siempre intento hacer la implementación más simple pero a la vez más robusta en todos mis proyectos. Espero poder ayudarte con esta guía.
 
