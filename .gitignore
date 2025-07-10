@@ -7,5 +7,6 @@
 *.py
 *.swp
 fdf
+img/palette.png
 ./obj
 .editorconfig
