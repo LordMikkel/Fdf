@@ -8,5 +8,6 @@
 *.swp
 fdf
 img/palette.png
+img/fdf.mov
 ./obj
 .editorconfig
