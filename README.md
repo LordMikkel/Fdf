@@ -11,6 +11,10 @@
   </a>
 </p>
 
+<p align="center">
+  <em>Haz Ctrl + clic (o Cmd + clic en Mac) para abrir en una nueva pestaña</em>
+</p>
+
 ---
 
 ## 📋 Índice de contenidos
