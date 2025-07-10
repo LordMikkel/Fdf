@@ -11,18 +11,22 @@
   <tr>
     <td style="border: none; width: 50%; vertical-align: top; padding-right: 20px;">
 
-## 📋 Índice de contenidos
-
-- [🎯 ¿Qué es FDF?](#-qué-es-fdf)
-- [📊 De datos a visualización: El pipeline completo](#-de-datos-a-visualización-el-pipeline-completo)
-  - [📊 Paso 1: Interpretación de datos como vectores](#paso-1-interpretación-de-datos-como-vectores)
-  - [🌀 Paso 2: Rotar los puntos](#-paso-2-rotar-los-puntos)
-  - [📐 Paso 3: Proyecciones - Reduciendo dimensiones](#-paso-3-proyecciones---reduciendo-dimensiones)
-- [🔮 Explorando la geometría 4D](#-explorando-la-geometría-4d)
-- [🎨 El motor de renderizado](#-el-motor-de-renderizado)
-- [🚀 Instalación y uso](#-instalación-y-uso)
-- [🎯 Conclusión](#-conclusión)
-- [✍️ Crédito](#️-crédito)
+      <h2>📋 Índice de contenidos</h2>
+      <ul>
+        <li><a href="#-qué-es-fdf">🎯 ¿Qué es FDF?</a></li>
+        <li>📊 De datos a visualización: El pipeline completo
+          <ul>
+            <li><a href="#paso-1-interpretación-de-datos-como-vectores">📊 Paso 1: Interpretación de datos como vectores</a></li>
+            <li><a href="#-paso-2-rotar-los-puntos">🌀 Paso 2: Rotar los puntos</a></li>
+            <li><a href="#-paso-3-proyecciones---reduciendo-dimensiones">📐 Paso 3: Proyecciones - Reduciendo dimensiones</a></li>
+          </ul>
+        </li>
+        <li><a href="#-explorando-la-geometría-4d">🔮 Explorando la geometría 4D</a></li>
+        <li><a href="#-el-motor-de-renderizado">🎨 El motor de renderizado</a></li>
+        <li><a href="#-instalación-y-uso">🚀 Instalación y uso</a></li>
+        <li><a href="#-conclusión">🎯 Conclusión</a></li>
+        <li><a href="#️-crédito">✍️ Crédito</a></li>
+      </ul>
 
     </td>
     <td style="border: none; width: 50%; vertical-align: top; text-align: center;">
