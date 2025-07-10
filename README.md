@@ -5,8 +5,15 @@
 [![42 School](https://img.shields.io/badge/42-School-000000?style=flat&logo=42&logoColor=white)](https://42.fr)
 [![C](https://img.shields.io/badge/C-A8B9CC?style=flat&logo=c&logoColor=white)](https://en.wikipedia.org/wiki/C_(programming_language))
 
-![alt text](img/output_h.gif)
+<p align="center">
+  <img src="img/output.gif" alt="FDF GIF" />
+</p>
 
+<p align="center">
+  <a href="https://studio.youtube.com/video/mFSVPARuHaU/edit" target="_blank" rel="noopener noreferrer">
+    Original + Interestellar epic music
+  </a>
+</p>
 ---
 
 ## 📋 Índice de contenidos
