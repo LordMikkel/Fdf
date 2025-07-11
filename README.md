@@ -94,9 +94,9 @@ Debemos comenzar con que un vector en 2D es una flecha que va desde un punto de 
 
 Es importante entender que una coordenada o un par ordenado puede representarse como un número complejo que tiene una parte real (x) y una parte imaginaria (y). Esto es muy importante si queremos entender a profundidad toda la matemática que hay detrás, es por ello que recomiendo mucho que veas estos dos videos antes y luego regreses a esta demostración para el proyecto FDF.
 
-Parte1: https://www.youtube.com/watch?v=5FemcGdN3Xw
+**Parte1: https://www.youtube.com/watch?v=5FemcGdN3Xw**
 
-Parte2: https://www.youtube.com/watch?v=f7iOdIaourk
+**Parte2: https://www.youtube.com/watch?v=f7iOdIaourk**
 
 #### 🔄 Las rotaciones como transformaciones lineales
 
@@ -194,7 +194,7 @@ i³ = -i       (270° - giramos hacia "abajo")
 i⁴ = 1        (360° - volvemos al inicio)
 ```
 
-**Cada potencia de i nos lleva a un punto específico en el círculo unitario.** ¿No te parece familiar? [Son exactamente las coordenadas que nos darían cos y sin en esos ángulos](https://www.youtube.com/shorts/aTEyA82u52k):
+**Cada potencia de i nos lleva a un punto específico en el círculo unitario.** ¿No te parece familiar? Son exactamente las coordenadas que nos darían cos y sin en esos ángulos [Ver video](https://www.youtube.com/shorts/aTEyA82u52k):
 
 ```
 cos(0°) + i·sin(0°) = 1 + i·0 = 1
@@ -251,7 +251,7 @@ Para cualquier ángulo θ:
 
 Por tanto: **e^(iθ) = cos(θ) + i·sin(θ)**
 
-[La identidad de euler es ese punto/coordenada (compleja) que marcan coseno y seno al rededor de la circunferencia](https://www.youtube.com/shorts/aTEyA82u52k)
+La identidad de euler es ese punto/coordenada (compleja) que marcan coseno y seno al rededor de la circunferencia [Ver video](https://www.youtube.com/shorts/aTEyA82u52k)
 
 #### 💎 Curiosidad: ¿Por qué es la fórmula más hermosa de las matemáticas?
 
