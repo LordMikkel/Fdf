@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 02:48:13 by migarrid          #+#    #+#             */
-/*   Updated: 2025/06/20 00:59:55 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/07/11 18:13:08 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	project_3d_to_2d(t_point *point, int projection)
 	else if (projection == POV)
 	{
 		distance = 500.0f;
-		factor = distance / (-point->z + distance);
+		factor = distance / (distance - point->z);
 		point->x = point->x * factor;
 		point->y = point->y * factor;
 	}

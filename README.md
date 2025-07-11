@@ -38,7 +38,7 @@ FDF (FileDeFer) comenzó como un proyecto de 42 School para renderizar mapas top
 
 ### Características principales
 
-- **Visualización topográfica**: Convierte datos de elevación en wireframes 3D interactivos
+- **Visualización topográfica**: Convierte datos de coordenadas en un mapa en un wireframes 3D
 - **Geometría 4D**: Explora objetos imposibles de visualizar directamente (tesseract, pentachoron, hexacosicoron)
 - **Múltiples proyecciones**: Isométrica, perspectiva, ortogonal
 - **Rotaciones multidimensionales**: Controles intuitivos para navegar en 3D y 4D
@@ -52,7 +52,7 @@ FDF (FileDeFer) comenzó como un proyecto de 42 School para renderizar mapas top
 
 ## Paso 1: Interpretación de datos como vectores
 
-Cada archivo `.fdf` contiene una matriz de elevaciones que interpreto como vectores posicionales:
+Cada archivo `.fdf` funciona como un mapa que contiene una matriz de elevaciones que interpreto como vectores posicionales:
 
 ```
 Archivo de ejemplo una pirámide (42.fdf):
@@ -88,7 +88,7 @@ Para crear la **ilusión de profundidad** o tridimensionalidad, necesitamos **ro
 
 ### Transformaciones geométricas
 
-Un vector en 2D es una flecha que va desde un punto de origen (normalmente el (0,0)) hasta un punto en el plano (x, y). Representa tanto una posición como una dirección y magnitud.
+Debemos comenzar con que un vector en 2D es una flecha que va desde un punto de origen (normalmente el (0,0)) hasta un punto en el plano (x, y). Representa tanto una posición como una dirección y magnitud.
 
 ### 🔢 Qué es una coordenada?
 
@@ -113,6 +113,7 @@ y = r·sin(α)
 
 - `r` es la distancia desde el origen (la magnitud del vector) || r = √(x² + y²) por pitagoras
 - `α` es el ángulo original del vector respecto al eje x || α = atan2(y, x)
+- `cos` y `sin` son funciones que nos permiten **descomponer un vector en sus componentes X e Y**. Imagínalo como un triángulo: el coseno nos da la componente horizontal (X) y el seno la componente vertical (Y) del vector. 📐 [Este video te ayudará a visualizarlo gráficamente](https://www.youtube.com/shorts/aTEyA82u52k)
 
 Al rotarlo por un nuevo ángulo `θ`, el vector pasa a tener una orientación `α + θ`:
 ```
@@ -120,17 +121,15 @@ x' = r·cos(α + θ)
 y' = r·sin(α + θ)
 ```
 
-**¡Aquí está el problema!** Necesitamos las identidades trigonométricas:
+Para seguir con el proceso Necesitamos las **identidades trigonométricas:**
 ```
 cos(α + θ) = cos(α)cos(θ) - sin(α)sin(θ)
 sin(α + θ) = sin(α)cos(θ) + cos(α)sin(θ)
 ```
 
-Pero **¿de dónde vienen estas fórmulas?** Para entenderlo completamente, necesitamos hacer un viaje por los fundamentos matemáticos.
+Pero **¿de dónde vienen estas fórmulas?** Para entenderlo completamente, necesitamos hacer comprender algunos de los fundamentos matemáticos.
 
 ### 💸 ¿Qué es `e`? El fundamento del crecimiento
-
-Antes de entender las rotaciones complejas, conozcamos al número `e`.
 
 El número e es irracional (e ≈ 2.718...). Mientras π aparece en círculos, **e aparece en todo lo que crece**: bacterias, intereses bancarios, redes neuronales, incluso en física cuántica.
 
@@ -146,7 +145,7 @@ Si pagan 12 veces al año:  1 € × (1 + 1/12)¹² = 2.61 €
 Si pagan infinitas veces:  1 € × lim(n→∞)(1 + 1/n)ⁿ = 2.718... €
 ```
 
-Ese límite mágico es **e**:
+Ese límite es **e**:
 ```
 e = lim (n → ∞) (1 + 1/n)^n
 ```
@@ -161,6 +160,8 @@ Los números imaginarios surgen cuando intentamos resolver y² = -1. En números
 i = √(-1)
 i² = -1
 ```
+
+💡 **si quieres saber el origen de los numeros imaginarios** [tienes que ver este video](https://www.youtube.com/watch?v=VN7nipynE0c)
 
 **Desde el punto de vista geométrico**, multiplicar por i es rotar 90°:
 ```
@@ -193,7 +194,7 @@ i³ = -i       (270° - giramos hacia "abajo")
 i⁴ = 1        (360° - volvemos al inicio)
 ```
 
-**Cada potencia de i nos lleva a un punto específico en el círculo unitario.** ¿No te parece familiar? Son exactamente las coordenadas que nos darían cos y sin en esos ángulos:
+**Cada potencia de i nos lleva a un punto específico en el círculo unitario.** ¿No te parece familiar? [Son exactamente las coordenadas que nos darían cos y sin en esos ángulos](https://www.youtube.com/shorts/aTEyA82u52k):
 
 ```
 cos(0°) + i·sin(0°) = 1 + i·0 = 1
@@ -236,6 +237,22 @@ e^(i·π/2) = cos(π/2) + i·sin(π/2) = 0 + i = i ✓
 e^(i·π) = cos(π) + i·sin(π) = -1 + 0i = -1 ✓
 ```
 
+**La clave:** e^(iθ) = cos(θ) + i·sin(θ) nos da exactamente el punto correcto en el círculo para cualquier ángulo θ.
+
+#### 🎯 La fórmula emerge
+
+Si observas estos ejemplos, verás que cada punto al que llegamos se puede escribir como:
+- Las coordenadas (x, y) del punto final
+- O sea: x + iy
+
+Para cualquier ángulo θ:
+- **x = cos(θ)** (coordenada real horizontal donde terminamos)
+- **y = sin(θ)** (coordenada imganaria vertical donde terminamos)
+
+Por tanto: **e^(iθ) = cos(θ) + i·sin(θ)**
+
+[La identidad de euler es ese punto/coordenada (compleja) que marcan coseno y seno al rededor de la circunferencia](https://www.youtube.com/shorts/aTEyA82u52k)
+
 #### 💎 Curiosidad: ¿Por qué es la fórmula más hermosa de las matemáticas?
 
 **La identidad más famosa:** Cuando θ = π (180°):
@@ -254,20 +271,6 @@ e^(i·π/2) = i      (giramos 90°, vamos a (0,1))
 e^(i·π) = -1       (giramos 180°, vamos a (-1,0))
 e^(i·2π) = 1       (giramos 360°, volvemos a (1,0))
 ```
-
-**La clave:** e^(iθ) = cos(θ) + i·sin(θ) nos da exactamente el punto correcto en el círculo para cualquier ángulo θ.
-
-#### 🎯 La fórmula emerge
-
-Si observas estos ejemplos, verás que cada punto al que llegamos se puede escribir como:
-- Las coordenadas (x, y) del punto final
-- O sea: x + iy
-
-Para cualquier ángulo θ:
-- **x = cos(θ)** (coordenada real horizontal donde terminamos)
-- **y = sin(θ)** (coordenada imganaria vertical donde terminamos)
-
-Por tanto: **e^(iθ) = cos(θ) + i·sin(θ)**
 
 #### 🔍 Al fin con esto ya podemos obtener las identidades trigonométricas
 
@@ -318,7 +321,7 @@ cos(α + θ) = cos(α)cos(θ) - sin(α)sin(θ)
 sin(α + θ) = sin(α)cos(θ) + cos(α)sin(θ)
 ```
 
-**¡BRUTAL! 💥** Estas son exactamente las identidades trigonométricas que necesitábamos y que habiamos mencionado al inicio.
+**¡Estas son exactamente las identidades trigonométricas que necesitábamos! 💥**  y que habiamos mencionado al inicio.
 
 ### 🔄 Completando el círculo: Las fórmulas de rotación
 
@@ -495,6 +498,8 @@ void project_4d_to_3d(t_point *point, float distance)
 }
 ```
 
+![alt text](img/shadows.gif)
+
 #### 📊 Proyección 3D → 2D: Múltiples sistemas
 
 **📐 1. Proyección Isométrica**
@@ -526,7 +531,7 @@ Esta es la proyección más realista - simula exactamente cómo vemos las cosas 
 
 ```c
 distance = 500.0f;  // Distancia del "observador"
-factor = distance / (-point->z + distance);
+factor = distance / (distance - point->z);
 point->x = point->x * factor;
 point->y = point->y * factor;
 ```
@@ -536,7 +541,7 @@ point->y = point->y * factor;
 - Los objetos **más lejos** (Z positiva) se ven **más pequeños**
 - Crea la ilusión de **profundidad real**
 
-**Analogía:** Es como mirar por una ventana - los coches lejanos se ven pequeños, los cercanos se ven grandes.
+**Analogía:** Es como mirar por una ventana - los coches lejanos se ven pequeños, los cercanos se ven grandes lo que genera cierta distorsión.
 
 ![alt text](img/pov.png)
 
@@ -642,7 +647,7 @@ Un polítopo 4D extremadamente complejo con 120 vértices y 600 tetraedros como 
 - Es el análogo 4D de un icosaedro
 
 **👀 ¿Qué vemos al rotarlo?**
-- **Densidad visual impresionante:** 600 tetraedros creando patrones complejos
+- **Densidad visual:** 600 tetraedros creando patrones complejos
 - Al rotar: Parece una "medusa" de luz que pulsa y se deforma
 - **Efecto visual:** Como galaxias de puntos que danzan en formaciones imposibles
 
@@ -784,6 +789,8 @@ make
 ./fdf maps/julia.fdf				# Conjunto de Julia (fractal)
 ./fdf maps/pyramide.fdf				# Pirámide simple
 ./fdf maps/sagrada_familia_detailed.fdf		# Mapa customizado simulando la sagrada familia
+
+cursus/rank02/fdf/img/sagrada.png
 
 # Objetos 4D
 ./fdf tesseract           # Hipercubo 4D
