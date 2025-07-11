@@ -111,7 +111,7 @@ x = r·cos(α)
 y = r·sin(α)
 ```
 
-- `r` es la distancia desde el origen (la magnitud del vector) || r = √(x² + y²) por pitagoras
+- `r` es la distancia desde el origen (la magnitud del vector) || r = √(x² + y²) por Pitágoras
 - `α` es el ángulo original del vector respecto al eje x || α = atan2(y, x)
 - `cos` y `sin` son funciones que nos permiten **descomponer un vector en sus componentes X e Y**. Imagínalo como un triángulo: el coseno nos da la componente horizontal (X) y el seno la componente vertical (Y) del vector. 📐 [Este video te ayudará a visualizarlo gráficamente](https://www.youtube.com/shorts/aTEyA82u52k)
 
@@ -121,7 +121,7 @@ x' = r·cos(α + θ)
 y' = r·sin(α + θ)
 ```
 
-Para seguir con el proceso Necesitamos las **identidades trigonométricas:**
+Para seguir con el proceso necesitamos las **identidades trigonométricas:**
 ```
 cos(α + θ) = cos(α)cos(θ) - sin(α)sin(θ)
 sin(α + θ) = sin(α)cos(θ) + cos(α)sin(θ)
@@ -161,7 +161,7 @@ i = √(-1)
 i² = -1
 ```
 
-💡 **si quieres saber el origen de los numeros imaginarios** [tienes que ver este video](https://www.youtube.com/watch?v=VN7nipynE0c)
+💡 **Si quieres saber el origen de los números imaginarios** [tienes que ver este video](https://www.youtube.com/watch?v=VN7nipynE0c)
 
 **Desde el punto de vista geométrico**, multiplicar por i es rotar 90°:
 ```
@@ -247,11 +247,11 @@ Si observas estos ejemplos, verás que cada punto al que llegamos se puede escri
 
 Para cualquier ángulo θ:
 - **x = cos(θ)** (coordenada real horizontal donde terminamos)
-- **y = sin(θ)** (coordenada imganaria vertical donde terminamos)
+- **y = sin(θ)** (coordenada imaginaria vertical donde terminamos)
 
 Por tanto: **e^(iθ) = cos(θ) + i·sin(θ)**
 
-La identidad de euler es ese punto/coordenada (compleja) que marcan coseno y seno al rededor de la circunferencia [Ver video](https://www.youtube.com/shorts/aTEyA82u52k)
+La identidad de Euler es ese punto/coordenada (compleja) que marcan coseno y seno alrededor de la circunferencia [Ver video](https://www.youtube.com/shorts/aTEyA82u52k)
 
 #### 💎 Curiosidad: ¿Por qué es la fórmula más hermosa de las matemáticas?
 
@@ -321,7 +321,7 @@ cos(α + θ) = cos(α)cos(θ) - sin(α)sin(θ)
 sin(α + θ) = sin(α)cos(θ) + cos(α)sin(θ)
 ```
 
-**¡Estas son exactamente las identidades trigonométricas que necesitábamos! 💥**  y que habiamos mencionado al inicio.
+**¡Estas son exactamente las identidades trigonométricas que necesitábamos! 💥** y que habíamos mencionado al inicio.
 
 ### 🔄 Completando el círculo: Las fórmulas de rotación
 
@@ -460,7 +460,7 @@ void rotate_xw(float *x, float *w, float angle)
 
 ## 📐 Paso 3: Proyecciones - Reduciendo dimensiones
 
-#### 🔮 Proyección 4D → 3D: Como hacer una "sombra" dimensional
+#### 🔮 Proyección 4D → 3D: Cómo hacer una "sombra" dimensional
 
 **En realidad es simple:** Imagina que tienes una linterna y quieres ver la "sombra" de un objeto 4D en nuestro mundo 3D.
 
