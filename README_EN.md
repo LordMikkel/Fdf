@@ -4,7 +4,6 @@
 
 [![42 School](https://img.shields.io/badge/42-School-000000?style=flat&logo=42&logoColor=white)](https://42.fr)
 [![C](https://img.shields.io/badge/C-A8B9CC?style=flat&logo=c&logoColor=white)](https://en.wikipedia.org/wiki/C_(programming_language))
-📘 Also available in [English](./README_EN.md)
 
 <p align="center">
   <img src="img/intro.gif" alt="FDF GIF" />
