@@ -6,7 +6,7 @@
 [![C](https://img.shields.io/badge/C-A8B9CC?style=flat&logo=c&logoColor=white)](https://en.wikipedia.org/wiki/C_(programming_language))
 
 <p align="center">
-  <img src="img/output.gif" alt="FDF GIF" />
+  <img src="img/intro.gif" alt="FDF GIF" />
 </p>
 
 <p align="center">
@@ -44,7 +44,7 @@ FDF (FileDeFer) comenzó como un proyecto de 42 School para renderizar mapas top
 - **Rotaciones multidimensionales**: Controles intuitivos para navegar en 3D y 4D
 - **Colorización automática**: Mapeo altura-color para mejor comprensión visual
 
-<p align="center"> <img src="img/.score.png" alt="alt text" /> </p>
+<p align="center"> <img src="img/score.png" alt="alt text" /> </p>
 
 ---
 
