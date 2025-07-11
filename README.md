@@ -194,7 +194,7 @@ i³ = -i       (270° - giramos hacia "abajo")
 i⁴ = 1        (360° - volvemos al inicio)
 ```
 
-**Cada potencia de i nos lleva a un punto específico en el círculo unitario.** ¿No te parece familiar? Son exactamente las coordenadas que nos darían cos y sin en esos ángulos [Ver video](https://www.youtube.com/shorts/aTEyA82u52k):
+**Cada potencia de i nos lleva a un punto específico en el círculo unitario.** ¿No te parece familiar? Son exactamente las coordenadas que nos darían cos y sin en esos ángulos: [Ver video](https://www.youtube.com/shorts/aTEyA82u52k)
 
 ```
 cos(0°) + i·sin(0°) = 1 + i·0 = 1
