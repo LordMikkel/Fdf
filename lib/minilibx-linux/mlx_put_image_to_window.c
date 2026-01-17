@@ -8,8 +8,6 @@
 ** Last update Sun Oct  2 09:53:00 2005 Olivier Crouzet
 */
 
-
-
 #include	"mlx_int.h"
 
 

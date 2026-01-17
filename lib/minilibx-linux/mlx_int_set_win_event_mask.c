@@ -8,11 +8,7 @@
 ** Last update Fri Feb 23 17:07:42 2001 Charlie Root
 */
 
-
 #include	"mlx_int.h"
-
-
-
 
 int	mlx_int_set_win_event_mask(t_xvar *xvar)
 {

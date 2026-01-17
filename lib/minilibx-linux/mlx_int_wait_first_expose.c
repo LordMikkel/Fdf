@@ -8,11 +8,7 @@
 ** Last update Fri Feb 23 17:27:10 2001 Charlie Root
 */
 
-
-
 #include	"mlx_int.h"
-
-
 
 int	mlx_int_wait_first_expose(t_xvar *xvar,Window win)
 {

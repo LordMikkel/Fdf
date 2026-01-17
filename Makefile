@@ -6,7 +6,7 @@
 #    By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 17:55:34 by migarrid          #+#    #+#              #
-#    Updated: 2025/08/02 15:48:50 by migarrid         ###   ########.fr        #
+#    Updated: 2025/12/25 03:04:04 by migarrid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,8 @@ NAME				= fdf
 # **************************************************************************** #
 #                            Compiler and Flags                                #
 # **************************************************************************** #
-CC					= cc
-CFLAGS				= -Wall -Wextra -Werror -Ofast -fno-math-errno -march=native -funroll-loops -flto #-g
+CC					= clang
+CFLAGS				= -Wall -Wextra -Werror -O3 -fno-math-errno -march=native -funroll-loops -flto #-g
 MLXI				= -L$(MINILIBX_DIR) -lmlx -lXext -lX11 -lm
 
 # **************************************************************************** #

@@ -8,10 +8,7 @@
 ** Last update Tue Sep 25 17:09:49 2001 Charlie Root
  */
 
-
 #include	"mlx_int.h"
-
-
 
 int		mlx_pixel_put(t_xvar *xvar,t_win_list *win,
 			      int x,int y,int color)
