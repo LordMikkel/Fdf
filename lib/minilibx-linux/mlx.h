@@ -12,7 +12,6 @@
 **   MinilibX -  Please report bugs
 */
 
-
 /*
 ** FR msg - FR msg - FR msg
 **
@@ -38,7 +37,6 @@ void	*mlx_init();
 **  return (void *)0 if failed
 */
 
-
 /*
 ** Basic actions
 */
@@ -54,7 +52,6 @@ int	mlx_pixel_put(void *mlx_ptr, void *win_ptr, int x, int y, int color);
 **  y down is positive
 **  color is 0x00RRGGBB
 */
-
 
 /*
 ** Image stuff
@@ -75,7 +72,6 @@ char	*mlx_get_data_addr(void *img_ptr, int *bits_per_pixel,
 int	mlx_put_image_to_window(void *mlx_ptr, void *win_ptr, void *img_ptr,
 				int x, int y);
 int	mlx_get_color_value(void *mlx_ptr, int color);
-
 
 /*
 ** dealing with Events
@@ -98,7 +94,6 @@ int mlx_loop_end (void *mlx_ptr);
 **   loop_hook(void *param);
 **
 */
-
 
 /*
 **  Usually asked...

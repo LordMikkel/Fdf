@@ -5,7 +5,7 @@ INCLIB=$(INC)/../lib
 
 UNAME := $(shell uname)
 
-CFLAGS= -I$(INC) -O3 -I.. -g
+CFLAGS = -O3 -I$(INC) -fpermissive
 
 NAME= mlx-test
 SRC = main.c

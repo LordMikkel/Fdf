@@ -8,15 +8,11 @@
 ** Last update Thu Oct  4 15:00:45 2001 Charlie Root
 */
 
-
-
 #include	"mlx_int.h"
-
 
 /*
 ** We need a private colormap for non-default Visual.
 */
-
 
 int		mlx_int_get_visual(t_xvar *xvar)
 {

@@ -8,9 +8,7 @@
 ** Last update Tue May 15 16:45:54 2007 Olivier Crouzet
 */
 
-
 #include	"mlx_int.h"
-
 
 int	mlx_destroy_image(t_xvar *xvar, t_img *img)
 {

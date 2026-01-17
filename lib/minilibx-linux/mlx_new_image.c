@@ -8,9 +8,6 @@
 ** Last update Wed May 25 16:46:31 2011 Olivier Crouzet
 */
 
-
-
-
 #include	"mlx_int.h"
 
 /*
@@ -28,11 +25,9 @@ int	shm_att_pb(Display *d,XErrorEvent *ev)
   mlx_X_error = 1;
 }
 
-
 /*
 **  Data malloc :  width+32 ( bitmap_pad=32 ),    *4 = *32 / 8bit
 */
-
 
 void	*mlx_int_new_xshm_image(t_xvar *xvar,int width,int height,int format)
 {
@@ -102,8 +97,6 @@ void	*mlx_int_new_xshm_image(t_xvar *xvar,int width,int height,int format)
   return (img);
 }
 
-
-
 void	*mlx_int_new_image(t_xvar *xvar,int width, int height,int format)
 {
   t_img	*img;
@@ -136,7 +129,6 @@ void	*mlx_int_new_image(t_xvar *xvar,int width, int height,int format)
     XFlush(xvar->display);
   return (img);
 }
-
 
 void	*mlx_new_image(t_xvar *xvar,int width, int height)
 {

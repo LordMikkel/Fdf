@@ -61,7 +61,6 @@ void		*mlx_int_xpm_f_image(t_xvar *xvar,int *width,int *height,
   return (im2);
 }
 
-
 int	mlx_int_egal_img(XImage *img1,XImage *img2)
 {
   if (img1->width!=img2->width || img1->height!=img2->height ||
@@ -78,13 +77,11 @@ int	mlx_int_egal_img(XImage *img1,XImage *img2)
   return (1);
 }
 
-
 void	*mlx_xpm_file_to_image(t_xvar *xvar,char *filename,
 			       int *width,int *height)
 {
   return (mlx_int_xpm_f_image(xvar,width,height,XpmReadFileToImage,filename));
 }
-
 
 void	*mlx_xpm_to_image(t_xvar *xvar,char **data,int *width,int *height)
 {

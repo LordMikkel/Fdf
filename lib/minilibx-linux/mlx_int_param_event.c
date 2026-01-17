@@ -45,7 +45,6 @@ int	mlx_int_param_Expose(t_xvar *xvar, XEvent *ev, t_win_list *win)
     win->hooks[Expose].hook(win->hooks[Expose].param);
 }
 
-
 int	mlx_int_param_generic(t_xvar *xvar, XEvent *ev, t_win_list *win)
 {
   win->hooks[ev->type].hook(win->hooks[ev->type].param);

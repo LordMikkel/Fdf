@@ -9,7 +9,7 @@ Makefile.gen
 
 ## Other
 .DS_STORE
-
+-c
 
 
 ## Template from https://github.com/github/gitignore

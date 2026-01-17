@@ -8,9 +8,7 @@
 ** Last update Tue May 15 16:46:08 2007 Olivier Crouzet
 */
 
-
 #include	"mlx_int.h"
-
 
 int	mlx_destroy_window(t_xvar *xvar,t_win_list *win)
 {

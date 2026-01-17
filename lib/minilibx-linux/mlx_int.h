@@ -8,8 +8,6 @@
 ** Last update Wed May 25 16:44:16 2011 Olivier Crouzet
 */
 
-
-
 /*
 ** Internal settings for MiniLibX
 */

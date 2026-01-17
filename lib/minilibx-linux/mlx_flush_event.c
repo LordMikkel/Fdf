@@ -8,11 +8,7 @@
 ** Last update Fri Feb 23 17:08:48 2001 Charlie Root
 */
 
-
 #include	"mlx_int.h"
-
-
-
 
 int	mlx_flush_event(t_xvar *xvar)
 {

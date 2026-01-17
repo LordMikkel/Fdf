@@ -8,10 +8,7 @@
 ** Last update Tue Sep 25 17:11:19 2001 Charlie Root
 */
 
-
-
 #include	"mlx_int.h"
-
 
 int		mlx_clear_window(t_xvar *xvar,t_win_list *win)
 {
