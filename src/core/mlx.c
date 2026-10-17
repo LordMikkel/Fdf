@@ -26,9 +26,5 @@ void	mlx_setup(t_fdf *data)
 
 void	clear_image(t_fdf *data)
 {
-	int	total_bytes;
-
-	mlx_clear_window(data->mlx, data->win);
-	total_bytes = WIN_WIDTH * WIN_HEIGHT * (data->img.bpp / 8);
-	ft_memset(data->img.addr, 0, total_bytes);
+	ft_memset(data->img.addr, 0, data->img.length * WIN_HEIGHT);
 }

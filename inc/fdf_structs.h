@@ -72,7 +72,8 @@ typedef struct s_map
 	int		min_z;
 	int		type;
 	int		object;
-	int		error;
+	int		*edges;
+	int		n_edges;
 }	t_map;
 
 typedef struct s_img

@@ -35,19 +35,19 @@ void	put_angle_info(t_fdf *data, int x, int *y, int step)
 	str = ft_itoa(angles[0]);
 	mlx_string_put(data->mlx, data->win, x + 100, *y, SAND, str);
 	free(str);
-	mlx_string_put(data->mlx, data->win, x + 120, *y, SAND, "°");
+	mlx_string_put(data->mlx, data->win, x + 120, *y, SAND, "deg");
 	*y += step;
 	mlx_string_put(data->mlx, data->win, x + 40, *y, SAND, "Beta: ");
 	str = ft_itoa(angles[1]);
 	mlx_string_put(data->mlx, data->win, x + 100, *y, SAND, str);
 	free(str);
-	mlx_string_put(data->mlx, data->win, x + 120, *y, SAND, "°");
+	mlx_string_put(data->mlx, data->win, x + 120, *y, SAND, "deg");
 	*y += step;
 	mlx_string_put(data->mlx, data->win, x + 40, *y, SAND, "Gamma: ");
 	str = ft_itoa(angles[2]);
 	mlx_string_put(data->mlx, data->win, x + 100, *y, SAND, str);
 	free(str);
-	mlx_string_put(data->mlx, data->win, x + 120, *y, SAND, "°");
+	mlx_string_put(data->mlx, data->win, x + 120, *y, SAND, "deg");
 }
 
 void	put_zoom_info(t_fdf *data, int x, int *y)

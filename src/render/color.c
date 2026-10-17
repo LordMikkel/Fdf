@@ -25,7 +25,7 @@ int	interpolate_color(int color1, int color2, float t)
 	c.r = c.r1 + (int)((c.r2 - c.r1) * t);
 	c.g = c.g1 + (int)((c.g2 - c.g1) * t);
 	c.b = c.b1 + (int)((c.b2 - c.b1) * t);
-	return ((c.r << 16) | (c.g << 8) | c.b);
+	return ((int)(((unsigned int)c.r << 16) | ((unsigned int)c.g << 8) | (unsigned int)c.b));
 }
 
 int	assign_height_color(t_point *point, t_map *map)
@@ -33,7 +33,12 @@ int	assign_height_color(t_point *point, t_map *map)
 	float	t;
 
 	if (map->min_z == 0 && map->max_z == 0)
-		find_min_max_z(map);
+	{
+		map->min_z = fminf(0, point->z);
+		map->max_z = fmaxf(0, point->z);
+	}
+	if (map->max_z == map->min_z)
+		return (COLOR_MID);
 	t = (point->z - map->min_z) / (float)(map->max_z - map->min_z);
 	if (t < 0.7)
 		return (interpolate_color(COLOR_LOW, COLOR_MID, t * 2));

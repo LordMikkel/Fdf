@@ -24,6 +24,7 @@
 # define PENTACHORON	5
 # define TESSERACT		16
 # define HEXACOSICORON	600
+# define HEXA_VERTICES	600
 # define DEFAULT_ANG	0.6154797f
 # define PI				3.14159265358979323846
 
@@ -36,6 +37,8 @@
 # define ERR_ARGS		"Usage: Provide one .fdf file (ex: ./fdf map.fdf)\n"
 # define ERR_EXT		"Error: Invalid map format. file must be .fdf\n"
 # define ERR_OPEN		"Error: Can't open file. Check existence/permissions\n"
+# define ERR_EMPTY		"Error: Empty map. Provide at least one point\n"
+# define ERR_SHAPE		"Error: Irregular map. All rows must have equal width\n"
 # define ERR_PARSE		"Error: Data parsing failed. Check number formatting\n"
 # define ERR_MEM		"Error: Memory alloc failed. Check system resources\n"
 # define ERR_MLX		"Error: Mlx init failed. Check system resources\n"

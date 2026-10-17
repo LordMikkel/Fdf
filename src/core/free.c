@@ -49,6 +49,8 @@ static void	free_map_points(t_map *map)
 	}
 	free(map->points);
 	map->points = NULL;
+	free(map->edges);
+	map->edges = NULL;
 }
 
 void	free_data(t_fdf *data)

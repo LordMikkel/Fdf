@@ -49,7 +49,8 @@ void	draw_line(t_point p1, t_point p2, t_fdf *data)
 	init_line(&line, a, b);
 	while (TRUE)
 	{
-		line.mix_c = interpolate_color(line.c1, line.c2, line.t / line.steps);
+		if (line.c1 != line.c2 && line.steps > 0)
+			line.mix_c = interpolate_color(line.c1, line.c2, line.t / line.steps);
 		ft_mlx_put_pixel(data, a.x, a.y, line.mix_c);
 		if (a.x == b.x && a.y == b.y)
 			break ;

@@ -12,7 +12,7 @@
 
 #include "../../inc/fdf.h"
 
-void	render_3d_map(t_fdf *data, t_map *map, int error)
+void	render_3d_map(t_fdf *data, t_map *map)
 {
 	int			x;
 	int			y;
@@ -25,15 +25,15 @@ void	render_3d_map(t_fdf *data, t_map *map, int error)
 		x = -1;
 		while (++x < map->width)
 		{
-			a = project_point(map->points[y][x], data->map, data->cam);
-			if (x + 1 < map->width - error)
+			a = project_point(map->points[y][x], map, &data->cam);
+			if (x + 1 < map->width)
 			{
-				b = project_point(map->points[y][x + 1], data->map, data->cam);
+				b = project_point(map->points[y][x + 1], map, &data->cam);
 				draw_line(a, b, data);
 			}
-			if (y + 1 < map->height && x < map->width - error)
+			if (y + 1 < map->height)
 			{
-				b = project_point(map->points[y + 1][x], data->map, data->cam);
+				b = project_point(map->points[y + 1][x], map, &data->cam);
 				draw_line(a, b, data);
 			}
 		}
@@ -51,10 +51,10 @@ void	render_pentachoron_edges(t_fdf *data, t_map *map)
 	while (i < 5)
 	{
 		j = i + 1;
-		p1 = project_point(map->points[0][i], *map, data->cam);
+		p1 = project_point(map->points[0][i], map, &data->cam);
 		while (j < 5)
 		{
-			p2 = project_point(map->points[0][j], *map, data->cam);
+			p2 = project_point(map->points[0][j], map, &data->cam);
 			draw_line(p1, p2, data);
 			j++;
 		}
@@ -73,10 +73,10 @@ void	render_tesseract_edges(t_fdf *data, t_map *map)
 	while (i < 16)
 	{
 		j = i + 1;
-		p1 = project_point(map->points[0][i], *map, data->cam);
+		p1 = project_point(map->points[0][i], map, &data->cam);
 		while (j < 16)
 		{
-			p2 = project_point(map->points[0][j], *map, data->cam);
+			p2 = project_point(map->points[0][j], map, &data->cam);
 			if (diff_coords(&map->points[0][i], &map->points[0][j]) == 1)
 				draw_line(p1, p2, data);
 			j++;
@@ -87,27 +87,19 @@ void	render_tesseract_edges(t_fdf *data, t_map *map)
 
 void	render_hexacosicoron_edges(t_fdf *data, t_map *map)
 {
+	t_point	proj[HEXA_VERTICES];
 	int		i;
-	int		j;
-	t_point	p1;
-	t_point	p2;
-	double	dist;
 
 	i = 0;
-	while (i < 600)
+	while (i < map->width)
 	{
-		j = i + 1;
-		p1 = project_point(map->points[0][i], *map, data->cam);
-		while (j < 600)
-		{
-			dist = calculate_distance(&map->points[0][i], &map->points[0][j]);
-			if (dist > 2 && dist < 2.5)
-			{
-				p2 = project_point(map->points[0][j], *map, data->cam);
-				draw_line(p1, p2, data);
-			}
-			j++;
-		}
+		proj[i] = project_point(map->points[0][i], map, &data->cam);
+		i++;
+	}
+	i = 0;
+	while (i < map->n_edges)
+	{
+		draw_line(proj[map->edges[2 * i]], proj[map->edges[2 * i + 1]], data);
 		i++;
 	}
 }
@@ -116,7 +108,7 @@ void	render_fdf(t_fdf *data, t_map *map)
 {
 	clear_image(data);
 	if (map->type == OBJECT_3D)
-		render_3d_map(data, map, map->error);
+		render_3d_map(data, map);
 	else if (map->type == OBJECT_4D)
 	{
 		if (map->object == PENTACHORON)

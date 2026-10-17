@@ -16,6 +16,7 @@ int	main(int ac, char **av)
 {
 	t_fdf	data;
 
+	data = (t_fdf){0};
 	if (ac != 2)
 		return (ft_putstr_fd(ERR_ARGS, STDERR), EXIT_FAILURE);
 	printf("Correct Number of Arguments\n");

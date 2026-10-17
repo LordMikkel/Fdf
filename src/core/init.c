@@ -29,6 +29,7 @@ void	init_line(t_line *line, t_point_2d a, t_point_2d b)
 	line->c2 = b.color;
 	line->steps = ft_max(line->dx, line->dy);
 	line->t = 0;
+	line->mix_c = a.color;
 }
 
 void	init_cam(t_cam *cam, t_map *map)
@@ -69,7 +70,8 @@ static void	init_map(t_map *map)
 	map->min_z = 0;
 	map->type = 0;
 	map->object = 0;
-	map->error = FALSE;
+	map->edges = NULL;
+	map->n_edges = 0;
 	printf("Success Init Map\n");
 }
 

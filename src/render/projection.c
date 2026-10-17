@@ -47,26 +47,26 @@ static void	project_4d_to_3d(t_point *point)
 	point->z = point->z * factor;
 }
 
-t_point	project_point(t_point point, t_map map, t_cam cam)
+t_point	project_point(t_point point, const t_map *map, const t_cam *cam)
 {
-	if (map.type == OBJECT_4D)
+	if (map->type == OBJECT_4D)
 	{
-		rotate_xy(&point.x, &point.y, cam.delta);
-		rotate_xz(&point.x, &point.z, cam.epsilon);
-		rotate_yw(&point.y, &point.w, cam.theta);
-		rotate_zw(&point.z, &point.w, cam.iota);
+		rotate_xy(&point.x, &point.y, cam->delta);
+		rotate_xz(&point.x, &point.z, cam->epsilon);
+		rotate_yw(&point.y, &point.w, cam->theta);
+		rotate_zw(&point.z, &point.w, cam->iota);
 		project_4d_to_3d(&point);
 	}
-	point.x = point.x * cam.zoom;
-	point.y = point.y * cam.zoom;
-	point.z = point.z * cam.zoom;
-	if (map.type == OBJECT_3D)
+	point.x = point.x * cam->zoom;
+	point.y = point.y * cam->zoom;
+	point.z = point.z * cam->zoom;
+	if (map->type == OBJECT_3D)
 		move_map_to_origin(&point, map, cam);
-	rotate_x(&point.y, &point.z, cam.alpha);
-	rotate_y(&point.x, &point.z, cam.beta);
-	rotate_z(&point.x, &point.y, cam.gamma);
-	project_3d_to_2d(&point, cam.projection);
-	point.x = point.x + cam.x_offset;
-	point.y = point.y + cam.y_offset;
+	rotate_x(&point.y, &point.z, cam->alpha);
+	rotate_y(&point.x, &point.z, cam->beta);
+	rotate_z(&point.x, &point.y, cam->gamma);
+	project_3d_to_2d(&point, cam->projection);
+	point.x = point.x + cam->x_offset;
+	point.y = point.y + cam->y_offset;
 	return (point);
 }

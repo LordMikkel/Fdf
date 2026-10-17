@@ -91,6 +91,7 @@ SRCS =				core/main.c \
 					render/sets2.c \
 					render/color.c \
 					render/4d.c \
+					render/hexa_edges.c \
 					parse/parse_principal.c \
 					parse/parse_calculate.c \
 					parse/parse_allocate.c \

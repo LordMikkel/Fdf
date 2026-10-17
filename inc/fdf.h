@@ -47,6 +47,7 @@ int		diff_coords(t_point *a, t_point *b);
 int		init_tesseract(t_map *map);
 int		init_pentachoron(t_map *map);
 int		init_hexacosicoron(t_map *map);
+int		build_hexa_edges(t_map *map);
 void	rotate_xy(float *x, float *y, float angle);
 void	rotate_xz(float *x, float *z, float angle);
 void	rotate_xw(float *x, float *w, float angle);
@@ -59,11 +60,11 @@ double	calculate_distance(t_point *p1, t_point *p2);
 /*                          Rendering & Projection                            */
 /* ************************************************************************** */
 void	render_fdf(t_fdf *data, t_map *map);
-void	render_3d_map(t_fdf *data, t_map *map, int error);
+void	render_3d_map(t_fdf *data, t_map *map);
 void	rotate_x(float *y, float *z, float angle);
 void	rotate_y(float *x, float *z, float angle);
 void	rotate_z(float *x, float *y, float angle);
-t_point	project_point(t_point point, t_map map, t_cam cam);
+t_point	project_point(t_point point, const t_map *map, const t_cam *cam);
 
 /* ************************************************************************** */
 /*                            transformations                                 */
@@ -74,7 +75,7 @@ void	set_front_view(t_cam *cam);
 void	set_lateral_view(t_cam *cam);
 void	set_pov_view(t_cam *cam);
 void	scale_map_z(t_point **points, int width, int height, float scale);
-void	move_map_to_origin(t_point *point, t_map map, t_cam cam);
+void	move_map_to_origin(t_point *point, const t_map *map, const t_cam *cam);
 
 /* ************************************************************************** */
 /*                             Line Drawing                                   */

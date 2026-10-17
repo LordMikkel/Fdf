@@ -35,7 +35,10 @@ static int	process_tokens(char *token, t_map *map, int row, int column)
 	if (!splitted)
 		return (ft_putstr_fd(ERR_MEM, STDERR), 0);
 	if (!fill_values(splitted, map, row, column))
+	{
+		ft_free_str_array(splitted);
 		return (ft_putstr_fd(ERR_PARSE, STDERR), 0);
+	}
 	ft_free_str_array(splitted);
 	return (1);
 }
